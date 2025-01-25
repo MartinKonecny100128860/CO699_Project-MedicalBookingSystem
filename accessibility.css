@@ -1,0 +1,162 @@
+/* Accessibility Icon Styles */
+.accessibility-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #8e9090;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.accessibility-icon:hover {
+    background-color: #585a5a;
+}
+
+/* Accessibility Options Menu */
+.accessibility-options {
+    display: none;
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    z-index: 1000;
+    width: 200px;
+}
+
+.accessibility-options h5 {
+    margin-top: 0;
+    font-size: 16px;
+    color: #0277bd;
+    font-weight: bold;
+}
+
+.accessibility-options ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.accessibility-options li {
+    margin-bottom: 10px;
+}
+
+/* Accessibility Options Button Styles */
+.accessibility-option {
+    background-color: #009688;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+}
+
+.accessibility-option:hover {
+    background-color: #00796b;
+}
+
+/* Dark Mode Global Styles */
+body.dark-mode {
+    background: #352F44;
+    color: #FAF0E6;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* Text in Yellow for Dark Mode */
+body.dark-mode h2 { 
+    color: #ffdd93 !important; /* Force yellow for "Login to Your Account" */
+}
+
+body.dark-mode label {
+    color: #ffdd93 !important; /* Force yellow for "Username" and "Password" labels */
+}
+
+/* Dark Mode Login Container */
+.login-container.dark-mode {
+    background: #5C5470;
+    color: #FAF0E6;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+    transition: background 0.3s, color 0.3s;
+}
+
+/* Dark Mode Input Fields */
+input.form-control.dark-mode {
+    background: #B9B4C7;
+    border: 1px solid #5C5470;
+    color: #FAF0E6;
+    transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
+
+/* Dark Mode Placeholder Text */
+input.form-control.dark-mode::placeholder {
+    color: #FAF0E6;
+    opacity: 0.8;
+}
+
+/* Dark Mode Input Focus Styles */
+input.form-control.dark-mode:focus {
+    border-color: #371B58;
+    background: #FAF0E6;
+    color: #352F44;
+}
+
+/* Dark Mode Buttons */
+.btn-primary.dark-mode {
+    background-color: #371B58;
+    border-color: #371B58;
+    color: #FAF0E6 !important;
+    transition: background-color 0.3s;
+}
+
+.btn-primary.dark-mode:hover {
+    background-color: #2E0249;
+}
+
+/* Dark Mode Accessibility Options */
+.accessibility-options.dark-mode {
+    background-color: #5C5470;
+    border: 1px solid #352F44;
+    color: #FAF0E6 !important;
+}
+
+/* Dark Mode Accessibility Buttons */
+.accessibility-option.dark-mode {
+    background-color: #371B58;
+    color: #FAF0E6;
+}
+
+.accessibility-option.dark-mode:hover {
+    background-color: #2E0249;
+}
+
+/* Dark Mode Accessibility Icon */
+.accessibility-icon.dark-mode {
+    background-color: #371B58;
+    color: #FAF0E6 !important;
+}
+
+.accessibility-icon.dark-mode:hover {
+    background-color: #2E0249;
+}
+
+/* Universal Text Override */
+*, *::before, *::after {
+    color: inherit !important;
+}
