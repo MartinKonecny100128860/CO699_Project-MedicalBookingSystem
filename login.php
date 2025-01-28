@@ -158,25 +158,25 @@ $conn->close(); // Close the database connection.
             }
 
             label {
-                color: #0277bd;
+                color: #06799e;
                 font-weight: bold;
             }
 
             /* Input field styling with focus effect */
             .form-control {
-                border: 2px solid #b2ebf2;
+                border: 1px solidrgb(122, 131, 191);
                 border-radius: 5px;
                 transition: border-color 0.3s ease-in-out;
             }
 
             .form-control:focus {
-                border-color: #80deea;
+                border-color: #5d68b4;
             }
 
             /* Button styling for primary submit button */
             .btn-primary {
-                background-color: #009688;
-                border-color: #00796b;
+                background-color: #06799e;
+                border-color: #06799e;
                 border-radius: 5px;
                 padding: 10px 24px;
                 font-size: 16px;
@@ -184,7 +184,7 @@ $conn->close(); // Close the database connection.
             }
 
             .btn-primary:hover {
-                background-color: #00796b;
+                background-color:rgb(2, 81, 107);
             }
 
             /* Centering the reCAPTCHA widget */
@@ -215,7 +215,7 @@ $conn->close(); // Close the database connection.
 
             /* Styling for the page header */
             h2 {
-                color: #01579b;
+                color: #06799e;
                 text-align: center;
             }
 
@@ -227,12 +227,12 @@ $conn->close(); // Close the database connection.
                 height: 100%;
                 display: flex;
                 align-items: center;
-                color: #0277bd;
+                color:rgb(55, 56, 56);
                 cursor: pointer;
             }
 
             #togglePassword:hover {
-                color: #01579b;
+                color:rgb(17, 17, 18);
             }
 
             /* Add padding for input field with password toggle */

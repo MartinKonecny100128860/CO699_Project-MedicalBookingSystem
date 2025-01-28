@@ -1,18 +1,37 @@
-<div id="accessibility-menu">
-    <!-- Accessibility Icon -->
-    <button id="accessibility-icon" class="accessibility-icon">
-        <i class="fa fa-universal-access"></i>
-    </button>
+<!-- Accessibility Icon -->
+<button id="accessibility-icon" class="accessibility-icon">
+    <i class="fas fa-universal-access"></i>
+</button>
 
-    <!-- Accessibility Options Menu -->
-    <div id="accessibility-options" class="accessibility-options">
-        <h5>Accessibility Options</h5>
-        <ul>
-            <li>
-                <button id="dark-mode-toggle" class="accessibility-option">
-                    <i class="fa fa-moon"></i> Dark Mode
-                </button>
-            </li>
-        </ul>
+<!-- Accessibility Popup Window -->
+<div id="accessibility-popup" class="accessibility-options">
+    <div class="accessibility-popup-header">
+        <h5>Accessibility Settings</h5>
+        <span id="accessibility-close" class="accessibility-close">&times;</span>
     </div>
+    <ul>
+        <li>
+            <span>Dark Mode:</span>
+            <div id="dark-mode-toggle" class="dark-mode-toggle">
+                <i id="dark-mode-icon" class="fas fa-toggle-off"></i>
+            </div>
+        </li>
+        <li>
+            <span>Text Resizing:</span>
+            <button class="accessibility-option">A-</button>
+            <button class="accessibility-option">A+</button>
+        </li>
+        <li>
+            <span>High Contrast Mode:</span>
+            <button class="accessibility-option">Enable</button>
+        </li>
+        <li>
+            <span>Text-to-Speech:</span>
+            <button class="accessibility-option">Enable</button>
+        </li>
+        <li>
+            <span>Pause Animations:</span>
+            <button class="accessibility-option">Enable</button>
+        </li>
+    </ul>
 </div>
