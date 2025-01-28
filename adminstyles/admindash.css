@@ -1,193 +1,252 @@
-/* =================================== */
-/* GLOBAL STYLES */
-/* =================================== */
-
 body {
-    font-family: 'Roboto', sans-serif; /* Modern and readable font */
+    font-family: 'Roboto', sans-serif; /* More modern and readable font */
     background-color: #f4f7f9; /* Softer background color */
     margin: 0;
     padding: 0;
 }
-
-a {
-    text-decoration: none; /* Remove underline from links */
-}
-
-/* =================================== */
-/* HEADER STYLES */
-/* =================================== */
-
+/* Header Styles */
 .header {
-    background-color: rgb(99, 139, 185); /* Calming blue */
-    color: white;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+background-color:rgb(99, 139, 185); /* Softer and calming blue */
+color: white;
+padding: 10px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+position: fixed;
+top: 0;
+width: 100%;
+z-index: 1000;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
+/* Dividing Line */
 .header::after {
-    content: '';
-    position: absolute;
-    right: 129px;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 100%;
-    width: 5px;
-    background-color: rgba(255, 255, 255, 0.2); /* Line color */
+content: '';
+position: absolute;
+right: 129px; /* Position the dividing line 80px from the right (adjust for icon size) */
+top: 50%; /* Center the line vertically */
+transform: translateY(-50%); /* Ensure it stays vertically centered */
+height: 100%; /* Line height, relative to header height */
+width: 5px; /* Thin dividing line */
+background-color: rgba(255, 255, 255, 0.2); /* Line color */
 }
 
+/* Power Icon Box */
+.header .power-icon-box {
+display: flex;
+align-items: center;
+justify-content: center;
+width: 50px;
+height: 50px;
+border-radius: 50%; /* Circular button */
+background-color: rgba(255, 255, 255, 0.2); /* Light translucent white */
+cursor: pointer;
+transition: transform 0.2s ease, background-color 0.3s ease;
+
+/* Move the icon more to the left */
+margin-left: auto; /* Ensure alignment to the left of its container */
+margin-right: 20px; /* Adjust spacing from the dividing line */
+position: relative; /* Enable precise control */
+right: 10px; /* Move the icon left by 10px */
+}
+
+/* Power Icon Box Hover Effect */
+.header .power-icon-box:hover {
+background-color: rgba(255, 255, 255, 0.3); /* Slightly brighter hover effect */
+transform: scale(1.05); /* Subtle zoom-in effect */
+}
+
+/* Power Icon */
+.header .power-icon-box i {
+font-size: 22px; /* Icon size */
+color: white; /* Icon color */
+transition: color 0.3s ease; /* Smooth color transition */
+}
+
+/* Icon Hover Effect */
+.header .power-icon-box:hover i {
+color: #FF6F61; /* Coral hover color */
+}
+
+/* Logo Styles */
 .header img {
-    width: 170px;
-    height: auto;
+width: 170px; /* Balanced logo size */
+height: auto;
 }
 
+/* Title Styles */
 .header h1 {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    margin: 0;
-    font-size: 26px;
-    font-weight: bold;
-    color: white;
+position: absolute; /* Make the title independent of flexbox alignment */
+left: 50%; /* Center horizontally */
+transform: translateX(-50%); /* Adjust for the title width */
+margin: 0;
+font-size: 26px; /* Larger title for prominence */
+font-weight: bold;
+color: #ffffff;
 }
 
-.power-icon-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.2);
-    cursor: pointer;
-    transition: transform 0.2s ease, background-color 0.3s ease;
-    margin-left: auto;
-    margin-right: 20px;
-    position: relative;
-    right: 10px;
+
+/* Remove Text Decoration */
+a {
+text-decoration: none; /* Ensure no underline */
 }
 
-.power-icon-box:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-    transform: scale(1.05);
+
+/* Sidebar Styles */
+.sidebar {
+width: 250px;
+height: 100vh;
+background-color: #eff3f6; /* Softer neutral background for modern look */
+position: fixed;
+top: 60px;
+left: 0;
+padding-top: 30px; /* Add some padding to move everything lower */
+overflow-y: auto;
+box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+z-index: 999;
 }
 
-.power-icon-box i {
-    font-size: 22px;
-    color: white;
-    transition: color 0.3s ease;
+/* Sidebar Links */
+.sidebar a {
+text-decoration: none;
+color: #333; /* Neutral dark gray for readability */
+display: block;
+padding: 10px 20px;
+font-size: 16px;
+font-weight: 500; /* Slightly bold for better readability */
+transition: all 0.3s ease-in-out;
+border-left: 3px solid transparent; /* Indicator for active link */
 }
 
-.power-icon-box:hover i {
-    color: #FF6F61; /* Coral hover color */
+.sidebar a:hover, .sidebar .active {
+background-color: #d4ebf7; /* Light blue for hover and active states */
+color: #0078D7; /* Vibrant blue for active link */
+border-left: 3px solid #0078D7; /* Add active state indicator */
 }
 
-/* =================================== */
-/* SIDEBAR STYLES */
-/* =================================== */
-
+/* Sidebar Styles */
 .sidebar {
     width: 250px;
     height: 100vh;
-    background-color: #eff3f6; /* Neutral background */
+    background-color: #eff3f6; /* Softer neutral background for modern look */
     position: fixed;
     top: 60px;
     left: 0;
-    padding-top: 30px;
-    overflow-y: auto;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    padding-top: 30px; /* Add some padding to move everything lower */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
     z-index: 999;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Arrange children vertically */
 }
 
-.sidebar a {
+/* Profile Section (Non-Scrollable) */
+.profile-pic-container {
+    flex-shrink: 0; /* Prevent resizing */
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ccc; /* Divider below the profile section */
+}
+
+/* Scrollable Container within Sidebar */
+.scroll-container {
+    flex-grow: 1; /* Allow this section to take up remaining space */
+    overflow-y: auto; /* Enable vertical scrolling for this section only */
+    max-height: calc(100vh - 180px); /* Subtract profile section height + padding */
+    padding: 10px 20px; /* Add padding for spacing */
+}
+
+/* Sidebar Section Heading */
+.sidebar-heading {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 20px 0 10px 0;
+    color: #666; /* Subtle text for headings */
+    border-bottom: 1px solid #ddd; /* Divider below heading */
+    padding-bottom: 5px;
+}
+
+/* Sidebar Links */
+.scroll-container a {
     text-decoration: none;
     color: #333;
     display: block;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: 500;
-    transition: all 0.3s ease-in-out;
+    padding: 5px;
+    font-size: 14px;
+    transition: all 0.3s ease;
     border-left: 3px solid transparent;
 }
 
-.sidebar a:hover,
-.sidebar .active {
-    background-color: #d4ebf7; /* Light blue */
+.scroll-container a:hover {
+    background-color: #d4ebf7;
     color: #0078D7;
     border-left: 3px solid #0078D7;
 }
 
+
+/* Profile Picture Container */
 .profile-pic-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-    margin-bottom: 15px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #ccc;
+display: flex;
+flex-direction: column; /* Stack picture and welcome text vertically */
+align-items: center;
+margin-top: 20px;
+margin-bottom: 15px; /* Add spacing below the profile section */
+padding-bottom: 20px; /* Add padding below welcome text for spacing */
+border-bottom: 1px solid #ccc; /* Subtle dividing line below welcome text */
 }
 
+/* Profile Picture Wrapper */
 .profile-pic-wrapper {
-    width: 100px;
-    height: 100px;
-    overflow: hidden;
-    border-radius: 50%;
-    border: 3px solid #0078D7;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+width: 100px; /* Slightly larger profile picture size */
+height: 100px;
+overflow: hidden;
+border-radius: 50%; /* Circular frame for the image */
+border: 3px solid #0078D7; /* Blue border for emphasis */
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
+/* Profile Picture */
 .profile-pic {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
+width: 100%; /* Ensure the image fills the wrapper */
+height: 100%; /* Ensure the image fills the wrapper */
+object-fit: cover; /* Maintain proper aspect ratio */
+transition: transform 0.3s ease; /* Smooth zoom effect */
 }
 
+/* Profile Picture Hover Effect */
 .profile-pic-wrapper:hover .profile-pic {
-    transform: scale(1.05);
+transform: scale(1.05); /* Slight zoom-in effect */
 }
 
+/* Welcome Text */
 .welcome-text {
-    margin-top: 10px;
-    text-align: center;
-    color: #333;
-    font-size: 16px;
-    font-weight: bold;
+margin-top: 10px;
+text-align: center;
+color: #333; /* Neutral dark gray text */
+font-size: 16px; /* Readable font size */
+font-weight: bold;
 }
 
 .welcome-text small {
-    color: #555;
-    font-size: 14px;
+color: #555; /* Subtle gray for the ID */
+font-size: 14px;
 }
 
-.scroll-container {
-    flex-grow: 1;
-    overflow-y: auto;
-    max-height: calc(100vh - 180px);
-    padding: 10px 20px;
+/* Dividing Line Below Welcome Text */
+.profile-pic-container::after {
+content: '';
+display: block;
+width: 80%;
+height: 1px;
+background-color: #ccc; /* Light gray dividing line */
+margin-top: 15px;
 }
 
-/* =================================== */
-/* CONTENT AREA */
-/* =================================== */
-
+/* Content Area */
 .content {
     margin-left: 250px;
-    padding: 90px 20px;
+    padding: 90px 20px; /* Adjusted padding for better spacing */
 }
 
-/* =================================== */
-/* TABLE STYLES */
-/* =================================== */
-
+/* Table Styles */
 .table-container {
     background-color: white;
     padding: 20px;
@@ -200,22 +259,18 @@ table {
     border-collapse: collapse;
 }
 
-th,
-td {
+th, td {
     padding: 12px;
     text-align: left;
     border-bottom: 1px solid #ddd;
 }
 
 th {
-    background-color: #005b96;
+    background-color: #005b96; /* Consistent header color */
     color: white;
 }
 
-/* =================================== */
-/* BUTTON STYLES */
-/* =================================== */
-
+/* Buttons */
 .btn {
     border: none;
     border-radius: 5px;
@@ -227,11 +282,14 @@ th {
 .btn-primary {
     background-color: #009688;
     border-color: #00796b;
+    border-radius: 5px;
+    padding: 10px 24px;
+    transition: background-color 0.3s;
     color: white;
 }
 
 .btn-primary:hover {
-    background-color: #00796b;
+    background-color: #00796b; /* Deeper blue on hover */
 }
 
 .btn-warning {
@@ -240,7 +298,7 @@ th {
 }
 
 .btn-warning:hover {
-    background-color: #ec971f;
+    background-color: #ec971f; /* Darker shade on hover */
 }
 
 .btn-danger {
@@ -252,43 +310,27 @@ th {
     background-color: #c9302c;
 }
 
-/* =================================== */
-/* NAVIGATION TILES */
-/* =================================== */
-
-.navigation-tiles-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 25px;
-    justify-content: center;
-    margin: 50px 0;
-    padding: 0 20px;
+/* Logs */
+.logs-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.navigation-tile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 220px;
-    height: 140px;
-    background: linear-gradient(145deg, #495390, #323861);
-    color: white;
-    border-radius: 15px;
-    text-decoration: none;
-    text-align: center;
-    transition: transform 0.3s, box-shadow 0.3s;
+.logs-container ul {
+    list-style-type: none;
+    padding: 0;
 }
 
-.navigation-tile:hover {
-    transform: translateY(-5px);
-    background: linear-gradient(145deg, #d4eaf7, #628bb9);
+.logs-container li {
+    background-color: #e2e3e5; /* Lighter for log entries */
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
 }
 
-/* =================================== */
-/* RESPONSIVE DESIGN */
-/* =================================== */
-
+/* Responsive Design */
 @media screen and (max-width: 768px) {
     .content {
         margin-left: 0;
@@ -298,10 +340,22 @@ th {
     .sidebar {
         width: 200px;
         height: 100vh;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        overflow-y: auto;
+    }
+
+    .header h1 {
+        font-size: 20px;
     }
 
     table {
         font-size: 14px;
+    }
+
+    th, td {
+        padding: 8px;
     }
 
     .btn {
@@ -309,20 +363,25 @@ th {
         padding: 6px 12px;
     }
 
-    .navigation-tile {
-        width: 180px;
-        height: 120px;
+    .header img {
+        width: 90px;
     }
 }
 
 @media screen and (max-width: 576px) {
     .sidebar {
+        position: static; /* i can change this if nav bar overlaps with content */
         width: 100%;
         height: auto;
+        top: 60px;
     }
 
     .content {
-        padding: calc(60px + 10px) 10px;
+        padding: calc(60px + 10px) 10px; /* i can change this if content is too high or low */
+    }
+
+    .header h1 {
+        font-size: 18px;
     }
 
     table {
@@ -333,9 +392,102 @@ th {
         font-size: 10px;
         padding: 5px 10px;
     }
+}
 
+/* Navigation Tiles Container */
+.navigation-tiles-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center; /* Center tiles in the container */
+    margin: 50px 0; /* Add spacing around the container */
+    padding: 0 20px; /* Add padding for better spacing on smaller screens */
+}
+
+/* Navigation Tile Styles */
+.navigation-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 220px;
+    height: 140px;
+    background: linear-gradient(145deg, #495390, #323861); /* Highlighted gradient for 3D effect */
+    color: white;
+    border-radius: 15px; /* Rounded corners */
+    text-decoration: none; /* Remove underline from links */
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: inset 2px 2px 5px rgba(255, 255, 255, 0.2), /* Inner highlight */
+                inset -2px -2px 5px rgba(0, 0, 0, 0.1),      /* Inner shadow */
+                5px 5px 15px rgba(0, 0, 0, 0.3),             /* Outer shadow for depth */
+                -5px -5px 15px rgba(255, 255, 255, 0.1);     /* Outer highlight */
+    position: relative; /* Allows for content layering */
+    overflow: hidden; /* Prevents child overflow */
+}
+
+/* 3D Press Effect on Hover */
+.navigation-tile:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: inset 3px 3px 8px rgba(255, 255, 255, 0.1), /* Inner shadows shift */
+                inset -3px -3px 8px rgba(0, 0, 0, 0.2),
+                8px 8px 18px rgba(0, 0, 0, 0.4),             /* Outer shadows increase */
+                -8px -8px 18px rgba(255, 255, 255, 0.2);
+    background: linear-gradient(145deg, #d4eaf7, #628bb9); /* Darker gradient on hover */
+}
+
+/* Tile Content */
+.navigation-tile i {
+    font-size: 42px; /* Larger icon size */
+    margin-bottom: 10px;
+    z-index: 1; /* Above the tile */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Text shadow for depth */
+}
+
+.navigation-tile h3 {
+    font-size: 20px; /* Larger font size */
+    font-weight: 600; /* Semi-bold for emphasis */
+    margin: 0;
+    z-index: 1; /* Above the tile */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Text shadow for depth */
+    transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.navigation-tile:hover i {
+    transform: scale(1.1); /* Slight zoom effect on icon */
+}
+
+.navigation-tile:hover h3 {
+    color: #FFDD93; /* Highlight text color on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
     .navigation-tile {
-        width: 150px;
+        width: 180px; /* Smaller tiles for medium screens */
+        height: 120px;
+    }
+
+    .navigation-tile i {
+        font-size: 36px; /* Adjust icon size */
+    }
+
+    .navigation-tile h3 {
+        font-size: 18px; /* Adjust title size */
+    }
+}
+
+@media (max-width: 576px) {
+    .navigation-tile {
+        width: 150px; /* Smaller tiles for small screens */
         height: 100px;
+    }
+
+    .navigation-tile i {
+        font-size: 32px; /* Adjust icon size */
+    }
+
+    .navigation-tile h3 {
+        font-size: 16px; /* Adjust title size */
     }
 }
