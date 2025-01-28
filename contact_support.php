@@ -60,11 +60,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles/admindash.css">
-    <link rel="stylesheet" href="styles/support_message.css">
-    <link rel="stylesheet" href="styles/accessibility.css">
-    <link rel="stylesheet" href="styles/highcontrast.css">
-    <script src="scripts/accessibility.js" defer></script>
+    <link rel="stylesheet" href="adminstyles/admindash.css">
+    <link rel="stylesheet" href="adminstyles/support_message.css">
+    <link rel="stylesheet" href="adminstyles/accessibility.css">
+    <link rel="stylesheet" href="adminstyles/highcontrast.css">
+    <script src="adminscripts/accessibility.js" defer></script>
     <script>
         function prepareEmail() {
             const name = document.getElementById('name').value.trim();
@@ -168,27 +168,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <ul>
         <li>
             <span>Dark Mode:</span>
-            <div id="dark-mode-toggle" class="dark-mode-toggle">
-                <i id="dark-mode-icon" class="fas fa-toggle-off"></i>
-            </div>
+            <div id="dark-mode-toggle" class="dark-mode-toggle"></div>
         </li>
         <li>
             <span>Text Resizing:</span>
-            <button class="text-resize-decrease accessibility-option">A-</button>
-            <button class="text-resize-increase accessibility-option">A+</button>
+            <div>
+                <button class="text-resize-decrease accessibility-option">A-</button>
+                <button class="text-resize-increase accessibility-option">A+</button>
+            </div>
         </li>
-        <li>
         <li>
             <span>High Contrast Mode:</span>
             <button class="high-contrast-enable accessibility-option">Enable</button>
         </li>
         <li>
             <span>Text-to-Speech:</span>
-            <button class="accessibility-option">Enable</button>
-        </li>
-        <li>
-            <span>Pause Animations:</span>
-            <button class="accessibility-option">Enable</button>
+            <button class="tts-on-click-enable accessibility-option">Enable</button>
         </li>
     </ul>
 </div>

@@ -79,10 +79,10 @@ $conn->close();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="styles/admindash.css">
-    <link rel="stylesheet" href="styles/accessibility.css">
-    <link rel="stylesheet" href="styles/highcontrast.css">
-    <script src="scripts/accessibility.js" defer></script>
+    <link rel="stylesheet" href="adminstyles/admindash.css">
+    <link rel="stylesheet" href="adminstyles/accessibility.css">
+    <link rel="stylesheet" href="adminstyles/highcontrast.css">
+    <script src="adminscripts/accessibility.js" defer></script>
 
 
     <style>
@@ -199,7 +199,7 @@ $conn->close();
     <script>
         function deleteLog(logId) {
             if (confirm("Are you sure you want to delete this log?")) {
-                $.post("delete_log.php", { log_id: logId }, function(response) {
+                $.post("adminphpfunctions/delete_log.php", { log_id: logId }, function(response) {
                     alert(response.message); // Display success message
                     location.reload(); // Reload to reflect the changes
                 }, "json").fail(function() {
@@ -224,14 +224,14 @@ $conn->close();
     <ul>
         <li>
             <span>Dark Mode:</span>
-            <div id="dark-mode-toggle" class="dark-mode-toggle">
-                <i id="dark-mode-icon" class="fas fa-toggle-off"></i>
-            </div>
+            <div id="dark-mode-toggle" class="dark-mode-toggle"></div>
         </li>
         <li>
             <span>Text Resizing:</span>
-            <button class="text-resize-decrease accessibility-option">A-</button>
-            <button class="text-resize-increase accessibility-option">A+</button>
+            <div>
+                <button class="text-resize-decrease accessibility-option">A-</button>
+                <button class="text-resize-increase accessibility-option">A+</button>
+            </div>
         </li>
         <li>
             <span>High Contrast Mode:</span>
@@ -239,14 +239,11 @@ $conn->close();
         </li>
         <li>
             <span>Text-to-Speech:</span>
-            <button class="accessibility-option">Enable</button>
-        </li>
-        <li>
-            <span>Pause Animations:</span>
-            <button class="accessibility-option">Enable</button>
+            <button class="tts-on-click-enable accessibility-option">Enable</button>
         </li>
     </ul>
 </div>
+
 
 </body>
 </html>

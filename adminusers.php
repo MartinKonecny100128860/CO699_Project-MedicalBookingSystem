@@ -70,10 +70,10 @@ $conn->close();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="styles/admindash.css">
-    <link rel="stylesheet" href="styles/accessibility.css">
-    <link rel="stylesheet" href="styles/highcontrast.css">
-    <script src="scripts/accessibility.js" defer></script>
+    <link rel="stylesheet" href="adminstyles/admindash.css">
+    <link rel="stylesheet" href="adminstyles/accessibility.css">
+    <link rel="stylesheet" href="adminstyles/highcontrast.css">
+    <script src="adminscripts/accessibility.js" defer></script>
 
 
     <style>
@@ -86,7 +86,7 @@ $conn->close();
         <img src="assets/logo-dark.png" alt="Logo">
         <h1 style="margin-left: 20px;">Admin Dashboard</h1>
     </div>
-    <a href="phpfunctions/logout.php" class="power-icon-box">
+    <a href="logout.php" class="power-icon-box">
     <i class="material-icons">&#xe8ac;</i>    
 </a>
 </div>
@@ -269,7 +269,7 @@ $conn->close();
     <script>
         function deleteUser(userId) {
             if (confirm("Are you sure you want to delete this user?")) {
-                $.post("phpfunctions/delete_user.php", { id: userId }, function() {
+                $.post("adminphpfunctions/delete_user.php", { id: userId }, function() {
                     alert("User deleted successfully.");
                     location.reload();
                 }).fail(function() {
@@ -292,7 +292,7 @@ $conn->close();
             const email = $('#editEmail').val();
             const password = $('#editPassword').val();
 
-            $.post("phpfunctions/admin_edit_users.php", { user_id: userId, username, email, password }, function (data) {
+            $.post("adminphpfunctions/admin_edit_users.php", { user_id: userId, username, email, password }, function (data) {
                 if (data.success) {
                     alert(data.message); // Display success message
                     location.reload(); // Reload the page to reflect changes
@@ -313,7 +313,7 @@ $conn->close();
         const formData = new FormData(document.getElementById('addUserForm'));
 
             $.ajax({
-                url: 'phpfunctions/add_user.php', // Ensure this URL matches your server script
+                url: 'adminphpfunctions/add_user.php', // Ensure this URL matches your server script
                 type: 'POST',
                 data: formData,
                 contentType: false,
@@ -363,14 +363,14 @@ $conn->close();
     <ul>
         <li>
             <span>Dark Mode:</span>
-            <div id="dark-mode-toggle" class="dark-mode-toggle">
-                <i id="dark-mode-icon" class="fas fa-toggle-off"></i>
-            </div>
+            <div id="dark-mode-toggle" class="dark-mode-toggle"></div>
         </li>
         <li>
             <span>Text Resizing:</span>
-            <button class="text-resize-decrease accessibility-option">A-</button>
-            <button class="text-resize-increase accessibility-option">A+</button>
+            <div>
+                <button class="text-resize-decrease accessibility-option">A-</button>
+                <button class="text-resize-increase accessibility-option">A+</button>
+            </div>
         </li>
         <li>
             <span>High Contrast Mode:</span>
@@ -378,11 +378,7 @@ $conn->close();
         </li>
         <li>
             <span>Text-to-Speech:</span>
-            <button class="accessibility-option">Enable</button>
-        </li>
-        <li>
-            <span>Pause Animations:</span>
-            <button class="accessibility-option">Enable</button>
+            <button class="tts-on-click-enable accessibility-option">Enable</button>
         </li>
     </ul>
 </div>

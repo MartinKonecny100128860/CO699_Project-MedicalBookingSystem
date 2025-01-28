@@ -116,7 +116,7 @@ $conn->close(); // Close the database connection.
         <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
         <!-- Include Font Awesome for icons -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="styles/highcontrast.css">
+        <link rel="stylesheet" href="adminstyles/highcontrast.css">
         <style>
             /* Body styling for centering content and adding gradient background */
             body { 
@@ -303,11 +303,11 @@ $conn->close(); // Close the database connection.
 
         <!-- Include chat feature -->
         <div id="chat-placeholder"></div>
-        <script src="scripts/chat.js"></script>
+        <script src="adminscripts/chat.js"></script>
 
         <!-- Include accessibility styles and scripts -->
-        <link rel="stylesheet" href="styles/accessibility.css">
-        <script src="scripts/accessibility.js" defer></script>
+        <link rel="stylesheet" href="adminstyles/accessibility.css">
+        <script src="adminscripts/accessibility.js" defer></script>
     </body>
 </html>
 

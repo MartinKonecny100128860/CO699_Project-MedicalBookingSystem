@@ -1,0 +1,341 @@
+/* =================================== */
+/* GLOBAL STYLES */
+/* =================================== */
+
+body {
+    font-family: 'Roboto', sans-serif; /* Modern and readable font */
+    background-color: #f4f7f9; /* Softer background color */
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none; /* Remove underline from links */
+}
+
+/* =================================== */
+/* HEADER STYLES */
+/* =================================== */
+
+.header {
+    background-color: rgb(99, 139, 185); /* Calming blue */
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.header::after {
+    content: '';
+    position: absolute;
+    right: 129px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 100%;
+    width: 5px;
+    background-color: rgba(255, 255, 255, 0.2); /* Line color */
+}
+
+.header img {
+    width: 170px;
+    height: auto;
+}
+
+.header h1 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    font-size: 26px;
+    font-weight: bold;
+    color: white;
+}
+
+.power-icon-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+    margin-left: auto;
+    margin-right: 20px;
+    position: relative;
+    right: 10px;
+}
+
+.power-icon-box:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+.power-icon-box i {
+    font-size: 22px;
+    color: white;
+    transition: color 0.3s ease;
+}
+
+.power-icon-box:hover i {
+    color: #FF6F61; /* Coral hover color */
+}
+
+/* =================================== */
+/* SIDEBAR STYLES */
+/* =================================== */
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #eff3f6; /* Neutral background */
+    position: fixed;
+    top: 60px;
+    left: 0;
+    padding-top: 30px;
+    overflow-y: auto;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease-in-out;
+    border-left: 3px solid transparent;
+}
+
+.sidebar a:hover,
+.sidebar .active {
+    background-color: #d4ebf7; /* Light blue */
+    color: #0078D7;
+    border-left: 3px solid #0078D7;
+}
+
+.profile-pic-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+.profile-pic-wrapper {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 3px solid #0078D7;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-pic {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.profile-pic-wrapper:hover .profile-pic {
+    transform: scale(1.05);
+}
+
+.welcome-text {
+    margin-top: 10px;
+    text-align: center;
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.welcome-text small {
+    color: #555;
+    font-size: 14px;
+}
+
+.scroll-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    max-height: calc(100vh - 180px);
+    padding: 10px 20px;
+}
+
+/* =================================== */
+/* CONTENT AREA */
+/* =================================== */
+
+.content {
+    margin-left: 250px;
+    padding: 90px 20px;
+}
+
+/* =================================== */
+/* TABLE STYLES */
+/* =================================== */
+
+.table-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #005b96;
+    color: white;
+}
+
+/* =================================== */
+/* BUTTON STYLES */
+/* =================================== */
+
+.btn {
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background-color: #009688;
+    border-color: #00796b;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #00796b;
+}
+
+.btn-warning {
+    background-color: #f0ad4e;
+    color: white;
+}
+
+.btn-warning:hover {
+    background-color: #ec971f;
+}
+
+.btn-danger {
+    background-color: #d9534f;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c9302c;
+}
+
+/* =================================== */
+/* NAVIGATION TILES */
+/* =================================== */
+
+.navigation-tiles-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+    margin: 50px 0;
+    padding: 0 20px;
+}
+
+.navigation-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 220px;
+    height: 140px;
+    background: linear-gradient(145deg, #495390, #323861);
+    color: white;
+    border-radius: 15px;
+    text-decoration: none;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.navigation-tile:hover {
+    transform: translateY(-5px);
+    background: linear-gradient(145deg, #d4eaf7, #628bb9);
+}
+
+/* =================================== */
+/* RESPONSIVE DESIGN */
+/* =================================== */
+
+@media screen and (max-width: 768px) {
+    .content {
+        margin-left: 0;
+        padding: calc(200px + 100px) 100px;
+    }
+
+    .sidebar {
+        width: 200px;
+        height: 100vh;
+    }
+
+    table {
+        font-size: 14px;
+    }
+
+    .btn {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    .navigation-tile {
+        width: 180px;
+        height: 120px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+    }
+
+    .content {
+        padding: calc(60px + 10px) 10px;
+    }
+
+    table {
+        font-size: 12px;
+    }
+
+    .btn {
+        font-size: 10px;
+        padding: 5px 10px;
+    }
+
+    .navigation-tile {
+        width: 150px;
+        height: 100px;
+    }
+}

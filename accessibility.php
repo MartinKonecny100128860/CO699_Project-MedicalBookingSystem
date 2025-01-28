@@ -12,14 +12,14 @@
     <ul>
         <li>
             <span>Dark Mode:</span>
-            <div id="dark-mode-toggle" class="dark-mode-toggle">
-                <i id="dark-mode-icon" class="fas fa-toggle-off"></i>
-            </div>
+            <div id="dark-mode-toggle" class="dark-mode-toggle"></div>
         </li>
         <li>
             <span>Text Resizing:</span>
-            <button class="text-resize-decrease accessibility-option">A-</button>
-            <button class="text-resize-increase accessibility-option">A+</button>
+            <div>
+                <button class="text-resize-decrease accessibility-option">A-</button>
+                <button class="text-resize-increase accessibility-option">A+</button>
+            </div>
         </li>
         <li>
             <span>High Contrast Mode:</span>
@@ -27,11 +27,7 @@
         </li>
         <li>
             <span>Text-to-Speech:</span>
-            <button class="accessibility-option">Enable</button>
-        </li>
-        <li>
-            <span>Pause Animations:</span>
-            <button class="accessibility-option">Enable</button>
+            <button class="tts-on-click-enable accessibility-option">Enable</button>
         </li>
     </ul>
 </div>
