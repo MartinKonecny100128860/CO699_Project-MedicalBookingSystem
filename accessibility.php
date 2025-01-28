@@ -18,12 +18,12 @@
         </li>
         <li>
             <span>Text Resizing:</span>
-            <button class="accessibility-option">A-</button>
-            <button class="accessibility-option">A+</button>
+            <button class="text-resize-decrease accessibility-option">A-</button>
+            <button class="text-resize-increase accessibility-option">A+</button>
         </li>
         <li>
             <span>High Contrast Mode:</span>
-            <button class="accessibility-option">Enable</button>
+            <button class="high-contrast-enable accessibility-option">Enable</button>
         </li>
         <li>
             <span>Text-to-Speech:</span>

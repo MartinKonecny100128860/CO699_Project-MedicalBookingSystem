@@ -80,7 +80,7 @@ function sendMessage(text) {
     messagesContainer.appendChild(typingBubble);
 
     // Fetch the bot's response from the server
-    fetch('chatgpt_api.php', {
+    fetch('phpfunctions/chatgpt_api.php', {
         method: 'POST', // Send the data as a POST request
         headers: { 'Content-Type': 'application/json' }, // Specify JSON content type
         body: JSON.stringify({ message: text }) // Send the user's message to the server

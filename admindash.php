@@ -79,9 +79,10 @@ $conn->close();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="admindash.css">
-    <link rel="stylesheet" href="accessibility.css">
-    <script src="accessibility.js" defer></script>
+    <link rel="stylesheet" href="styles/admindash.css">
+    <link rel="stylesheet" href="styles/accessibility.css">
+    <link rel="stylesheet" href="styles/highcontrast.css">
+    <script src="scripts/accessibility.js" defer></script>
 
 
     <style>
@@ -123,7 +124,7 @@ $conn->close();
         <a href="#active-doctors">View Active Doctors</a>
         <h4 class="sidebar-heading">Resources</h4>
         <a href="#help-guide">Admin Help Guide</a>
-        <a href="#contact-it">Contact IT Support</a>
+        <a href="contact_support.php">Contact IT Support</a>
         <a href="#feedback">Submit Feedback</a>
         <h4 class="sidebar-heading">Analytics</h4>
         <a href="#view-statistics">View Statistics</a>
@@ -229,12 +230,12 @@ $conn->close();
         </li>
         <li>
             <span>Text Resizing:</span>
-            <button class="accessibility-option">A-</button>
-            <button class="accessibility-option">A+</button>
+            <button class="text-resize-decrease accessibility-option">A-</button>
+            <button class="text-resize-increase accessibility-option">A+</button>
         </li>
         <li>
             <span>High Contrast Mode:</span>
-            <button class="accessibility-option">Enable</button>
+            <button class="high-contrast-enable accessibility-option">Enable</button>
         </li>
         <li>
             <span>Text-to-Speech:</span>

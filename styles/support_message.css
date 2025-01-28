@@ -1,0 +1,112 @@
+/* Main Content Styles */
+.main-content {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    margin: 80px 0 0 380px; /* Increased left margin for more right alignment */
+    max-width: 900px;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* Apply styles to input, textarea, and select */
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%; /* Consistent width for all elements */
+    padding: 12px; /* Same padding */
+    border-radius: 8px; /* Rounded corners */
+    border: 1px solid #ccc; /* Border style */
+    font-size: 16px; /* Font size */
+    box-sizing: border-box; /* Include padding in width calculation */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+}
+
+/* Apply focus styles */
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #005b96; /* Blue border for focus */
+    box-shadow: 0 0 6px rgba(0, 91, 150, 0.5); /* Subtle glow */
+    outline: none; /* Remove default outline */
+}
+
+
+
+/* Unique Submit Button Styles */
+.custom-submit-button {
+    background-color: #005b96; /* Primary blue color */
+    color: #ffffff;
+    padding: 12px 30px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    display: block;
+    margin: 20px auto 0; /* Center the button */
+}
+
+.custom-submit-button:hover {
+    background-color: #003f6b; /* Darker blue for hover effect */
+    transform: translateY(-3px); /* Slight lift on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+.custom-submit-button:focus {
+    outline: none;
+    box-shadow: 0 0 8px rgba(0, 91, 150, 0.8); /* Stronger focus glow */
+}
+
+
+/* Mobile Responsive Adjustments */
+@media screen and (max-width: 1024px) {
+    .main-content {
+        margin: 20px 20px;
+        padding: 20px;
+    }
+
+    .custom-submit-button {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .main-content {
+        margin: 10px 10px;
+        padding: 15px;
+    }
+
+    .custom-submit-button {
+        font-size: 12px;
+        padding: 8px 18px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .main-content {
+        margin: 5px;
+        padding: 10px;
+    }
+
+    .custom-submit-button {
+        font-size: 12px;
+        padding: 6px 15px;
+    }
+}

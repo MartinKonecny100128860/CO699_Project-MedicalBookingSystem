@@ -1,0 +1,431 @@
+/* HIGH CONTRAST MODE */
+
+.high-contrast-mode {
+    background-color: #000; /* Black background for maximum contrast */
+    color: #fff; /* White text for readability */
+}
+
+.high-contrast-mode a {
+    color: #00ffff; /* Cyan links for clear contrast */
+    text-decoration: underline;
+}
+
+.high-contrast-mode .custom-submit-button,
+.high-contrast-mode .accessibility-option {
+    background-color: #ffbf00; /* Bright yellow buttons for visibility */
+    color: #000; /* Black text on buttons */
+    border: 2px solid #fff; /* Bold white borders */
+}
+
+.high-contrast-mode .custom-submit-button:hover,
+.high-contrast-mode .accessibility-option:hover {
+    background-color: #ffdf80; /* Lighter yellow on hover */
+    border-color: #fff; /* Consistent white border */
+}
+
+.high-contrast-mode input,
+.high-contrast-mode textarea,
+.high-contrast-mode select {
+    background-color: #333; /* Dark gray inputs */
+    color: #fff; /* White text */
+    border: 2px solid #fff; /* Bold white borders */
+}
+
+.high-contrast-mode input:focus,
+.high-contrast-mode textarea:focus,
+.high-contrast-mode select:focus {
+    border-color: #ffbf00; /* Bright yellow focus outline */
+    box-shadow: 0 0 5px #ffbf00; /* Yellow glow for focus */
+}
+
+/* High Contrast Mode */
+.high-contrast-mode {
+    background-color: #000; /* Black background for entire page */
+    color: #fff; /* White text for readability */
+}
+
+.high-contrast-mode a {
+    color: #ffff00; /* Bright yellow links */
+    text-decoration: underline;
+}
+
+.high-contrast-mode .header {
+    background-color: #333; /* Dark gray header */
+    color: #ffff00; /* Yellow text in header */
+}
+
+.high-contrast-mode .header h1 {
+    color: #ffff00; /* Yellow title text */
+}
+
+.high-contrast-mode .header .power-icon-box {
+    background-color: #444; /* Darker gray for hover */
+}
+
+.high-contrast-mode .header .power-icon-box:hover {
+    background-color: #555; /* Slightly lighter gray on hover */
+}
+
+.high-contrast-mode .sidebar {
+    background-color: #111; /* Dark gray sidebar */
+    color: #fff; /* White text for sidebar */
+}
+
+.high-contrast-mode .sidebar a {
+    color: #ffff00; /* Yellow text links */
+}
+
+.high-contrast-mode .sidebar a:hover, .high-contrast-mode .sidebar .active {
+    background-color: #222; /* Slightly lighter background for hover/active */
+    color: #fff; /* White text */
+    border-left: 3px solid #ffff00; /* Yellow active indicator */
+}
+
+.high-contrast-mode .profile-pic-container {
+    background-color: #222; /* Dark gray background */
+    color: #fff; /* White text */
+}
+
+.high-contrast-mode .profile-pic {
+    border: 3px solid #ffff00; /* Yellow border for profile picture */
+}
+
+.high-contrast-mode .welcome-text {
+    color: #ffff00; /* Yellow welcome text */
+}
+
+.high-contrast-mode .scroll-container {
+    background-color: #111; /* Darker gray background */
+}
+
+.high-contrast-mode .table-container {
+    background-color: #111; /* Dark table container */
+    color: #fff; /* White text */
+    border: 1px solid #fff; /* White border */
+}
+
+.high-contrast-mode table {
+    color: #fff; /* White table text */
+}
+
+.high-contrast-mode th {
+    background-color: #222; /* Dark gray header */
+    color: #ffff00; /* Yellow header text */
+}
+
+.high-contrast-mode td {
+    background-color: #333; /* Dark gray cells */
+    color: #fff; /* White text */
+}
+
+.high-contrast-mode .custom-submit-button {
+    background-color: #ffff00; /* Yellow buttons */
+    color: #000; /* Black text on buttons */
+}
+
+.high-contrast-mode .custom-submit-button:hover {
+    background-color: #ffd700; /* Golden yellow hover */
+    color: #000; /* Black text */
+}
+
+.high-contrast-mode input,
+.high-contrast-mode textarea,
+.high-contrast-mode select {
+    background-color: #111; /* Dark background for inputs */
+    color: #fff; /* White text */
+    border: 2px solid #ffff00; /* Yellow borders */
+}
+
+.high-contrast-mode input:focus,
+.high-contrast-mode textarea:focus,
+.high-contrast-mode select:focus {
+    border-color: #ffd700; /* Golden yellow focus */
+    box-shadow: 0 0 6px #ffd700; /* Yellow glow effect */
+}
+
+.high-contrast-mode .alert {
+    background-color: #333; /* Dark alert background */
+    color: #fff; /* White alert text */
+    border: 2px solid #ffff00; /* Yellow alert border */
+}
+
+/* High Contrast Mode */
+.high-contrast-mode {
+    background-color: #000; /* Global black background */
+    color: #fff; /* White text */
+    font-family: 'Roboto', sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Header Styles */
+.high-contrast-mode .header {
+    background-color: #1f1f1f; /* Dark gray background */
+    color: #ffff00; /* Yellow text */
+    border-bottom: 2px solid #ffff00; /* Yellow dividing line */
+}
+
+.high-contrast-mode .header .power-icon-box {
+    background-color: #444; /* Dark button background */
+}
+
+.high-contrast-mode .header .power-icon-box:hover {
+    background-color: #333; /* Slightly lighter on hover */
+}
+
+.high-contrast-mode .header h1 {
+    color: #ffff00; /* Yellow title text */
+}
+
+.high-contrast-mode .header img {
+    filter: brightness(0) invert(1); /* Ensure logos remain visible */
+}
+
+/* Sidebar Styles */
+.high-contrast-mode .sidebar {
+    background-color: #111; /* Dark sidebar background */
+    color: #ffff00; /* Yellow text */
+    border-right: 2px solid #ffff00; /* Yellow border */
+}
+
+.high-contrast-mode .sidebar a {
+    color: #ffff00; /* Yellow links */
+}
+
+.high-contrast-mode .sidebar a:hover, 
+.high-contrast-mode .sidebar .active {
+    background-color: #222; /* Slightly lighter background */
+    color: #fff; /* White text for hover/active */
+    border-left: 3px solid #ffff00; /* Yellow active indicator */
+}
+
+/* Profile Picture */
+.high-contrast-mode .profile-pic-wrapper {
+    border: 3px solid #ffff00; /* Yellow border for emphasis */
+}
+
+.high-contrast-mode .welcome-text {
+    color: #ffff00; /* Yellow text */
+}
+
+/* Main Content Area */
+.high-contrast-mode .main-content {
+    background-color: #1f1f1f; /* Dark background */
+    color: #fff; /* White text */
+    box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2); /* Subtle light shadow */
+}
+
+/* Form Fields */
+.high-contrast-mode .form-group input,
+.high-contrast-mode .form-group textarea,
+.high-contrast-mode .form-group select {
+    background-color: #2b2b2b; /* Darker field background */
+    color: #fff; /* White text */
+    border: 1px solid #444; /* Subtle border */
+}
+
+.high-contrast-mode .form-group input:focus,
+.high-contrast-mode .form-group textarea:focus,
+.high-contrast-mode .form-group select:focus {
+    border-color: #ffff00; /* Yellow border for focus */
+    box-shadow: 0 0 6px #ffff00; /* Yellow glow */
+}
+
+/* Buttons */
+.high-contrast-mode .btn,
+.high-contrast-mode .custom-submit-button {
+    background-color: #ffff00; /* Yellow background */
+    color: #000; /* Black text */
+    border: 1px solid #000; /* Black border */
+}
+
+.high-contrast-mode .btn:hover,
+.high-contrast-mode .custom-submit-button:hover {
+    background-color: #b38f00; /* Darker yellow on hover */
+    color: #000; /* Black text */
+}
+
+/* Table Styles */
+.high-contrast-mode .table-container {
+    background-color: #111; /* Dark table container */
+    color: #fff; /* White text */
+    border: 1px solid #ffff00; /* Yellow border */
+}
+
+.high-contrast-mode table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #fff; /* White table text */
+}
+
+.high-contrast-mode th {
+    background-color: #333; /* Dark gray background for header */
+    color: #ffff00; /* Yellow header text */
+}
+
+.high-contrast-mode td {
+    background-color: #222; /* Dark gray cells */
+    border-bottom: 1px solid #ffff00; /* Yellow dividing lines */
+    color: #fff; /* White text */
+}
+
+/* Accessibility Popup */
+.high-contrast-mode .accessibility-options {
+    background-color: #000; /* Fully black */
+    color: #ffff00; /* Yellow text */
+}
+
+.high-contrast-mode .accessibility-options button {
+    background-color: #444; /* Darker button background */
+    color: #ffff00; /* Yellow button text */
+    border: 1px solid #ffff00; /* Yellow border */
+}
+
+.high-contrast-mode .accessibility-options button:hover {
+    background-color: #333; /* Slightly lighter hover effect */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .high-contrast-mode .sidebar {
+        width: 200px; /* Narrower sidebar for smaller screens */
+    }
+
+    .high-contrast-mode .main-content {
+        margin-left: 210px; /* Adjust content margin */
+    }
+}
+
+@media (max-width: 576px) {
+    .high-contrast-mode .sidebar {
+        width: 100%; /* Full width sidebar on very small screens */
+        position: fixed;
+    }
+
+    .high-contrast-mode .main-content {
+        margin-left: 0;
+    }
+}
+
+/* High Contrast Mode */
+
+/* Body */
+.high-contrast-mode body {
+    background-color: #000; /* Black background */
+    color: #fff; /* White text */
+    font-family: 'Arial', sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Login Container */
+.high-contrast-mode .login-container {
+    background-color: #1f1f1f; /* Dark gray background */
+    border: 1px solid #fff; /* White border for contrast */
+    color: #fff; /* White text */
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.25);
+}
+
+/* Navigation Tiles */
+.high-contrast-mode .navigation-tile {
+    background: linear-gradient(145deg, #333, #222); /* Darker gray gradient */
+    color: #ffdd00; /* Yellow text */
+    border: 1px solid #ffdd00; /* Yellow border for emphasis */
+    box-shadow: inset 2px 2px 5px rgba(255, 255, 0, 0.5), /* Bright inner highlight */
+                inset -2px -2px 5px rgba(0, 0, 0, 0.5), /* Dark inner shadow */
+                5px 5px 15px rgba(255, 255, 0, 0.2), /* Soft yellow outer shadow */
+                -5px -5px 15px rgba(255, 255, 255, 0.1); /* Subtle white outer shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.high-contrast-mode .navigation-tile:hover {
+    background: linear-gradient(145deg, #444, #333); /* Slightly lighter gray */
+    color: #fff; /* White text on hover */
+    border-color: #fff; /* White border on hover */
+    box-shadow: inset 3px 3px 8px rgba(255, 255, 255, 0.5), /* Bright inner shadow */
+                inset -3px -3px 8px rgba(0, 0, 0, 0.5), /* Darker inner shadow */
+                8px 8px 18px rgba(255, 255, 255, 0.3), /* Outer white shadow */
+                -8px -8px 18px rgba(255, 255, 255, 0.1); /* Subtle white highlight */
+}
+
+.high-contrast-mode .navigation-tile i {
+    color: #ffdd00; /* Yellow icons */
+    text-shadow: 2px 2px 4px rgba(255, 255, 0, 0.5); /* Yellow glow */
+}
+
+.high-contrast-mode .navigation-tile h3 {
+    color: #ffdd00; /* Yellow title text */
+    text-shadow: 1px 1px 3px rgba(255, 255, 0, 0.5); /* Yellow glow */
+}
+
+.high-contrast-mode .navigation-tile:hover h3 {
+    color: #fff; /* White title on hover */
+}
+
+/* Logs */
+.high-contrast-mode .logs-container {
+    background-color: #1f1f1f; /* Dark background */
+    color: #fff; /* White text */
+    border: 1px solid #ffdd00; /* Yellow border */
+}
+
+.high-contrast-mode .logs-container ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.high-contrast-mode .logs-container li {
+    background-color: #2b2b2b; /* Slightly lighter dark background */
+    color: #ffdd00; /* Yellow text */
+    border: 1px solid #444; /* Subtle border for separation */
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.high-contrast-mode .logs-container li:hover {
+    background-color: #444; /* Slightly lighter on hover */
+    color: #fff; /* White text on hover */
+}
+
+/* Buttons */
+.high-contrast-mode .btn {
+    background-color: #ffdd00; /* Yellow button */
+    color: #000; /* Black text */
+    border: 1px solid #000; /* Black border */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.high-contrast-mode .btn:hover {
+    background-color: #e6c200; /* Darker yellow on hover */
+    color: #fff; /* White text */
+}
+
+/* Dark Mode Transition for Responsive Adjustments */
+@media screen and (max-width: 768px) {
+    .high-contrast-mode .navigation-tile {
+        width: 180px; /* Smaller tiles */
+        height: 120px;
+    }
+
+    .high-contrast-mode .navigation-tile i {
+        font-size: 36px; /* Adjust icon size */
+    }
+
+    .high-contrast-mode .navigation-tile h3 {
+        font-size: 18px; /* Adjust title size */
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .high-contrast-mode .navigation-tile {
+        width: 150px;
+        height: 100px;
+    }
+
+    .high-contrast-mode .navigation-tile i {
+        font-size: 32px;
+    }
+
+    .high-contrast-mode .navigation-tile h3 {
+        font-size: 16px;
+    }
+}

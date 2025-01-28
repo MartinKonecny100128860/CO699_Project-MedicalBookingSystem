@@ -414,3 +414,39 @@ body.dark-mode .navigation-tile:hover h3 {
         font-size: 16px;
     }
 }
+
+/* SEND SUPPORT IT*/
+
+/* Dark Mode for Main Content */
+.dark-mode .main-content {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    box-shadow: 0 8px 16px rgba(255, 255, 255, 0.1);
+}
+
+/* Dark Mode for Form Fields */
+.dark-mode .form-group input,
+.dark-mode .form-group textarea,
+.dark-mode .form-group select {
+    background-color: #2b2b2b;
+    color: #ffffff;
+    border: 1px solid #444;
+}
+
+.dark-mode .form-group input:focus,
+.dark-mode .form-group textarea:focus,
+.dark-mode .form-group select:focus {
+    border-color: #0078d7;
+    box-shadow: 0 0 6px rgba(0, 120, 215, 0.5);
+}
+
+/* Dark Mode for Submit Button */
+.dark-mode .custom-submit-button {
+    background-color: #0078d7;
+    color: #ffffff;
+}
+
+.dark-mode .custom-submit-button:hover {
+    background-color: #005bb5;
+}
+

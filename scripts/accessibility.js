@@ -76,3 +76,51 @@ window.addEventListener("load", function () {
     // Update theme and synchronize toggle on page load
     updateThemeAndLogo();
 });
+
+// Text Resizing Functionality
+let currentFontSize = 16; // Default font size in px
+
+document.querySelector(".text-resize-decrease").addEventListener("click", function () {
+    if (currentFontSize > 12) {
+        currentFontSize -= 2;
+        updateFontSize();
+    }
+});
+
+document.querySelector(".text-resize-increase").addEventListener("click", function () {
+    if (currentFontSize < 24) {
+        currentFontSize += 2;
+        updateFontSize();
+    }
+});
+
+function updateFontSize() {
+    document.body.style.fontSize = currentFontSize + "px";
+    localStorage.setItem("fontSize", currentFontSize); // Save the font size in localStorage
+}
+
+// Apply saved font size on page load
+window.addEventListener("load", function () {
+    const savedFontSize = localStorage.getItem("fontSize");
+    if (savedFontSize) {
+        currentFontSize = parseInt(savedFontSize, 10);
+        updateFontSize();
+    }
+});
+
+// Toggle High Contrast Mode
+document.querySelector(".high-contrast-enable").addEventListener("click", function () {
+    const isHighContrastEnabled = document.body.classList.toggle("high-contrast-mode");
+
+    // Save the state in localStorage
+   localStorage.setItem("highContrast", isHighContrastEnabled ? "enabled" : "disabled");
+});
+
+// Apply High Contrast Mode on Page Load
+window.addEventListener("load", function () {
+    const isHighContrastSaved = localStorage.getItem("highContrast") === "enabled";
+
+    if (isHighContrastSaved) {
+        document.body.classList.add("high-contrast-mode");
+    }
+});
