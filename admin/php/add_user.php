@@ -1,5 +1,6 @@
 <?php
 session_start();
+header('Content-Type: application/json'); // Force JSON response
 
 // Check if the admin is logged in
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
@@ -15,8 +16,9 @@ if ($conn->connect_error) {
 }
 
 $response = ['success' => false, 'message' => ''];
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Sanitize and collect data
+    // Collect & sanitize data
     $first_name = htmlspecialchars($_POST['first_name'], ENT_QUOTES, 'UTF-8');
     $last_name = htmlspecialchars($_POST['last_name'], ENT_QUOTES, 'UTF-8');
     $username = htmlspecialchars($_POST['username'], ENT_QUOTES, 'UTF-8');
@@ -43,7 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (array_key_exists($role, $role_folders)) {
         $folder = $role_folders[$role];
         $images = glob($folder . '*.{jpg,jpeg,png,gif}', GLOB_BRACE);
-
         if ($images && count($images) > 0) {
             $profile_picture = $images[array_rand($images)]; // Assign random image
         }

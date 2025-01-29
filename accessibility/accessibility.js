@@ -35,11 +35,25 @@ if (darkModeToggle) {
  * Toggles dark mode for the page and saves the state in localStorage.
  */
 function toggleDarkMode() {
-    const isDarkModeEnabled = document.body.classList.toggle("dark-mode"); // Add/remove 'dark-mode' class
-    updateThemeAndLogo(); // Update logo and other related elements
-    localStorage.setItem("darkMode", isDarkModeEnabled ? "enabled" : "disabled"); // Save state
-    synchronizeDarkModeState(); // Update button and icon states
+    const isDarkModeEnabled = document.body.classList.toggle("dark-mode");
+
+    // Update theme elements
+    updateThemeAndLogo();
+    localStorage.setItem("darkMode", isDarkModeEnabled ? "enabled" : "disabled");
+
+    // Ensure modals also change color in dark mode
+    document.querySelectorAll(".modal-content").forEach((modal) => {
+        modal.classList.toggle("dark-mode", isDarkModeEnabled);
+    });
+
+    // Fix modal backdrop issue in dark mode
+    document.querySelectorAll(".modal-backdrop").forEach((backdrop) => {
+        backdrop.style.backgroundColor = isDarkModeEnabled ? "rgba(0, 0, 0, 0.8)" : "rgba(0, 0, 0, 0.5)";
+    });
+
+    synchronizeDarkModeState();
 }
+
 
 /**
  * Synchronizes the dark mode toggle button and icon state.

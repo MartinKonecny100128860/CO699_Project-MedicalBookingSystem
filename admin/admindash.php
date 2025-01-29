@@ -200,115 +200,11 @@ $conn->close();
             </ul>
         </div>
     </div>
-<!-- Add New User Modal -->
-<div class="modal fade" id="addUserModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Add New User</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Success Message Placeholder -->
-                <div id="successMessage" style="display: none; color: green; font-weight: bold; margin-bottom: 10px;">
-                    <!-- Success message will appear here -->
-                </div>
-                <form id="addUserForm" enctype="multipart/form-data">
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="firstName" class="form-label">First Name</label>
-                            <input type="text" class="form-control" id="firstName" name="first_name" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="lastName" class="form-label">Last Name</label>
-                            <input type="text" class="form-control" id="lastName" name="last_name" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username" name="username" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="userType" class="form-label">User Type</label>
-                            <select class="form-control" id="userType" name="role" required>
-                                <option value="admin">Admin</option>
-                                <option value="staff">Staff</option>
-                                <option value="doctor">Doctor</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="houseNo" class="form-label">House No / Name</label>
-                        <input type="text" class="form-control" id="houseNo" name="house_no" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="streetName" class="form-label">Street Name</label>
-                        <input type="text" class="form-control" id="streetName" name="street_name" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="postCode" class="form-label">Post Code</label>
-                        <input type="text" class="form-control" id="postCode" name="post_code" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="city" class="form-label">City</label>
-                        <input type="text" class="form-control" id="city" name="city" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="telephone" class="form-label">Telephone</label>
-                        <input type="tel" class="form-control" id="telephone" name="telephone" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="emergencyContact" class="form-label">Emergency Contact</label>
-                        <input type="text" class="form-control" id="emergencyContact" name="emergency_contact" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="profilePicture" class="form-label">Upload Profile Picture</label>
-                        <input type="file" class="form-control" id="profilePicture" name="profile_picture" accept="image/*">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" onclick="addNewUser()">Add User</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-    <script>
-        function deleteLog(logId) {
-            if (confirm("Are you sure you want to delete this log?")) {
-                $.post("adminphpfunctions/delete_log.php", { log_id: logId }, function(response) {
-                    alert(response.message); // Display success message
-                    location.reload(); // Reload to reflect the changes
-                }, "json").fail(function() {
-                    alert("Error deleting log.");
-                });
-            }
-        }
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Accessibility Icon -->
-<div id="accessibility-icon" class="accessibility-icon">
-    <i class="fa fa-universal-access"></i>
-</div>
 
 <!-- Manage Roles Modal -->
 <div class="modal fade" id="manageRolesModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+        <div class="modal-content modal-container">
             <div class="modal-header">
                 <h5 class="modal-title">Manage User Roles</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -353,7 +249,7 @@ $conn->close();
 <!-- Admin Help Guide Modal -->
 <div class="modal fade" id="helpGuideModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content modal-container">
             <div class="modal-header">
                 <h5 class="modal-title">Admin Help Guide</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -375,6 +271,127 @@ $conn->close();
     </div>
 </div>
 
+<!-- Add New User Modal -->
+<div class="modal fade" id="addUserModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content modal-container">
+            <div class="modal-header">
+                <h5 class="modal-title">Add New User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Success Message -->
+                <div id="successMessage" class="success-message" style="display: none;">
+                    New user added! Please close the window or add another user.
+                </div>
+
+                <!-- Add User Form -->
+                <form id="addUserForm" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="firstName" name="first_name" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" name="last_name" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="telephone" class="form-label">Telephone</label>
+                            <input type="tel" class="form-control" id="telephone" name="telephone" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="emergencyContact" class="form-label">Emergency Contact</label>
+                        <input type="text" class="form-control" id="emergencyContact" name="emergency_contact" required>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="houseNo" class="form-label">House No / Name</label>
+                            <input type="text" class="form-control" id="houseNo" name="house_no" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="streetName" class="form-label">Street Name</label>
+                            <input type="text" class="form-control" id="streetName" name="street_name" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="postCode" class="form-label">Post Code</label>
+                            <input type="text" class="form-control" id="postCode" name="post_code" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="city" class="form-label">City</label>
+                            <input type="text" class="form-control" id="city" name="city" required>
+                        </div>
+                    </div>
+
+                    <!-- ✅ Role Type Selection Field (FIXED) -->
+                    <div class="mb-3">
+                        <label for="roleType" class="form-label">Role Type</label>
+                        <select class="form-control" id="roleType" name="role" required>
+                            <option value="admin">Admin</option>
+                            <option value="staff">Staff</option>
+                            <option value="doctor">Doctor</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="profilePicture" class="form-label">Upload Profile Picture</label>
+                        <input type="file" class="form-control" id="profilePicture" name="profile_picture" accept="image/*">
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-primary" onclick="addNewUser()">Add User</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <script>
+        function deleteLog(logId) {
+            if (confirm("Are you sure you want to delete this log?")) {
+                $.post("adminphpfunctions/delete_log.php", { log_id: logId }, function(response) {
+                    alert(response.message); // Display success message
+                    location.reload(); // Reload to reflect the changes
+                }, "json").fail(function() {
+                    alert("Error deleting log.");
+                });
+            }
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Accessibility Icon -->
+<div id="accessibility-icon" class="accessibility-icon">
+    <i class="fa fa-universal-access"></i>
+</div>
 
 <!-- Accessibility Popup Window -->
 <div id="accessibility-popup" class="accessibility-options">
@@ -412,46 +429,52 @@ $conn->close();
     }
 
     function addNewUser() {
-        const formData = new FormData(document.getElementById('addUserForm'));
+    const formData = new FormData(document.getElementById('addUserForm'));
 
-        $.ajax({
-            url: 'adminphpfunctions/add_user.php', // Ensure this matches your backend URL
-            type: 'POST',
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function (response) {
-                let data;
+    $.ajax({
+        url: 'adminphpfunctions/add_user.php', // Ensure this matches your backend URL
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            let data;
 
-                try {
-                    data = JSON.parse(response); // Try parsing the response as JSON
-                } catch (err) {
-                    console.error("Error parsing server response:", response);
-                    alert("NEW USER ADDED, PLEASE CLOSE THE WINDOW OR ADD A NEW USER");
-                    return;
-                }
-
-                if (data.success) {
-                    // Show success message within the modal
-                    const successMessage = document.getElementById('successMessage');
-                    if (successMessage) {
-                        successMessage.innerHTML = "NEW USER ADDED, PLEASE CLOSE THE WINDOW OR ADD A NEW USER";
-                        successMessage.style.display = "block";
-                    }
-
-                    // Clear the form fields
-                    document.getElementById('addUserForm').reset();
-                } else {
-                    // Show error message from server
-                    alert(data.message || "Failed to add user. Please try again.");
-                }
-            },
-            error: function (xhr, status, error) {
-                console.error("Error occurred:", status, error);
-                alert("Error adding user. Please try again later.");
+            try {
+                data = JSON.parse(response); // Try parsing the response as JSON
+            } catch (err) {
+                console.error("Error parsing server response:", response);
+                alert("An unexpected error occurred. Please try again.");
+                return;
             }
-        });
-    }
+
+            if (data.success) {
+                // Show success message
+                $("#successMessage").text("New user added! Please close the window or add another user.").fadeIn();
+
+                // Close the modal
+                setTimeout(() => {
+                    const addUserModalElement = document.getElementById('addUserModal');
+                    const addUserModalInstance = bootstrap.Modal.getInstance(addUserModalElement);
+                    if (addUserModalInstance) {
+                        addUserModalInstance.hide();
+                    }
+                    document.getElementById("addUserForm").reset();
+                    setTimeout(() => location.reload(), 1000);
+                }, 2000);
+            } else {
+                alert("Error: " + data.message);
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("Error occurred:", status, error);
+            alert("Error adding user. Please try again later.");
+        }
+    });
+}
+
+
+
 
     function showManageRolesModal() {
         const modal = new bootstrap.Modal(document.getElementById('manageRolesModal'));

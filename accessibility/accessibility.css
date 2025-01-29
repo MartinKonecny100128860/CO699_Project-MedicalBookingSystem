@@ -576,3 +576,18 @@ body.dark-mode #helpGuideModal .btn-secondary:hover {
         transform: translateX(0);
     }
 }
+/* ========================= */
+/* FIXED: Dark Mode for Modals */
+/* ========================= */
+/* Dark Mode for Modals */
+body.dark-mode .modal-container {
+    background-color: #1f1f1f;
+    color: #e0e0e0;
+}
+
+body.dark-mode .modal-header,
+body.dark-mode .modal-footer {
+    background-color: #282828;
+    border-color: #444;
+}
+

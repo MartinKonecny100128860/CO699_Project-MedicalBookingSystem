@@ -1,0 +1,26 @@
+/* ========================= */
+/* Global Modal Styles */
+/* ========================= */
+.modal-container {
+    background-color: #fff !important;
+    color: #333 !important;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal Header & Footer */
+.modal-header, .modal-footer {
+    background-color: #f4f4f4 !important;
+    border: 1px solid #ddd !important;
+}
+
+/* Success Message */
+.success-message {
+    background-color: #dff0d8 !important;
+    color: #3c763d !important;
+    padding: 10px;
+    border-radius: 5px;
+    display: none;
+}
+
+

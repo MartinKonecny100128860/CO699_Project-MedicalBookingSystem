@@ -279,3 +279,17 @@ body.high-contrast-mode .navigation-tile:hover {
         height: 100px;
     }
 }
+/* ========================= */
+/* FIXED: High Contrast Mode for Modals */
+/* ========================= */
+/* High Contrast Mode */
+body.high-contrast-mode .modal-container {
+    background-color: black;
+    color: yellow;
+}
+
+body.high-contrast-mode .modal-header,
+body.high-contrast-mode .modal-footer {
+    background-color: black;
+    border-color: yellow;
+}
