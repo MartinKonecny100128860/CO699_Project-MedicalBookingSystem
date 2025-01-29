@@ -239,6 +239,30 @@ body.high-contrast-mode {
 }
 
 /* =================================== */
+/* HIGH CONTRAST MODE NAVIGATION TILES */
+/* =================================== */
+body.high-contrast-mode .navigation-tile {
+    background: linear-gradient(145deg, #000, #444);
+    color: #ffdd00;
+    box-shadow: inset 2px 2px 5px rgba(255, 255, 0, 0.5),
+        inset -2px -2px 5px rgba(0, 0, 0, 0.5),
+        5px 5px 15px rgba(255, 255, 0, 0.2),
+        -5px -5px 15px rgba(255, 255, 255, 0.1);
+}
+
+/* Hover Effect for High Contrast Mode */
+body.high-contrast-mode .navigation-tile:hover {
+    background: linear-gradient(145deg, #222, #333);
+    color: #fff;
+    box-shadow: inset 3px 3px 8px rgba(255, 255, 255, 0.5),
+        inset -3px -3px 8px rgba(0, 0, 0, 0.2),
+        8px 8px 18px rgba(0, 0, 0, 0.5),
+        -8px -8px 18px rgba(255, 255, 255, 0.1);
+}
+
+
+
+/* =================================== */
 /* RESPONSIVE HIGH CONTRAST */
 /* =================================== */
 

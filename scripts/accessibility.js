@@ -60,6 +60,20 @@ function updateThemeAndLogo() {
     synchronizeDarkModeState();
 }
 
+function toggleDarkMode() {
+    const isDarkModeEnabled = document.body.classList.toggle("dark-mode");
+
+    // Update the logs-container styling explicitly if necessary
+    const logsContainer = document.querySelector(".logs-container");
+    if (logsContainer) {
+        logsContainer.classList.toggle("dark-mode", isDarkModeEnabled);
+    }
+
+    updateThemeAndLogo();
+    localStorage.setItem("darkMode", isDarkModeEnabled ? "enabled" : "disabled");
+    synchronizeDarkModeState();
+}
+
 // High Contrast Handlers
 const highContrastButton = document.querySelector(".high-contrast-enable");
 
