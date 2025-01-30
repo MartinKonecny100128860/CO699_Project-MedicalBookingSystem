@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Redirect the user to the appropriate dashboard based on their role.
                 switch ($role) {
                     case 'admin':
-                        header("location: admindash.php");
+                        header("location: admin/admindash.php");
                         break;
                     case 'doctor':
                         header("location: doctor_dashboard.php");
@@ -116,7 +116,7 @@ $conn->close(); // Close the database connection.
         <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
         <!-- Include Font Awesome for icons -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="adminstyles/highcontrast.css">
+        <link rel="stylesheet" href="accessibility/highcontrast.css">
         <style>
             /* Body styling for centering content and adding gradient background */
             body { 
@@ -260,15 +260,15 @@ $conn->close(); // Close the database connection.
     </head>
     <body>
         <!-- Include accessibility menu -->
-        <?php include 'accessibility.php'; ?>
+        <?php include 'accessibility/accessibility.php'; ?>
 
         <!-- Loading screen -->
         <div id="loading-screen">
-            <img src="assets/loading2.gif" alt="Loading...">
+            <img src="assets/gifs/loading2.gif" alt="Loading...">
         </div>
 
         <!-- Logo -->
-        <img src="assets/logo-light.png" alt="Medical Booking System Logo" class="logo" id="logo">
+        <img src="assets/logos/logo-light.png" alt="Medical Booking System Logo" class="logo" id="logo">
 
         <!-- Login container -->
         <div class="login-container">
@@ -303,11 +303,11 @@ $conn->close(); // Close the database connection.
 
         <!-- Include chat feature -->
         <div id="chat-placeholder"></div>
-        <script src="adminscripts/chat.js"></script>
+        <script src="aichat/chat.js"></script>
 
         <!-- Include accessibility styles and scripts -->
-        <link rel="stylesheet" href="adminstyles/accessibility.css">
-        <script src="adminscripts/accessibility.js" defer></script>
+        <link rel="stylesheet" href="accessibility/accessibility.css">
+        <script src="accessibility/accessibility.js" defer></script>
     </body>
 </html>
 
@@ -331,8 +331,8 @@ $conn->close(); // Close the database connection.
         function updateLogoBasedOnTheme() {
             const logo = document.getElementById("logo");
             logo.src = document.body.classList.contains("dark-mode")
-                ? "assets/logo-dark.png" // Use dark logo if dark mode is enabled
-                : "assets/logo-light.png"; // Use light logo if dark mode is disabled
+                ? "assets/logos/logo-dark.png" // Use dark logo if dark mode is enabled
+                : "assets/logos/logo-light.png"; // Use light logo if dark mode is disabled
         }
 
         // Attach an event listener to the dark mode toggle button to update the logo

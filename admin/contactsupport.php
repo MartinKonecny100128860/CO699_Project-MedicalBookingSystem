@@ -60,11 +60,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="adminstyles/admindash.css">
-    <link rel="stylesheet" href="adminstyles/support_message.css">
-    <link rel="stylesheet" href="adminstyles/accessibility.css">
-    <link rel="stylesheet" href="adminstyles/highcontrast.css">
-    <script src="adminscripts/accessibility.js" defer></script>
+    <link rel="stylesheet" href="styles/admindash.css">
+    <link rel="stylesheet" href="styles/modals.css">
+    <link rel="stylesheet" href="../accessibility/accessibility.css">
+    <link rel="stylesheet" href="../accessibility/highcontrast.css">
+    <script src="../accessibility/accessibility.js" defer></script>
     <script>
         function prepareEmail() {
             const name = document.getElementById('name').value.trim();
@@ -90,25 +90,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="header">
         <div style="display: flex; align-items: center;">
-            <img src="assets/logo-dark.png" alt="Logo">
-            <h1 style="margin-left: 20px;">Admin Dashboard</h1>
+        <img src="../assets/logos/logo-dark.png" alt="Logo">
+        <h1 style="margin-left: 20px;">Admin Dashboard</h1>
         </div>
-        <a href="logout.php" class="power-icon-box">
-            <i class="material-icons">&#xe8ac;</i>
+        <a href="/MedicalBooking/logout.php" class="power-icon-box">
+        <i class="material-icons">&#xe8ac;</i>
         </a>
     </div>
 
     <div class="sidebar">
-        <div class="profile-pic-container">
-            <div class="profile-pic-wrapper">
-                <img src="<?= htmlspecialchars($_SESSION['profile_picture'] ?? 'assets/default_user.jpg') ?>" 
-                     alt="Profile Picture" class="profile-pic">
-            </div>
-            <p class="welcome-text">
-                Welcome back, <?= htmlspecialchars($_SESSION['username'] ?? 'Admin') ?><br>
-                <small>ID: <?= htmlspecialchars($_SESSION['user_id'] ?? 'N/A') ?></small>
-            </p>
+    <div class="profile-pic-container">
+        <div class="profile-pic-wrapper">
+        <img src="<?= htmlspecialchars('../' . ($_SESSION['profile_picture'] ?? 'assets/defaults/user_default.png')) ?>" 
+            alt="Profile Picture" class="profile-pic">
         </div>
+        <p class="welcome-text">
+            Welcome back, <?= htmlspecialchars($_SESSION['username'] ?? 'Admin') ?><br>
+            <small>ID: <?= htmlspecialchars($_SESSION['user_id'] ?? 'N/A') ?></small>
+        </p>
+    </div>
         <div class="scroll-container">
             <h4 class="sidebar-heading">Quick Links</h4>
             <a href="admindash.php">Dashboard</a>

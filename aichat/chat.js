@@ -8,7 +8,7 @@ function closeChat() {
 // Load the chat interface dynamically into the placeholder on page load
 window.onload = function () {
     const chatPlaceholder = document.getElementById('chat-placeholder');
-    fetch('chat.html')
+    fetch('aichat/chat.html')
         .then((response) => response.text())
         .then((html) => {
             chatPlaceholder.innerHTML = html; // Load chat interface
@@ -62,7 +62,7 @@ function sendMessage(text) {
     const typingBubble = appendMessage('', false, true); // Add a typing bubble
 
     // Fetch bot's response from the server
-    fetch('adminphpfunctions/chatgpt_api.php', {
+    fetch('aichat/chatgpt_api.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: text }) // Send user message as JSON

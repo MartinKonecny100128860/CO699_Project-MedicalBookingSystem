@@ -70,10 +70,14 @@ $conn->close();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="adminstyles/admindash.css">
-    <link rel="stylesheet" href="adminstyles/accessibility.css">
-    <link rel="stylesheet" href="adminstyles/highcontrast.css">
-    <script src="adminscripts/accessibility.js" defer></script>
+    <link rel="stylesheet" href="styles/admindash.css">
+    <link rel="stylesheet" href="styles/modals.css">
+    <link rel="stylesheet" href="../accessibility/accessibility.css">
+    <link rel="stylesheet" href="../accessibility/highcontrast.css">
+    <script src="../accessibility/accessibility.js" defer></script>
+    <script src="scripts/adduser.js"></script>
+    <script src="scripts/deleteuser.js"></script>
+    <script src="scripts/edituser.js"></script>
 
 
     <style>
@@ -83,10 +87,10 @@ $conn->close();
 <body>
 <div class="header">
     <div style="display: flex; align-items: center;">
-        <img src="assets/logo-dark.png" alt="Logo">
-        <h1 style="margin-left: 20px;">Admin Dashboard</h1>
+    <img src="../assets/logos/logo-dark.png" alt="Logo">
+    <h1 style="margin-left: 20px;">Admin Dashboard</h1>
     </div>
-    <a href="logout.php" class="power-icon-box">
+    <a href="/MedicalBooking/logout.php" class="power-icon-box">
     <i class="material-icons">&#xe8ac;</i>    
 </a>
 </div>
@@ -95,8 +99,8 @@ $conn->close();
     <div class="sidebar">
     <div class="profile-pic-container">
         <div class="profile-pic-wrapper">
-            <img src="<?= htmlspecialchars($_SESSION['profile_picture'] ?? 'assets/default_user.jpg') ?>" 
-                 alt="Profile Picture" class="profile-pic">
+        <img src="<?= htmlspecialchars('../' . ($_SESSION['profile_picture'] ?? 'assets/defaults/user_default.png')) ?>" 
+            alt="Profile Picture" class="profile-pic">
         </div>
         <p class="welcome-text">
             Welcome back, <?= htmlspecialchars($_SESSION['username'] ?? 'Admin') ?><br>
@@ -104,7 +108,7 @@ $conn->close();
         </p>
     </div>
     <a href="#users" class="active">Manage Users</a>
-    <a href="#logs">View Logs</a>
+    <a href="admindash.php">Dashboard</a>
     <a href="#">Statistics</a>
     <a href="#">Settings</a>
 </div>
@@ -267,84 +271,10 @@ $conn->close();
 
 
     <script>
-        function deleteUser(userId) {
-            if (confirm("Are you sure you want to delete this user?")) {
-                $.post("adminphpfunctions/delete_user.php", { id: userId }, function() {
-                    alert("User deleted successfully.");
-                    location.reload();
-                }).fail(function() {
-                    alert("Error deleting user.");
-                });
-            }
-        }
-
-        function showEditUserModal(userId, username, email) {
-            $('#editUserId').val(userId);
-            $('#editUsername').val(username);
-            $('#editEmail').val(email);
-            $('#editPassword').val('');
-            $('#editUserModal').modal('show');
-        }
-
-        function saveUserChanges() {
-            const userId = $('#editUserId').val();
-            const username = $('#editUsername').val();
-            const email = $('#editEmail').val();
-            const password = $('#editPassword').val();
-
-            $.post("adminphpfunctions/admin_edit_users.php", { user_id: userId, username, email, password }, function (data) {
-                if (data.success) {
-                    alert(data.message); // Display success message
-                    location.reload(); // Reload the page to reflect changes
-                } else {
-                    alert(data.message); // Display error message
-                }
-            }, "json").fail(function () {
-                alert("Error updating user.");
-            });
-        }
-
         function showAddUserModal() {
             const addUserModal = new bootstrap.Modal(document.getElementById('addUserModal'));
             addUserModal.show();
         }
-
-        function addNewUser() {
-        const formData = new FormData(document.getElementById('addUserForm'));
-
-            $.ajax({
-                url: 'adminphpfunctions/add_user.php', // Ensure this URL matches your server script
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    const data = JSON.parse(response);
-
-                    if (data.success) {
-                        alert(data.message); // Show success message
-
-                        // Properly close the modal
-                        const addUserModalElement = document.getElementById('addUserModal');
-                        const addUserModalInstance = bootstrap.Modal.getOrCreateInstance(addUserModalElement);
-                        addUserModalInstance.hide(); // Close the modal programmatically
-
-                        // Clear the form fields after closing
-                        document.getElementById('addUserForm').reset();
-
-                        // Reload the page to show the updated user list
-                        location.reload();
-                    } else {
-                        alert(data.message); // Show error message
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.error("Error occurred:", status, error);
-                    alert("Error adding user.");
-                }
-            });
-        }
-
 
     </script>
 

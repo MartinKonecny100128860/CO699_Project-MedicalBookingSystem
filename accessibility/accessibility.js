@@ -78,7 +78,7 @@ function updateThemeAndLogo() {
     const isDarkMode = document.body.classList.contains("dark-mode");
     const logo = document.getElementById("logo");
     if (logo) {
-        logo.src = isDarkMode ? "assets/logo-dark.png" : "assets/logo-light.png"; // Update logo based on theme
+        logo.src = isDarkMode ? "assets/logos/logo-dark.png" : "assets/logos/logo-light.png"; // Update logo based on theme
     }
 
     // Apply dark mode to multiple elements

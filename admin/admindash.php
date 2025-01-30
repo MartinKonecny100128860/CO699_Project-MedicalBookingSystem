@@ -88,13 +88,16 @@ $conn->close();
     <title>Admin Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="adminstyles/admindash.css">
-    <link rel="stylesheet" href="adminstyles/accessibility.css">
-    <link rel="stylesheet" href="adminstyles/highcontrast.css">
-    <script src="adminscripts/accessibility.js" defer></script>
-
+    <link rel="stylesheet" href="styles/admindash.css">
+    <link rel="stylesheet" href="styles/modals.css">
+    <link rel="stylesheet" href="../accessibility/accessibility.css">
+    <link rel="stylesheet" href="../accessibility/highcontrast.css">
+    <script src="../accessibility/accessibility.js" defer></script>
+    <script src="scripts/edituser.js"></script>
+    <script src="scripts/adduser.js"></script>
 
     <style>
 
@@ -103,10 +106,10 @@ $conn->close();
 <body>
 <div class="header">
     <div style="display: flex; align-items: center;">
-        <img src="assets/logo-dark.png" alt="Logo">
-        <h1 style="margin-left: 20px;">Admin Dashboard</h1>
+    <img src="../assets/logos/logo-dark.png" alt="Logo">
+    <h1 style="margin-left: 20px;">Admin Dashboard</h1>
     </div>
-    <a href="logout.php" class="power-icon-box">
+    <a href="/MedicalBooking/logout.php" class="power-icon-box">
     <i class="material-icons">&#xe8ac;</i>    
 </a>
 </div>
@@ -115,8 +118,8 @@ $conn->close();
 <div class="sidebar">
     <div class="profile-pic-container">
         <div class="profile-pic-wrapper">
-            <img src="<?= htmlspecialchars($_SESSION['profile_picture'] ?? 'assets/default_user.jpg') ?>" 
-                 alt="Profile Picture" class="profile-pic">
+        <img src="<?= htmlspecialchars('../' . ($_SESSION['profile_picture'] ?? 'assets/defaults/user_default.png')) ?>" 
+            alt="Profile Picture" class="profile-pic">
         </div>
         <p class="welcome-text">
             Welcome back, <?= htmlspecialchars($_SESSION['username'] ?? 'Admin') ?><br>
@@ -135,7 +138,7 @@ $conn->close();
         <a href="#active-doctors">View Active Doctors</a>
         <h4 class="sidebar-heading">Resources</h4>
         <a href="#" onclick="showHelpGuideModal()">Admin Help Guide</a>
-        <a href="contact_support.php">Contact IT Support</a>
+        <a href="contactsupport.php">Contact IT Support</a>
         <a href="adminfeedback.php">Submit Feedback</a>
         <h4 class="sidebar-heading">Analytics</h4>
         <a href="#view-statistics">View Statistics</a>
@@ -347,7 +350,7 @@ $conn->close();
                         </div>
                     </div>
 
-                    <!-- ✅ Role Type Selection Field (FIXED) -->
+                    <!-- Role Type Selection Field (FIXED) -->
                     <div class="mb-3">
                         <label for="roleType" class="form-label">Role Type</label>
                         <select class="form-control" id="roleType" name="role" required>
@@ -373,21 +376,6 @@ $conn->close();
 </div>
 
 
-
-    <script>
-        function deleteLog(logId) {
-            if (confirm("Are you sure you want to delete this log?")) {
-                $.post("adminphpfunctions/delete_log.php", { log_id: logId }, function(response) {
-                    alert(response.message); // Display success message
-                    location.reload(); // Reload to reflect the changes
-                }, "json").fail(function() {
-                    alert("Error deleting log.");
-                });
-            }
-        }
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Accessibility Icon -->
 <div id="accessibility-icon" class="accessibility-icon">
     <i class="fa fa-universal-access"></i>
@@ -428,85 +416,11 @@ $conn->close();
         addUserModal.show();
     }
 
-    function addNewUser() {
-    const formData = new FormData(document.getElementById('addUserForm'));
-
-    $.ajax({
-        url: 'adminphpfunctions/add_user.php', // Ensure this matches your backend URL
-        type: 'POST',
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function (response) {
-            let data;
-
-            try {
-                data = JSON.parse(response); // Try parsing the response as JSON
-            } catch (err) {
-                console.error("Error parsing server response:", response);
-                alert("An unexpected error occurred. Please try again.");
-                return;
-            }
-
-            if (data.success) {
-                // Show success message
-                $("#successMessage").text("New user added! Please close the window or add another user.").fadeIn();
-
-                // Close the modal
-                setTimeout(() => {
-                    const addUserModalElement = document.getElementById('addUserModal');
-                    const addUserModalInstance = bootstrap.Modal.getInstance(addUserModalElement);
-                    if (addUserModalInstance) {
-                        addUserModalInstance.hide();
-                    }
-                    document.getElementById("addUserForm").reset();
-                    setTimeout(() => location.reload(), 1000);
-                }, 2000);
-            } else {
-                alert("Error: " + data.message);
-            }
-        },
-        error: function (xhr, status, error) {
-            console.error("Error occurred:", status, error);
-            alert("Error adding user. Please try again later.");
-        }
-    });
-}
-
-
-
-
     function showManageRolesModal() {
         const modal = new bootstrap.Modal(document.getElementById('manageRolesModal'));
         modal.show();
     }
 
-    $(document).ready(function () {
-        $(".save-role-btn").click(function () {
-            const userId = $(this).data("user-id");
-            const newRole = $(this).closest("tr").find(".role-dropdown").val();
-
-            $.ajax({
-                url: "adminphpfunctions/update_user_role.php",
-                type: "POST",
-                data: { user_id: userId, role: newRole },
-                success: function (response) {
-                    let data = JSON.parse(response);
-                    if (data.success) {
-                        alert("User role updated successfully.");
-                        location.reload();
-                    } else {
-                        alert("Error updating role.");
-                    }
-                },
-                error: function () {
-                    alert("An error occurred while updating the role.");
-                }
-            });
-        });
-    });
-</script>
-<script>
     function showHelpGuideModal() {
         const helpModal = new bootstrap.Modal(document.getElementById('helpGuideModal'));
         helpModal.show();
@@ -517,6 +431,16 @@ $conn->close();
             window.location.href = "files/adminguide.pdf";
         }
     }
+    function deleteLog(logId) {
+            if (confirm("Are you sure you want to delete this log?")) {
+                $.post("php/delete_log.php", { log_id: logId }, function(response) {
+                    alert(response.message); // Display success message
+                    location.reload(); // Reload to reflect the changes
+                }, "json").fail(function() {
+                    alert("Error deleting log.");
+                });
+            }
+        }
 </script>
 
 
