@@ -62,211 +62,94 @@ $conn->close();
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="styles/admindash.css">
-    <link rel="stylesheet" href="styles/modals.css">
-    <link rel="stylesheet" href="../accessibility/accessibility.css">
-    <link rel="stylesheet" href="../accessibility/highcontrast.css">
-    <script src="../accessibility/accessibility.js" defer></script>
-    <script src="scripts/adduser.js"></script>
-    <script src="scripts/deleteuser.js"></script>
-    <script src="scripts/edituser.js"></script>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Admin Dashboard</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="styles/admindash.css">
+        <link rel="stylesheet" href="styles/modals.css">
+        <link rel="stylesheet" href="../accessibility/accessibility.css">
+        <link rel="stylesheet" href="../accessibility/highcontrast.css">
+        <script src="../accessibility/accessibility.js" defer></script>
+        <script src="scripts/adduser.js"></script>
+        <script src="scripts/deleteuser.js"></script>
+        <script src="scripts/edituser.js"></script>
 
-
-    <style>
-
-    </style>
-</head>
-<body>
-<div class="header">
-    <div style="display: flex; align-items: center;">
-    <img src="../assets/logos/logo-dark.png" alt="Logo">
-    <h1 style="margin-left: 20px;">Admin Dashboard</h1>
-    </div>
-    <a href="/MedicalBooking/logout.php" class="power-icon-box">
-    <i class="material-icons">&#xe8ac;</i>    
-</a>
-</div>
-
-
-    <div class="sidebar">
-    <div class="profile-pic-container">
-        <div class="profile-pic-wrapper">
-        <img src="<?= htmlspecialchars('../' . ($_SESSION['profile_picture'] ?? 'assets/defaults/user_default.png')) ?>" 
-            alt="Profile Picture" class="profile-pic">
+    </head>
+    <body>
+        <div class="header">
+            <div style="display: flex; align-items: center;">
+                <img src="../assets/logos/logo-dark.png" alt="Logo">
+                <h1 style="margin-left: 20px;">Admin Dashboard</h1>
+            </div>
+            <a href="/MedicalBooking/logout.php" class="power-icon-box">
+                <i class="material-icons">&#xe8ac;</i>    
+            </a>
         </div>
-        <p class="welcome-text">
-            Welcome back, <?= htmlspecialchars($_SESSION['username'] ?? 'Admin') ?><br>
-            <small>ID: <?= htmlspecialchars($_SESSION['user_id'] ?? 'N/A') ?></small>
-        </p>
-    </div>
-    <a href="#users" class="active">Manage Users</a>
-    <a href="admindash.php">Dashboard</a>
-    <a href="#">Statistics</a>
-    <a href="#">Settings</a>
-</div>
-
-
-
-
-    <!-- Content -->
-    <div class="content">
-        <div class="table-container" id="users">
-        <h2>Users</h2>
-        <button class="btn btn-primary mb-3" onclick="showAddUserModal()">Add New User</button>
-        
-        <table>
-            <thead>
-                <tr>
-                    <th>User ID</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if ($result && $result->num_rows > 0): ?>
-                    <?php while ($row = $result->fetch_assoc()): ?>
-                        <tr>
-                            <td><?= $row['user_id'] ?></td>
-                            <td><?= $row['username'] ?></td>
-                            <td><?= $row['email'] ?></td>
-                            <td><?= ucfirst($row['role']) ?></td>
-                            <td>
-                                <button class="btn btn-warning btn-sm" onclick="showEditUserModal(<?= $row['user_id'] ?>, '<?= $row['username'] ?>', '<?= $row['email'] ?>')">Edit</button>
-                                <button class="btn btn-danger btn-sm" onclick="deleteUser(<?= $row['user_id'] ?>)">Delete</button>
-                            </td>
-                        </tr>
-                    <?php endwhile; ?>
-                <?php else: ?>
-                    <tr><td colspan="5">No users found.</td></tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
-    </div>
+        <div class="sidebar">
+            <div class="profile-pic-container">
+                <div class="profile-pic-wrapper">
+                    <img src="<?= htmlspecialchars('../' . ($_SESSION['profile_picture'] ?? 'assets/defaults/user_default.png')) ?>" 
+                    alt="Profile Picture" class="profile-pic">
+                </div>
+                <p class="welcome-text">
+                    Welcome back, <?= htmlspecialchars($_SESSION['username'] ?? 'Admin') ?><br>
+                    <small>ID: <?= htmlspecialchars($_SESSION['user_id'] ?? 'N/A') ?></small>
+                </p>
+            </div>
+            <a href="#users" class="active">Manage Users</a>
+            <a href="admindash.php">Dashboard</a>
+            <a href="#">Statistics</a>
+            <a href="#">Settings</a>
+        </div>
+        <!-- Content -->
+        <div class="content">
+            <div class="table-container" id="users">
+            <h2>Users</h2>
+            <button class="btn btn-primary mb-3" onclick="showAddUserModal()">Add New User</button>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if ($result && $result->num_rows > 0): ?>
+                        <?php while ($row = $result->fetch_assoc()): ?>
+                            <tr>
+                                <td><?= $row['user_id'] ?></td>
+                                <td><?= $row['username'] ?></td>
+                                <td><?= $row['email'] ?></td>
+                                <td><?= ucfirst($row['role']) ?></td>
+                                <td>
+                                    <button class="btn btn-warning btn-sm" onclick="showEditUserModal(<?= $row['user_id'] ?>, '<?= $row['username'] ?>', '<?= $row['email'] ?>')">Edit</button>
+                                    <button class="btn btn-danger btn-sm" onclick="deleteUser(<?= $row['user_id'] ?>)">Delete</button>
+                                </td>
+                            </tr>
+                        <?php endwhile; ?>
+                    <?php else: ?>
+                        <tr><td colspan="5">No users found.</td></tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
 
     <!-- Edit User Modal -->
-    <div class="modal fade" id="editUserModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Edit User</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="editUserForm">
-                        <input type="hidden" id="editUserId">
-                        <div class="mb-3">
-                            <label for="editUsername" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="editUsername" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="editEmail" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="editEmail" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="editPassword" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="editPassword">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" onclick="saveUserChanges()">Save Changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <?php include 'includes/edit_user_modal.php'; ?>
 
     <!-- Add New User Modal -->
-    <div class="modal fade" id="addUserModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Add New User</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="addUserForm" enctype="multipart/form-data">
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="firstName" class="form-label">First Name</label>
-                            <input type="text" class="form-control" id="firstName" name="first_name" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="lastName" class="form-label">Last Name</label>
-                            <input type="text" class="form-control" id="lastName" name="last_name" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username" name="username" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="userType" class="form-label">User Type</label>
-                            <select class="form-control" id="userType" name="role" required>
-                                <option value="admin">Admin</option>
-                                <option value="staff">Staff</option>
-                                <option value="doctor">Doctor</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="houseNo" class="form-label">House No / Name</label>
-                        <input type="text" class="form-control" id="houseNo" name="house_no" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="streetName" class="form-label">Street Name</label>
-                        <input type="text" class="form-control" id="streetName" name="street_name" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="postCode" class="form-label">Post Code</label>
-                        <input type="text" class="form-control" id="postCode" name="post_code" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="city" class="form-label">City</label>
-                        <input type="text" class="form-control" id="city" name="city" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="telephone" class="form-label">Telephone</label>
-                        <input type="tel" class="form-control" id="telephone" name="telephone" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="emergencyContact" class="form-label">Emergency Contact</label>
-                        <input type="text" class="form-control" id="emergencyContact" name="emergency_contact" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="profilePicture" class="form-label">Upload Profile Picture</label>
-                        <input type="file" class="form-control" id="profilePicture" name="profile_picture" accept="image/*">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" onclick="addNewUser()">Add User</button>
-            </div>
-        </div>
-    </div>
-</div>
+    <?php include 'includes/add_user_modal.php'; ?>
+
 
 
 
@@ -275,43 +158,41 @@ $conn->close();
             const addUserModal = new bootstrap.Modal(document.getElementById('addUserModal'));
             addUserModal.show();
         }
-
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Accessibility Icon -->
-<div id="accessibility-icon" class="accessibility-icon">
-    <i class="fa fa-universal-access"></i>
-</div>
+            <!-- Accessibility Icon -->
+        <div id="accessibility-icon" class="accessibility-icon">
+            <i class="fa fa-universal-access"></i>
+        </div>
 
-<!-- Accessibility Popup Window -->
-<div id="accessibility-popup" class="accessibility-options">
-    <div class="accessibility-popup-header">
-        <h5>Accessibility Settings</h5>
-        <span id="accessibility-close" class="accessibility-close">&times;</span>
-    </div>
-    <ul>
-        <li>
-            <span>Dark Mode:</span>
-            <div id="dark-mode-toggle" class="dark-mode-toggle"></div>
-        </li>
-        <li>
-            <span>Text Resizing:</span>
-            <div>
-                <button class="text-resize-decrease accessibility-option">A-</button>
-                <button class="text-resize-increase accessibility-option">A+</button>
+        <!-- Accessibility Popup Window -->
+        <div id="accessibility-popup" class="accessibility-options">
+            <div class="accessibility-popup-header">
+                <h5>Accessibility Settings</h5>
+                <span id="accessibility-close" class="accessibility-close">&times;</span>
             </div>
-        </li>
-        <li>
-            <span>High Contrast Mode:</span>
-            <button class="high-contrast-enable accessibility-option">Enable</button>
-        </li>
-        <li>
-            <span>Text-to-Speech:</span>
-            <button class="tts-on-click-enable accessibility-option">Enable</button>
-        </li>
-    </ul>
-</div>
+            <ul>
+                <li>
+                    <span>Dark Mode:</span>
+                    <div id="dark-mode-toggle" class="dark-mode-toggle"></div>
+                </li>
+                <li>
+                    <span>Text Resizing:</span>
+                    <div>
+                        <button class="text-resize-decrease accessibility-option">A-</button>
+                        <button class="text-resize-increase accessibility-option">A+</button>
+                    </div>
+                </li>
+                <li>
+                    <span>High Contrast Mode:</span>
+                    <button class="high-contrast-enable accessibility-option">Enable</button>
+                </li>
+                <li>
+                    <span>Text-to-Speech:</span>
+                    <button class="tts-on-click-enable accessibility-option">Enable</button>
+                </li>
+            </ul>
+        </div>
 
-</body>
+    </body>
 </html>
