@@ -13,7 +13,7 @@
 }
 
 .stat-box {
-    background: linear-gradient(135deg, #06799e, rgb(2, 81, 107));
+    background: linear-gradient(145deg, #495390, #323861);
     color: white;
     padding: 25px;
     border-radius: 12px;
@@ -23,6 +23,7 @@
 }
 
 .stat-box:hover {
+    background: linear-gradient(145deg, #d4eaf7, #628bb9);
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
 }
