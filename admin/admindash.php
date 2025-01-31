@@ -56,15 +56,6 @@ if (empty($profile_picture)) {
     $_SESSION['profile_picture'] = $profile_picture;
 }
 
-// Fetch logs
-$logsQuery = "SELECT log_id, admin_id, action, DATE_FORMAT(timestamp, '%d/%m/%Y %H:%i:%s') AS formatted_timestamp FROM logs ORDER BY timestamp DESC";
-$logsResult = $conn->query($logsQuery);
-
-// Check for logs query errors
-if (!$logsResult) {
-    die("Error fetching logs: " . $conn->error); // Optional: Remove in production
-}
-
 // Fetch users excluding patients
 $usersQuery = "SELECT user_id, first_name, last_name, username, role FROM users WHERE role NOT IN ('patient')";
 $usersResult = $conn->query($usersQuery);
@@ -94,8 +85,8 @@ $conn->close();
     <link rel="stylesheet" href="styles/admindash.css">
     <link rel="stylesheet" href="styles/modals.css">
     <link rel="stylesheet" href="../accessibility/accessibility.css">
-    <link rel="stylesheet" href="../accessibility/highcontrast.css">
-    <script src="../accessibility/accessibility.js" defer></script>
+        <link rel="stylesheet" href="../accessibility/highcontrast.css">
+        <script src="../accessibility/accessibility.js" defer></script>
     <script src="scripts/edituser.js"></script>
     <script src="scripts/adduser.js"></script>
 
@@ -156,7 +147,7 @@ $conn->close();
             <h3>Users</h3>
         </a>
         <!-- Tile: Logs -->
-        <a href="#logs" class="navigation-tile">
+        <a href="logs.php" class="navigation-tile">
             <i class="fas fa-file-alt"></i>
             <h3>Logs</h3>
         </a>
@@ -180,28 +171,6 @@ $conn->close();
             <i class="fas fa-bell"></i>
             <h3>Notifications</h3>
         </a>
-    </div>
-        <div class="logs-container mt-4" id="logs">
-            <h2>Logs</h2>
-            <ul>
-                <?php if ($logsResult && $logsResult->num_rows > 0): ?>
-                    <?php while ($log = $logsResult->fetch_assoc()): ?>
-                        <li>
-                            Admin ID: <?= htmlspecialchars($log['admin_id'], ENT_QUOTES, 'UTF-8') ?> 
-                            has <?= htmlspecialchars($log['action'], ENT_QUOTES, 'UTF-8') ?> 
-                            on <?= htmlspecialchars($log['formatted_timestamp'], ENT_QUOTES, 'UTF-8') ?>
-                            <button 
-                                class="btn btn-danger btn-sm" 
-                                onclick="deleteLog(<?= $log['log_id'] ?>)">
-                                &#10005;
-                            </button>
-                        </li>
-                    <?php endwhile; ?>
-                <?php else: ?>
-                    <li>No logs available.</li>
-                <?php endif; ?>
-            </ul>
-        </div>
     </div>
 
 <!-- Manage Roles Modal -->
@@ -277,39 +246,40 @@ $conn->close();
 <?php include 'includes/add_user_modal.php'; ?>
 
 
-    <!-- Accessibility Icon -->
-<div id="accessibility-icon" class="accessibility-icon">
-    <i class="fa fa-universal-access"></i>
-</div>
+            <!-- Accessibility Icon -->
+            <div id="accessibility-icon" class="accessibility-icon">
+            <i class="fa fa-universal-access"></i>
+        </div>
 
-<!-- Accessibility Popup Window -->
-<div id="accessibility-popup" class="accessibility-options">
-    <div class="accessibility-popup-header">
-        <h5>Accessibility Settings</h5>
-        <span id="accessibility-close" class="accessibility-close">&times;</span>
-    </div>
-    <ul>
-        <li>
-            <span>Dark Mode:</span>
-            <div id="dark-mode-toggle" class="dark-mode-toggle"></div>
-        </li>
-        <li>
-            <span>Text Resizing:</span>
-            <div>
-                <button class="text-resize-decrease accessibility-option">A-</button>
-                <button class="text-resize-increase accessibility-option">A+</button>
+        <!-- Accessibility Popup Window -->
+        <div id="accessibility-popup" class="accessibility-options">
+            <div class="accessibility-popup-header">
+                <h5>Accessibility Settings</h5>
+                <span id="accessibility-close" class="accessibility-close">&times;</span>
             </div>
-        </li>
-        <li>
-            <span>High Contrast Mode:</span>
-            <button class="high-contrast-enable accessibility-option">Enable</button>
-        </li>
-        <li>
-            <span>Text-to-Speech:</span>
-            <button class="tts-on-click-enable accessibility-option">Enable</button>
-        </li>
-    </ul>
-</div>
+            <ul>
+                <li>
+                    <span>Dark Mode:</span>
+                    <div id="dark-mode-toggle" class="dark-mode-toggle"></div>
+                </li>
+                <li>
+                    <span>Text Resizing:</span>
+                    <div>
+                        <button class="text-resize-decrease accessibility-option">A-</button>
+                        <button class="text-resize-increase accessibility-option">A+</button>
+                    </div>
+                </li>
+                <li>
+                    <span>High Contrast Mode:</span>
+                    <button class="high-contrast-enable accessibility-option">Enable</button>
+                </li>
+                <li>
+                    <span>Text-to-Speech:</span>
+                    <button class="tts-on-click-enable accessibility-option">Enable</button>
+                </li>
+            </ul>
+        </div>
+
 
 <script>
     function showAddUserModal() {
@@ -332,16 +302,6 @@ $conn->close();
             window.location.href = "files/adminguide.pdf";
         }
     }
-    function deleteLog(logId) {
-            if (confirm("Are you sure you want to delete this log?")) {
-                $.post("php/delete_log.php", { log_id: logId }, function(response) {
-                    alert(response.message); // Display success message
-                    location.reload(); // Reload to reflect the changes
-                }, "json").fail(function() {
-                    alert("Error deleting log.");
-                });
-            }
-        }
 </script>
 
 

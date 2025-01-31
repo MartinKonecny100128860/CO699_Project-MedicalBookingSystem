@@ -95,11 +95,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 
         if ($stmt->execute()) {
+            // Log the action
+            $logQuery = "INSERT INTO logs (admin_id, action, timestamp) VALUES (?, ?, NOW())";
+            $logStmt = $conn->prepare($logQuery);
+            $adminId = $_SESSION['user_id']; // Get the logged-in admin's ID
+            $logAction = "Updated user ID " . $user_id;
+            $logStmt->bind_param("is", $adminId, $logAction);
+            $logStmt->execute();
+            $logStmt->close();
+        
             echo json_encode(["message" => "User updated successfully.", "profile_picture" => $profile_picture]);
         } else {
-            error_log("Database update error: " . $stmt->error);
             echo json_encode(["error" => "Error updating user: " . $stmt->error]);
         }
+        
 
         $stmt->close();
         $conn->close();

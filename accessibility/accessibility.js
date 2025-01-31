@@ -1,7 +1,15 @@
 // /* CODE FOR ACCESSIBILITY POPUP */
-const accessibilityIcon = document.getElementById("accessibility-icon"); // Icon to open the accessibility popup
-const accessibilityPopup = document.getElementById("accessibility-popup"); // The popup itself
-const accessibilityClose = document.getElementById("accessibility-close"); // Close button inside the popup
+document.addEventListener("DOMContentLoaded", function () {
+    let accessibilityIcon = document.getElementById("accessibility-icon");
+    let accessibilityPopup = document.getElementById("accessibility-popup");
+
+    if (accessibilityIcon && accessibilityPopup) {
+        accessibilityIcon.addEventListener("click", function () {
+            accessibilityPopup.classList.toggle("active");
+        });
+    }
+});
+
 
 // Open the accessibility popup
 accessibilityIcon.addEventListener("click", () => togglePopup(true));

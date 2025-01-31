@@ -310,64 +310,6 @@ th {
     background-color: #c9302c;
 }
 
-/* Logs */
-.logs-container {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.logs-container ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.logs-container li {
-    background-color: #e2e3e5; /* Lighter for log entries */
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-/* Responsive Design */
-@media screen and (max-width: 768px) {
-    .content {
-        margin-left: 0;
-        padding: calc(200px + 100px) 100px;
-    }
-
-    .sidebar {
-        width: 200px;
-        height: 100vh;
-        position: fixed;
-        top: 60px;
-        left: 0;
-        overflow-y: auto;
-    }
-
-    .header h1 {
-        font-size: 20px;
-    }
-
-    table {
-        font-size: 14px;
-    }
-
-    th, td {
-        padding: 8px;
-    }
-
-    .btn {
-        font-size: 12px;
-        padding: 6px 12px;
-    }
-
-    .header img {
-        width: 90px;
-    }
-}
-
 @media screen and (max-width: 576px) {
     .sidebar {
         position: static; /* i can change this if nav bar overlaps with content */

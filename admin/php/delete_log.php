@@ -15,7 +15,7 @@ if ($conn->connect_error) {
 
 // Validate and delete log entry
 if (isset($_POST['log_id'])) {
-    $logId = intval($_POST['log_id']); // Sanitize input
+    $logId = intval($_POST['log_id']);
     $deleteQuery = "DELETE FROM logs WHERE log_id = ?";
     $stmt = $conn->prepare($deleteQuery);
     $stmt->bind_param("i", $logId);
