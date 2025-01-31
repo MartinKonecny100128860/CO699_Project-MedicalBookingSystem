@@ -60,14 +60,31 @@ if (!empty($_FILES['profile_picture']['name'])) {
 }
 
 // Insert into database
-$stmt = $conn->prepare("INSERT INTO users (username, password, role, email, first_name, last_name, house_no, street_name, post_code, city, telephone, emergency_contact, gender, profile_picture) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+$stmt = $conn->prepare("INSERT INTO users (username, password, role, email, first_name, last_name, house_no, street_name, post_code, city, telephone, emergency_contact, gender, profile_picture) 
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 $stmt->bind_param("ssssssssssssss", $username, $hashed_password, $role, $email, $first_name, $last_name, $house_no, $street_name, $post_code, $city, $telephone, $emergency_contact, $gender, $profile_picture);
 
 if ($stmt->execute()) {
+    // ✅ Retrieve the newly created user ID
+    $newUserId = $stmt->insert_id;
+
+    // ✅ Log entry AFTER user is added
+    $adminId = $_SESSION["user_id"];
+    $logAction = "Added new user: $username (ID: $newUserId)";
+    $logQuery = "INSERT INTO logs (admin_id, action, timestamp) VALUES (?, ?, NOW())";
+    
+    $logStmt = $conn->prepare($logQuery);
+    if ($logStmt) {
+        $logStmt->bind_param("is", $adminId, $logAction);
+        $logStmt->execute();
+        $logStmt->close();
+    }
+
     echo "User added successfully.";
 } else {
     echo "Error adding user: " . $stmt->error;
 }
+
 
 $stmt->close();
 $conn->close();
