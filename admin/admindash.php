@@ -152,7 +152,7 @@ $conn->close();
             <h3>Logs</h3>
         </a>
         <!-- Tile: Statistics -->
-        <a href="#" class="navigation-tile">
+        <a href="statistics.php" class="navigation-tile">
             <i class="fas fa-chart-bar"></i>
             <h3>Statistics</h3>
         </a>

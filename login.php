@@ -75,6 +75,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $_SESSION['profile_picture'] = $profile_picture;
                 }
 
+                $conn->query("UPDATE users SET last_active = NOW() WHERE user_id = " . $_SESSION['user_id']);
+
+
                 // Redirect the user to the appropriate dashboard based on their role.
                 switch ($role) {
                     case 'admin':

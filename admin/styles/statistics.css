@@ -1,0 +1,41 @@
+/* Statistics Page Styling */
+.stats-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.stat-box {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 200px;
+}
+
+.charts-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 40px;
+}
+
+.recent-logs, .active-users {
+    background-color: white;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.recent-logs ul, .active-users ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.recent-logs li, .active-users li {
+    background: #f9f9f9;
+    margin-bottom: 8px;
+    padding: 10px;
+    border-radius: 5px;
+}
