@@ -259,7 +259,56 @@ body.high-contrast-mode .navigation-tile:hover {
         8px 8px 18px rgba(0, 0, 0, 0.5),
         -8px -8px 18px rgba(255, 255, 255, 0.1);
 }
+/* =================================== */
+/* Stats                               */
+/* =================================== */
+.high-contrast-mode {
+    background-color: black;
+    color: yellow;
+}
 
+.high-contrast-mode .stat-box {
+    background: black;
+    color: yellow;
+    border: 2px solid yellow;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.high-contrast-mode .stat-box:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.75);
+}
+
+.high-contrast-mode .charts-container canvas {
+    background: black;
+    border: 2px solid yellow;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+}
+
+.high-contrast-mode .recent-logs,
+.high-contrast-mode .active-users {
+    background: black;
+    color: yellow;
+    border: 2px solid yellow;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+}
+
+.high-contrast-mode .recent-logs:hover,
+.high-contrast-mode .active-users:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.75);
+}
+
+.high-contrast-mode .recent-logs li,
+.high-contrast-mode .active-users li {
+    background: black;
+    color: yellow;
+    border-bottom: 1px solid yellow;
+}
+
+.high-contrast-mode .recent-logs li:hover,
+.high-contrast-mode .active-users li:hover {
+    background: yellow;
+    color: black;
+}
 
 
 /* =================================== */

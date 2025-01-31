@@ -118,7 +118,7 @@ $conn->close();
                 <p id="totalLogs">0</p>
             </div>
             <div class="stat-box">
-                <h3>Most Active Admin</h3>
+                <h3>Most Active Admin (ID)</h3>
                 <p id="mostActiveAdmin">-</p>
             </div>
         </div>

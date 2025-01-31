@@ -508,6 +508,47 @@ body.dark-mode #helpGuideModal .btn-secondary:hover {
     background-color: #444;
 }
 
+/* ========================= */
+/* Admin Help Guide - Dark Mode */
+/* ========================= */
+
+.dark-mode .stat-box {
+    background: linear-gradient(135deg, #023e52, #046b89);
+    color: #ffffff;
+    box-shadow: 0 8px 16px rgba(0, 255, 255, 0.15);
+}
+
+.dark-mode .stat-box:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .charts-container canvas {
+    background: #1e1e1e;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dark-mode .recent-logs,
+.dark-mode .active-users {
+    background: #1e1e1e;
+    color: #e0e0e0;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dark-mode .recent-logs:hover,
+.dark-mode .active-users:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+}
+
+.dark-mode .recent-logs li,
+.dark-mode .active-users li {
+    background: #2a2a2a;
+    color: #e0e0e0;
+}
+
+.dark-mode .recent-logs li:hover,
+.dark-mode .active-users li:hover {
+    background: #3a3a3a;
+}
 
 /* =================================== */
 /* RESPONSIVE DESIGN */

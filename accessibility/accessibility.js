@@ -35,7 +35,14 @@ if (darkModeToggle) {
  * Toggles dark mode for the page and saves the state in localStorage.
  */
 function toggleDarkMode() {
-    const isDarkModeEnabled = document.body.classList.toggle("dark-mode");
+    document.body.classList.toggle("dark-mode");
+    document.body.classList.remove("high-contrast-mode"); // Ensure high contrast is disabled
+
+    localStorage.setItem("darkMode", document.body.classList.contains("dark-mode") ? "enabled" : "disabled");
+    localStorage.setItem("highContrast", "disabled"); // Ensure high contrast mode is turned off
+
+    updateThemeAndLogo();
+    synchronizeDarkModeState();
 
     // Update theme elements
     updateThemeAndLogo();
@@ -101,10 +108,15 @@ if (highContrastButton) {
  * Toggles high contrast mode and saves the state in localStorage.
  */
 function toggleHighContrast() {
-    const isHighContrastEnabled = document.body.classList.toggle("high-contrast-mode"); // Add/remove 'high-contrast-mode' class
-    localStorage.setItem("highContrast", isHighContrastEnabled ? "enabled" : "disabled"); // Save state
-    synchronizeHighContrastState(); // Update button text
+    document.body.classList.toggle("high-contrast-mode");
+    document.body.classList.remove("dark-mode"); // Ensure dark mode is disabled
+
+    localStorage.setItem("highContrast", document.body.classList.contains("high-contrast-mode") ? "enabled" : "disabled");
+    localStorage.setItem("darkMode", "disabled"); // Ensure dark mode is turned off
+
+    synchronizeHighContrastState();
 }
+
 
 /**
  * Updates the high contrast button text based on the mode state.
