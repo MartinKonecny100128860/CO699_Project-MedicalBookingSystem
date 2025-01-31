@@ -56,6 +56,39 @@ if (empty($profile_picture)) {
     $_SESSION['profile_picture'] = $profile_picture;
 }
 
+// Default sorting settings
+$orderBy = "user_id"; // Default column to sort
+$orderDir = "ASC"; // Default sorting direction
+
+// Capture sorting parameters from URL (if set)
+if (isset($_GET['sort_by'])) {
+    $allowedColumns = ["user_id", "username", "email", "role"];
+    if (in_array($_GET['sort_by'], $allowedColumns)) {
+        $orderBy = $_GET['sort_by'];
+    }
+}
+if (isset($_GET['order']) && in_array(strtoupper($_GET['order']), ["ASC", "DESC"])) {
+    $orderDir = strtoupper($_GET['order']);
+}
+
+// Capture filtering by role
+$roleFilter = "";
+if (isset($_GET['role']) && in_array($_GET['role'], ["admin", "doctor", "receptionist", "staff", "patient"])) {
+    $roleFilter = "AND role = '" . $conn->real_escape_string($_GET['role']) . "'";
+}
+
+// Capture search input
+$searchQuery = "";
+if (isset($_GET['search']) && !empty($_GET['search'])) {
+    $search = $conn->real_escape_string($_GET['search']);
+    $searchQuery = "AND (username LIKE '%$search%' OR email LIKE '%$search%')";
+}
+
+// Updated query with sorting, filtering, and search
+$sql = "SELECT user_id, username, first_name, last_name, email, role FROM users WHERE role IN ('admin', 'staff', 'doctor') $roleFilter $searchQuery ORDER BY $orderBy $orderDir";
+$result = $conn->query($sql);
+
+
 $conn->close();
 ?>
 
@@ -109,43 +142,68 @@ $conn->close();
         </div>
         <!-- Content -->
         <div class="content">
-            <div class="table-container" id="users">
-            <h2>Users</h2>
-            <button class="btn btn-primary mb-3" onclick="showAddUserModal()">Add New User</button>
-            
-            <table>
-                <thead>
-                    <tr>
-                        <th>User ID</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php if ($result && $result->num_rows > 0): ?>
-                        <?php while ($row = $result->fetch_assoc()): ?>
-                            <tr>
-                                <td><?= $row['user_id'] ?></td>
-                                <td><?= $row['username'] ?></td>
-                                <td><?= $row['email'] ?></td>
-                                <td><?= ucfirst($row['role']) ?></td>
-                                <td>
-                                <button class="btn btn-warning btn-sm edit-user-btn" 
-    data-id="<?= $row['user_id'] ?>">
-    Edit
-</button>
-                                    <button class="btn btn-danger btn-sm" onclick="deleteUser(<?= $row['user_id'] ?>)">Delete</button>
-                                </td>
-                            </tr>
-                        <?php endwhile; ?>
-                    <?php else: ?>
-                        <tr><td colspan="5">No users found.</td></tr>
-                    <?php endif; ?>
-                </tbody>
-            </table>
+    <div class="table-container" id="users">
+        <h2>Users</h2>
+        <button class="btn btn-primary mb-3" onclick="showAddUserModal()">Add New User</button>
+
+        <!-- Search & Filtering -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <!-- Search Bar -->
+            <input type="text" id="searchUser" class="form-control me-2" placeholder="Search by Name or Email" onkeyup="filterUsers()">
+
+            <!-- Role Filter -->
+            <select id="roleFilter" class="form-select me-2" onchange="filterUsers()">
+                <option value="">All Roles</option>
+                <option value="admin">Admin</option>
+                <option value="doctor">Doctor</option>
+                <option value="receptionist">Receptionist</option>
+                <option value="staff">Staff</option>
+            </select>
+
+            <!-- Sorting Options -->
+            <button class="btn btn-secondary" onclick="sortUsers('username')">Sort by Name</button>
+            <button class="btn btn-secondary" onclick="sortUsers('user_id')">Sort by ID</button>
+            <button class="btn btn-secondary" onclick="sortUsers('role')">Sort by Role</button>
         </div>
+
+        <!-- User Table -->
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th><a href="#" onclick="sortUsers('user_id')">User ID</a></th>
+                    <th><a href="#" onclick="sortUsers('username')">Username</a></th>
+                    <th><a href="#" onclick="sortUsers('first_name')">First Name</a></th>
+                    <th><a href="#" onclick="sortUsers('last_name')">Last Name</a></th>
+                    <th><a href="#" onclick="sortUsers('email')">Email</a></th>
+                    <th><a href="#" onclick="sortUsers('role')">Role</a></th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="userTableBody">
+                <?php if ($result && $result->num_rows > 0): ?>
+                    <?php while ($row = $result->fetch_assoc()): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($row['user_id']) ?></td>
+                            <td><?= htmlspecialchars($row['username']) ?></td>
+                            <td><?= htmlspecialchars($row['first_name'] ?? 'N/A') ?></td>
+                            <td><?= htmlspecialchars($row['last_name'] ?? 'N/A') ?></td>
+                            <td><?= htmlspecialchars($row['email']) ?></td>
+                            <td><?= ucfirst(htmlspecialchars($row['role'])) ?></td>
+                            <td>
+                                <button class="btn btn-warning btn-sm edit-user-btn" data-id="<?= $row['user_id'] ?>">Edit</button>
+                                <button class="btn btn-danger btn-sm" onclick="deleteUser(<?= $row['user_id'] ?>)">Delete</button>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <tr><td colspan="7">No users found.</td></tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
 
     <!-- Edit User Modal -->
     <?php include 'includes/edit_user_modal.php'; ?>
@@ -165,6 +223,41 @@ $conn->close();
             const editUserModal = new bootstrap.Modal(document.getElementById('editUserModal'));
             editUserModal.show();
         }
+        document.addEventListener("DOMContentLoaded", function () {
+    // Function to handle sorting
+    function sortUsers(column) {
+        let currentUrl = new URL(window.location.href);
+        let order = currentUrl.searchParams.get("order") === "ASC" ? "DESC" : "ASC";
+
+        currentUrl.searchParams.set("sort_by", column);
+        currentUrl.searchParams.set("order", order);
+
+        window.location.href = currentUrl.toString();
+    }
+
+    // Function to filter users based on role and search query
+    function filterUsers() {
+        let searchValue = document.getElementById("searchUser").value.toLowerCase();
+        let roleValue = document.getElementById("roleFilter").value;
+
+        let rows = document.querySelectorAll("#userTableBody tr");
+
+        rows.forEach(row => {
+            let username = row.cells[1].textContent.toLowerCase();
+            let email = row.cells[2].textContent.toLowerCase();
+            let role = row.cells[3].textContent.toLowerCase();
+
+            let searchMatch = username.includes(searchValue) || email.includes(searchValue);
+            let roleMatch = roleValue === "" || role === roleValue.toLowerCase();
+
+            row.style.display = searchMatch && roleMatch ? "" : "none";
+        });
+    }
+
+    // Attach event listeners to sorting buttons
+    window.sortUsers = sortUsers;
+    window.filterUsers = filterUsers;
+});
 
     </script>
 
