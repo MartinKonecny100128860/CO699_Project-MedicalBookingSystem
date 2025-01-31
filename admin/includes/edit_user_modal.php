@@ -39,6 +39,10 @@
                         <input type="text" class="form-control" id="edit_last_name" name="last_name">
                     </div>
                     <div class="mb-3">
+                        <label for="edit_date_of_birth" class="form-label">Date of Birth</label>
+                        <input type="date" class="form-control" id="edit_date_of_birth" name="date_of_birth">
+                    </div>
+                    <div class="mb-3">
                         <label for="edit_house_no" class="form-label">House No</label>
                         <input type="text" class="form-control" id="edit_house_no" name="house_no">
                     </div>

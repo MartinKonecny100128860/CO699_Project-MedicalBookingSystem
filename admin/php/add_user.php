@@ -25,6 +25,7 @@ $city = $_POST['city'] ?? '';
 $telephone = $_POST['telephone'] ?? '';
 $emergency_contact = $_POST['emergency_contact'] ?? '';
 $gender = $_POST['gender'] ?? 'prefer not to say';
+$date_of_birth = !empty($_POST["date_of_birth"]) ? $_POST["date_of_birth"] : null;
 
 // Hash the password
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
@@ -60,15 +61,15 @@ if (!empty($_FILES['profile_picture']['name'])) {
 }
 
 // Insert into database
-$stmt = $conn->prepare("INSERT INTO users (username, password, role, email, first_name, last_name, house_no, street_name, post_code, city, telephone, emergency_contact, gender, profile_picture) 
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-$stmt->bind_param("ssssssssssssss", $username, $hashed_password, $role, $email, $first_name, $last_name, $house_no, $street_name, $post_code, $city, $telephone, $emergency_contact, $gender, $profile_picture);
+$stmt = $conn->prepare("INSERT INTO users (username, password, role, email, first_name, last_name, house_no, street_name, post_code, city, telephone, emergency_contact, gender, profile_picture, date_of_birth) 
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+$stmt->bind_param("sssssssssssssss", $username, $hashed_password, $role, $email, $first_name, $last_name, $house_no, $street_name, $post_code, $city, $telephone, $emergency_contact, $gender, $profile_picture, $date_of_birth);
 
 if ($stmt->execute()) {
-    // ✅ Retrieve the newly created user ID
+    // Retrieve the newly created user ID
     $newUserId = $stmt->insert_id;
 
-    // ✅ Log entry AFTER user is added
+    // Log entry AFTER user is added
     $adminId = $_SESSION["user_id"];
     $logAction = "Added new user: $username (ID: $newUserId)";
     $logQuery = "INSERT INTO logs (admin_id, action, timestamp) VALUES (?, ?, NOW())";
@@ -84,7 +85,6 @@ if ($stmt->execute()) {
 } else {
     echo "Error adding user: " . $stmt->error;
 }
-
 
 $stmt->close();
 $conn->close();

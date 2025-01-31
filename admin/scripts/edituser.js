@@ -33,10 +33,11 @@ $(document).ready(function() {
                 $("#edit_emergency_contact").val(safeValue(response.emergency_contact));
                 $("#edit_gender").val(safeValue(response.gender));
 
-                if (response.profile_picture && response.profile_picture !== "null") {
-                    $("#current_profile_picture").attr("src", response.profile_picture).show();
+                // ✅ Set the Date of Birth properly
+                if (response.date_of_birth) {
+                    $("#edit_date_of_birth").val(response.date_of_birth);
                 } else {
-                    $("#current_profile_picture").hide();
+                    $("#edit_date_of_birth").val("");
                 }
 
                 showEditUserModal();
@@ -81,7 +82,6 @@ $(document).ready(function() {
         });
     });
 });
-
 
 
 $(document).ready(function () {

@@ -85,7 +85,7 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
 }
 
 // Updated query with sorting, filtering, and search
-$sql = "SELECT user_id, username, first_name, last_name, email, role FROM users WHERE role IN ('admin', 'staff', 'doctor') $roleFilter $searchQuery ORDER BY $orderBy $orderDir";
+$sql = "SELECT user_id, username, first_name, last_name, email, role, date_of_birth FROM users WHERE role IN ('admin', 'staff', 'doctor') $roleFilter $searchQuery ORDER BY $orderBy $orderDir";
 $result = $conn->query($sql);
 
 
@@ -168,37 +168,41 @@ $conn->close();
 
         <!-- User Table -->
         <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th><a href="#" onclick="sortUsers('user_id')">User ID</a></th>
-                    <th><a href="#" onclick="sortUsers('username')">Username</a></th>
-                    <th><a href="#" onclick="sortUsers('first_name')">First Name</a></th>
-                    <th><a href="#" onclick="sortUsers('last_name')">Last Name</a></th>
-                    <th><a href="#" onclick="sortUsers('email')">Email</a></th>
-                    <th><a href="#" onclick="sortUsers('role')">Role</a></th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody id="userTableBody">
-                <?php if ($result && $result->num_rows > 0): ?>
-                    <?php while ($row = $result->fetch_assoc()): ?>
-                        <tr>
-                            <td><?= htmlspecialchars($row['user_id']) ?></td>
-                            <td><?= htmlspecialchars($row['username']) ?></td>
-                            <td><?= htmlspecialchars($row['first_name'] ?? 'N/A') ?></td>
-                            <td><?= htmlspecialchars($row['last_name'] ?? 'N/A') ?></td>
-                            <td><?= htmlspecialchars($row['email']) ?></td>
-                            <td><?= ucfirst(htmlspecialchars($row['role'])) ?></td>
-                            <td>
-                                <button class="btn btn-warning btn-sm edit-user-btn" data-id="<?= $row['user_id'] ?>">Edit</button>
-                                <button class="btn btn-danger btn-sm" onclick="deleteUser(<?= $row['user_id'] ?>)">Delete</button>
-                            </td>
-                        </tr>
-                    <?php endwhile; ?>
-                <?php else: ?>
-                    <tr><td colspan="7">No users found.</td></tr>
-                <?php endif; ?>
-            </tbody>
+                <thead>
+            <tr>
+                <th><a href="#" onclick="sortUsers('user_id')">User ID</a></th>
+                <th><a href="#" onclick="sortUsers('username')">Username</a></th>
+                <th><a href="#" onclick="sortUsers('first_name')">First Name</a></th>
+                <th><a href="#" onclick="sortUsers('last_name')">Last Name</a></th>
+                <th><a href="#" onclick="sortUsers('date_of_birth')">Date of Birth</a></th> <!-- ✅ NEW COLUMN -->
+                <th><a href="#" onclick="sortUsers('email')">Email</a></th>
+                <th><a href="#" onclick="sortUsers('role')">Role</a></th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody id="userTableBody">
+    <?php if ($result && $result->num_rows > 0): ?>
+        <?php while ($row = $result->fetch_assoc()): ?>
+            <tr>
+                <td><?= htmlspecialchars($row['user_id']) ?></td>
+                <td><?= htmlspecialchars($row['username']) ?></td>
+                <td><?= htmlspecialchars($row['first_name'] ?? 'N/A') ?></td>
+                <td><?= htmlspecialchars($row['last_name'] ?? 'N/A') ?></td>
+                <td><?= !empty($row['date_of_birth']) ? date("d/m/Y", strtotime($row['date_of_birth'])) : '-' ?></td>
+                <td><?= htmlspecialchars($row['email']) ?></td>
+                <td><?= ucfirst(htmlspecialchars($row['role'])) ?></td>
+                <td>
+                    <button class="btn btn-warning btn-sm edit-user-btn" data-id="<?= $row['user_id'] ?>">Edit</button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteUser(<?= $row['user_id'] ?>)">Delete</button>
+                </td>
+            </tr>
+        <?php endwhile; ?>
+    <?php else: ?>
+        <tr><td colspan="8">No users found.</td></tr>
+    <?php endif; ?>
+</tbody>
+
         </table>
     </div>
 </div>

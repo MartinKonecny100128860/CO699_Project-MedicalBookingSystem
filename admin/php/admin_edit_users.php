@@ -13,7 +13,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (isset($_POST["action"]) && $_POST["action"] === "fetch" && isset($_POST["user_id"])) {
         $user_id = intval($_POST["user_id"]);
 
-        $stmt = $conn->prepare("SELECT * FROM users WHERE user_id = ?");
+        $stmt = $conn->prepare("SELECT user_id, username, email, role, first_name, last_name, house_no, street_name, post_code, city, telephone, emergency_contact, gender, profile_picture, 
+        IFNULL(DATE_FORMAT(date_of_birth, '%Y-%m-%d'), '') AS date_of_birth FROM users WHERE user_id = ?");
+        
         if (!$stmt) {
             echo json_encode(["error" => "Query preparation failed: " . $conn->error]);
             exit();
@@ -49,67 +51,43 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $telephone = $_POST["telephone"];
         $emergency_contact = $_POST["emergency_contact"];
         $gender = $_POST["gender"];
+        $date_of_birth = !empty($_POST["date_of_birth"]) ? $_POST["date_of_birth"] : NULL;
 
-        // Initialize profile picture variable
-        $profile_picture = null;
+        // ✅ Debugging - Output the received data
+        error_log("Updating user ID: " . $user_id . " with DOB: " . $date_of_birth);
 
-        if (!empty($_FILES["profile_picture"]["name"])) {
-            $file_extension = strtolower(pathinfo($_FILES["profile_picture"]["name"], PATHINFO_EXTENSION));
-            $allowed_extensions = ["jpg", "jpeg", "png", "gif"];
-
-            // If selected image is already in "assets/admin/", just save its path directly
-            if (strpos($_FILES["profile_picture"]["name"], "assets/admin/") !== false) {
-                $profile_picture = $_FILES["profile_picture"]["name"];
-            }
-            // Otherwise, process the uploaded file
-            else if (in_array($file_extension, $allowed_extensions)) {
-                $target_dir = "assets/$role/";
-                if (!is_dir($target_dir)) {
-                    mkdir($target_dir, 0777, true);
-                }
-
-                $profile_picture = $target_dir . $username . "." . $file_extension;
-
-                if (!move_uploaded_file($_FILES["profile_picture"]["tmp_name"], $profile_picture)) {
-                    echo json_encode(["error" => "File upload failed!"]);
-                    exit();
-                }
-            } else {
-                echo json_encode(["error" => "Invalid file format. Allowed: JPG, JPEG, PNG, GIF."]);
-                exit();
-            }
+        // ✅ Ensure date_of_birth is handled correctly for NULL cases
+        if ($date_of_birth === NULL) {
+            $date_of_birth = NULL;
         }
-
-        // Debugging - Output what is going to be saved in the database
-        error_log("Profile picture path: " . ($profile_picture ? $profile_picture : "Not updated"));
 
         // Prepare update query
-        if ($profile_picture) {
-            $updateQuery = "UPDATE users SET username=?, email=?, role=?, first_name=?, last_name=?, house_no=?, street_name=?, post_code=?, city=?, telephone=?, emergency_contact=?, gender=?, profile_picture=? WHERE user_id=?";
-            $stmt = $conn->prepare($updateQuery);
-            $stmt->bind_param("ssssssssssssis", $username, $email, $role, $first_name, $last_name, $house_no, $street_name, $post_code, $city, $telephone, $emergency_contact, $gender, $profile_picture, $user_id);
-        } else {
-            $updateQuery = "UPDATE users SET username=?, email=?, role=?, first_name=?, last_name=?, house_no=?, street_name=?, post_code=?, city=?, telephone=?, emergency_contact=?, gender=? WHERE user_id=?";
-            $stmt = $conn->prepare($updateQuery);
-            $stmt->bind_param("ssssssssssssi", $username, $email, $role, $first_name, $last_name, $house_no, $street_name, $post_code, $city, $telephone, $emergency_contact, $gender, $user_id);
+        $updateQuery = "UPDATE users SET username=?, email=?, role=?, first_name=?, last_name=?, house_no=?, street_name=?, post_code=?, city=?, telephone=?, emergency_contact=?, gender=?, date_of_birth=? WHERE user_id=?";
+        $stmt = $conn->prepare($updateQuery);
+        
+        if (!$stmt) {
+            echo json_encode(["error" => "Error preparing update statement: " . $conn->error]);
+            exit();
         }
 
+        // ✅ Corrected bind_param: 13 string parameters + 1 integer (user_id)
+        $stmt->bind_param("sssssssssssssi", $username, $email, $role, $first_name, $last_name, $house_no, $street_name, $post_code, $city, $telephone, $emergency_contact, $gender, $date_of_birth, $user_id);
+
         if ($stmt->execute()) {
-            // Log the action
+            // ✅ LOG UPDATE
             $logQuery = "INSERT INTO logs (admin_id, action, timestamp) VALUES (?, ?, NOW())";
             $logStmt = $conn->prepare($logQuery);
-            $adminId = $_SESSION['user_id']; // Get the logged-in admin's ID
-            $logAction = "Updated user ID " . $user_id;
+            $adminId = $_SESSION['user_id'];
+            $logAction = "Updated user ID " . $user_id . " (DOB: " . $date_of_birth . ")";
             $logStmt->bind_param("is", $adminId, $logAction);
             $logStmt->execute();
             $logStmt->close();
         
-            echo json_encode(["message" => "User updated successfully.", "profile_picture" => $profile_picture]);
+            echo json_encode(["message" => "User updated successfully."]);
         } else {
             echo json_encode(["error" => "Error updating user: " . $stmt->error]);
         }
         
-
         $stmt->close();
         $conn->close();
         exit();
