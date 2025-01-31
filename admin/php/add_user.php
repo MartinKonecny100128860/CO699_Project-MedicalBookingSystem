@@ -1,94 +1,78 @@
 <?php
 session_start();
-header('Content-Type: application/json'); // Force JSON response
 
-// Check if the admin is logged in
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    echo json_encode(['success' => false, 'message' => 'Unauthorized access.']);
-    exit();
+    die("Unauthorized access.");
 }
 
-// Database connection setup
 $conn = new mysqli("localhost", "root", "", "MedicalBookingSystem");
+
 if ($conn->connect_error) {
-    echo json_encode(['success' => false, 'message' => 'Database connection failed: ' . $conn->connect_error]);
-    exit();
+    die("Connection failed: " . $conn->connect_error);
 }
 
-$response = ['success' => false, 'message' => ''];
+// Collect form data
+$username = $_POST['username'] ?? '';
+$password = $_POST['password'] ?? '';
+$role = $_POST['role'] ?? '';
+$email = $_POST['email'] ?? '';
+$first_name = $_POST['first_name'] ?? '';
+$last_name = $_POST['last_name'] ?? '';
+$house_no = $_POST['house_no'] ?? '';
+$street_name = $_POST['street_name'] ?? '';
+$post_code = $_POST['post_code'] ?? '';
+$city = $_POST['city'] ?? '';
+$telephone = $_POST['telephone'] ?? '';
+$emergency_contact = $_POST['emergency_contact'] ?? '';
+$gender = $_POST['gender'] ?? 'prefer not to say';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Collect & sanitize data
-    $first_name = htmlspecialchars($_POST['first_name'], ENT_QUOTES, 'UTF-8');
-    $last_name = htmlspecialchars($_POST['last_name'], ENT_QUOTES, 'UTF-8');
-    $username = htmlspecialchars($_POST['username'], ENT_QUOTES, 'UTF-8');
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    $email = htmlspecialchars($_POST['email'], ENT_QUOTES, 'UTF-8');
-    $role = htmlspecialchars($_POST['role'], ENT_QUOTES, 'UTF-8');
-    $house_no = htmlspecialchars($_POST['house_no'], ENT_QUOTES, 'UTF-8');
-    $street_name = htmlspecialchars($_POST['street_name'], ENT_QUOTES, 'UTF-8');
-    $post_code = htmlspecialchars($_POST['post_code'], ENT_QUOTES, 'UTF-8');
-    $city = htmlspecialchars($_POST['city'], ENT_QUOTES, 'UTF-8');
-    $telephone = htmlspecialchars($_POST['telephone'], ENT_QUOTES, 'UTF-8');
-    $emergency_contact = htmlspecialchars($_POST['emergency_contact'], ENT_QUOTES, 'UTF-8');
-    $admin_id = $_SESSION['user_id'];
+// Hash the password
+$hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    // Assign a random profile picture based on role
-    $role_folders = [
-        'admin' => 'assets/admin/',
-        'staff' => 'assets/staff/',
-        'doctor' => 'assets/doctor/',
-        'patient' => 'assets/patient/',
-    ];
+// Profile picture handling
+$profile_picture = "assets/defaults/user_default.png"; // Default image
+$upload_error = "";
 
-    $profile_picture = 'uploads/default.jpg'; // Default profile picture
-    if (array_key_exists($role, $role_folders)) {
-        $folder = $role_folders[$role];
-        $images = glob($folder . '*.{jpg,jpeg,png,gif}', GLOB_BRACE);
-        if ($images && count($images) > 0) {
-            $profile_picture = $images[array_rand($images)]; // Assign random image
+if (!empty($_FILES['profile_picture']['name'])) {
+    $allowed_extensions = ['jpg', 'jpeg', 'png', 'gif'];
+    $file_extension = strtolower(pathinfo($_FILES['profile_picture']['name'], PATHINFO_EXTENSION));
+
+    if (in_array($file_extension, $allowed_extensions)) {
+        // Set upload directory based on user role
+        $target_dir = "assets/$role/";
+
+        // Ensure directory exists
+        if (!is_dir($target_dir)) {
+            mkdir($target_dir, 0777, true);
         }
-    }
 
-    // Insert into the database
-    $stmt = $conn->prepare("
-        INSERT INTO users 
-        (first_name, last_name, username, password, email, role, house_no, street_name, post_code, city, telephone, emergency_contact, profile_picture) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    ");
-    $stmt->bind_param(
-        "sssssssssssss",
-        $first_name,
-        $last_name,
-        $username,
-        $password,
-        $email,
-        $role,
-        $house_no,
-        $street_name,
-        $post_code,
-        $city,
-        $telephone,
-        $emergency_contact,
-        $profile_picture
-    );
+        // Use the original filename instead of renaming
+        $target_file = $target_dir . basename($_FILES["profile_picture"]["name"]);
 
-    if ($stmt->execute()) {
-        // Log the action
-        $logAction = "Admin ID: $admin_id \"{$_SESSION['username']}\" added a new user (Username: $username, Role: $role)";
-        $logStmt = $conn->prepare("INSERT INTO logs (admin_id, action) VALUES (?, ?)");
-        $logStmt->bind_param("is", $admin_id, $logAction);
-        $logStmt->execute();
-        $logStmt->close();
-
-        $response['success'] = true;
-        $response['message'] = 'User added successfully.';
+        if (move_uploaded_file($_FILES["profile_picture"]["tmp_name"], $target_file)) {
+            $profile_picture = $target_file; // Save correct image path in the database
+        } else {
+            $upload_error = "Error uploading profile picture.";
+        }
     } else {
-        $response['message'] = 'Error adding user: ' . $stmt->error;
+        $upload_error = "Invalid file format. Only JPG, JPEG, PNG, and GIF are allowed.";
     }
-    $stmt->close();
 }
 
+// Insert into database
+$stmt = $conn->prepare("INSERT INTO users (username, password, role, email, first_name, last_name, house_no, street_name, post_code, city, telephone, emergency_contact, gender, profile_picture) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+$stmt->bind_param("ssssssssssssss", $username, $hashed_password, $role, $email, $first_name, $last_name, $house_no, $street_name, $post_code, $city, $telephone, $emergency_contact, $gender, $profile_picture);
+
+if ($stmt->execute()) {
+    echo "User added successfully.";
+} else {
+    echo "Error adding user: " . $stmt->error;
+}
+
+$stmt->close();
 $conn->close();
-echo json_encode($response);
+
+if ($upload_error) {
+    echo "<br>$upload_error";
+}
 ?>
