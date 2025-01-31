@@ -1,66 +1,112 @@
 <?php
 session_start();
+header('Content-Type: application/json');
 
-// Check if the admin is logged in
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    header("Location: login.php");
+$conn = new mysqli("localhost", "root", "", "MedicalBookingSystem");
+
+if ($conn->connect_error) {
+    echo json_encode(["error" => "Connection failed: " . $conn->connect_error]);
     exit();
 }
 
-// Database connection setup
-$conn = new mysqli("localhost", "root", "", "MedicalBookingSystem");
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if (isset($_POST["action"]) && $_POST["action"] === "fetch" && isset($_POST["user_id"])) {
+        $user_id = intval($_POST["user_id"]);
 
-$response = ['success' => false, 'message' => ''];
+        $stmt = $conn->prepare("SELECT * FROM users WHERE user_id = ?");
+        if (!$stmt) {
+            echo json_encode(["error" => "Query preparation failed: " . $conn->error]);
+            exit();
+        }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $user_id = $_POST['user_id'];
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $admin_id = $_SESSION['user_id']; // Get admin ID from session
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-    // Fetch admin's username
-    $adminQuery = $conn->prepare("SELECT username FROM users WHERE user_id = ?");
-    $adminQuery->bind_param("i", $admin_id);
-    $adminQuery->execute();
-    $adminQuery->bind_result($admin_username);
-    $adminQuery->fetch();
-    $adminQuery->close();
+        if ($result->num_rows === 1) {
+            $user = $result->fetch_assoc();
+            echo json_encode($user);
+        } else {
+            echo json_encode(["error" => "User not found."]);
+        }
 
-    // Build the update query
-    $query = "UPDATE users SET username = ?, email = ?";
-    $params = [$username, $email];
-
-    if (!empty($password)) {
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $query .= ", password = ?";
-        $params[] = $hashedPassword;
+        $stmt->close();
+        $conn->close();
+        exit();
     }
 
-    $query .= " WHERE user_id = ?";
-    $params[] = $user_id;
+    if (isset($_POST["action"]) && $_POST["action"] === "update") {
+        $user_id = intval($_POST["user_id"]);
+        $username = $_POST["username"];
+        $email = $_POST["email"];
+        $role = $_POST["role"];
+        $first_name = $_POST["first_name"];
+        $last_name = $_POST["last_name"];
+        $house_no = $_POST["house_no"];
+        $street_name = $_POST["street_name"];
+        $post_code = $_POST["post_code"];
+        $city = $_POST["city"];
+        $telephone = $_POST["telephone"];
+        $emergency_contact = $_POST["emergency_contact"];
+        $gender = $_POST["gender"];
 
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param(str_repeat("s", count($params) - 1) . "i", ...$params);
+        // Initialize profile picture variable
+        $profile_picture = null;
 
-    if ($stmt->execute()) {
-        // Log the action
-        $logAction = "Admin ID: $admin_id \"$admin_username\" has edited User's Details ID: $user_id";
-        $logStmt = $conn->prepare("INSERT INTO logs (admin_id, action) VALUES (?, ?)");
-        $logStmt->bind_param("is", $admin_id, $logAction);
-        $logStmt->execute();
+        if (!empty($_FILES["profile_picture"]["name"])) {
+            $file_extension = strtolower(pathinfo($_FILES["profile_picture"]["name"], PATHINFO_EXTENSION));
+            $allowed_extensions = ["jpg", "jpeg", "png", "gif"];
 
-        $response['success'] = true;
-        $response['message'] = 'User details updated successfully.';
-    } else {
-        $response['message'] = 'Error updating user details.';
+            // If selected image is already in "assets/admin/", just save its path directly
+            if (strpos($_FILES["profile_picture"]["name"], "assets/admin/") !== false) {
+                $profile_picture = $_FILES["profile_picture"]["name"];
+            }
+            // Otherwise, process the uploaded file
+            else if (in_array($file_extension, $allowed_extensions)) {
+                $target_dir = "assets/$role/";
+                if (!is_dir($target_dir)) {
+                    mkdir($target_dir, 0777, true);
+                }
+
+                $profile_picture = $target_dir . $username . "." . $file_extension;
+
+                if (!move_uploaded_file($_FILES["profile_picture"]["tmp_name"], $profile_picture)) {
+                    echo json_encode(["error" => "File upload failed!"]);
+                    exit();
+                }
+            } else {
+                echo json_encode(["error" => "Invalid file format. Allowed: JPG, JPEG, PNG, GIF."]);
+                exit();
+            }
+        }
+
+        // Debugging - Output what is going to be saved in the database
+        error_log("Profile picture path: " . ($profile_picture ? $profile_picture : "Not updated"));
+
+        // Prepare update query
+        if ($profile_picture) {
+            $updateQuery = "UPDATE users SET username=?, email=?, role=?, first_name=?, last_name=?, house_no=?, street_name=?, post_code=?, city=?, telephone=?, emergency_contact=?, gender=?, profile_picture=? WHERE user_id=?";
+            $stmt = $conn->prepare($updateQuery);
+            $stmt->bind_param("ssssssssssssis", $username, $email, $role, $first_name, $last_name, $house_no, $street_name, $post_code, $city, $telephone, $emergency_contact, $gender, $profile_picture, $user_id);
+        } else {
+            $updateQuery = "UPDATE users SET username=?, email=?, role=?, first_name=?, last_name=?, house_no=?, street_name=?, post_code=?, city=?, telephone=?, emergency_contact=?, gender=? WHERE user_id=?";
+            $stmt = $conn->prepare($updateQuery);
+            $stmt->bind_param("ssssssssssssi", $username, $email, $role, $first_name, $last_name, $house_no, $street_name, $post_code, $city, $telephone, $emergency_contact, $gender, $user_id);
+        }
+
+        if ($stmt->execute()) {
+            echo json_encode(["message" => "User updated successfully.", "profile_picture" => $profile_picture]);
+        } else {
+            error_log("Database update error: " . $stmt->error);
+            echo json_encode(["error" => "Error updating user: " . $stmt->error]);
+        }
+
+        $stmt->close();
+        $conn->close();
+        exit();
     }
-    $stmt->close();
 }
 
-$conn->close();
-echo json_encode($response);
+echo json_encode(["error" => "Invalid request."]);
+exit();
 ?>

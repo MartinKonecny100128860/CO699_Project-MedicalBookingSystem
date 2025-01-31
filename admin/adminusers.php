@@ -132,7 +132,10 @@ $conn->close();
                                 <td><?= $row['email'] ?></td>
                                 <td><?= ucfirst($row['role']) ?></td>
                                 <td>
-                                    <button class="btn btn-warning btn-sm" onclick="showEditUserModal(<?= $row['user_id'] ?>, '<?= $row['username'] ?>', '<?= $row['email'] ?>')">Edit</button>
+                                <button class="btn btn-warning btn-sm edit-user-btn" 
+    data-id="<?= $row['user_id'] ?>">
+    Edit
+</button>
                                     <button class="btn btn-danger btn-sm" onclick="deleteUser(<?= $row['user_id'] ?>)">Delete</button>
                                 </td>
                             </tr>
@@ -158,6 +161,11 @@ $conn->close();
             const addUserModal = new bootstrap.Modal(document.getElementById('addUserModal'));
             addUserModal.show();
         }
+        function showEditUserModal() {
+            const editUserModal = new bootstrap.Modal(document.getElementById('editUserModal'));
+            editUserModal.show();
+        }
+
     </script>
 
             <!-- Accessibility Icon -->
