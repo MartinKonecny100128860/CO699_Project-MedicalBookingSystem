@@ -71,6 +71,8 @@ $conn->close();
     <script src="scripts/adduser.js"></script>
     <link rel="stylesheet" href="styles/statistics.css">
     <script src="scripts/statistics.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 <body>
 
@@ -123,10 +125,9 @@ $conn->close();
             </div>
         </div>
 
-        <!-- Charts -->
+        <!-- Charts Section -->
         <div class="charts-container">
             <canvas id="userRegistrationsChart"></canvas>
-            <canvas id="appointmentChart"></canvas>
         </div>
 
         <!-- Recent Activity -->

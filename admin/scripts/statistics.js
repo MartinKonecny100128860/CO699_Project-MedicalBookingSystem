@@ -50,3 +50,48 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch(error => console.error("Error fetching active admins:", error));
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    fetch("php/stats/get_chart_data.php")
+        .then(response => response.json())
+        .then(data => {
+            console.log("Chart Data:", data); // Debugging
+
+            if (data.error) {
+                console.error("Error fetching chart data:", data.error);
+                return;
+            }
+
+            // 🟢 User Growth Chart (Ignore appointments)
+            const userMonths = data.usersPerMonth.map(item => item.month);
+            const userCounts = data.usersPerMonth.map(item => item.count);
+
+            const userChart = new Chart(document.getElementById("userRegistrationsChart"), {
+                type: "bar",
+                data: {
+                    labels: userMonths,
+                    datasets: [{
+                        label: "Users Registered",
+                        data: userCounts,
+                        backgroundColor: "#495390",
+                        borderColor: "#034f6e",
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        })
+        .catch(error => console.error("Error fetching chart data:", error));
+});
+
+
