@@ -132,8 +132,8 @@ $conn->close();
         <a href="contactsupport.php">Contact IT Support</a>
         <a href="adminfeedback.php">Submit Feedback</a>
         <h4 class="sidebar-heading">Analytics</h4>
-        <a href="#view-statistics">View Statistics</a>
-        <a href="#generate-reports">Generate Reports</a>
+        <a href="statistics.php">View Statistics</a>
+        <a href="adminreport.php">Generate Reports</a>
         <br>
         <br>
     </div>
@@ -162,7 +162,7 @@ $conn->close();
             <h3>Settings</h3>
         </a>
         <!-- Tile: Reports -->
-        <a href="#" class="navigation-tile">
+        <a href="adminreport.php" class="navigation-tile">
             <i class="fas fa-file-invoice"></i>
             <h3>Reports</h3>
         </a>

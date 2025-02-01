@@ -1,0 +1,82 @@
+/* Page Container */
+.report-container {
+    display: flex;
+    justify-content: center; /* Centers the content */
+    align-items: flex-start; /* Aligns content towards the top */
+    height: calc(73vh - 80px); /* Adjust height, accounting for header */
+    padding: 20px;
+    margin-left: 250px; /* Space for sidebar */
+    margin-top: 60px; /* ✅ Moves the card lower */
+}
+
+/* Content Card */
+.report-card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    width: 950px; /* Fixed width */
+    max-width: 90%;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Header */
+.report-card h2 {
+    text-align: center;
+    color: #0056b3;
+    font-size: 1.6em;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Form Fields */
+.form-label {
+    font-weight: bold;
+    color: #333;
+}
+
+.form-control {
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 1em;
+}
+
+/* Submit Button */
+.btn-primary {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    border: none;
+    padding: 12px;
+    font-size: 1.1em;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #0056b3, #004494);
+    transform: scale(1.02);
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 1024px) {
+    .report-container {
+        margin-left: 0; /* Center on medium screens */
+    }
+
+    .report-card {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .report-container {
+        margin-left: 0;
+        height: auto; /* Allow scrolling */
+        padding: 30px 15px;
+    }
+
+    .report-card {
+        width: 100%;
+        max-width: 400px;
+    }
+}
