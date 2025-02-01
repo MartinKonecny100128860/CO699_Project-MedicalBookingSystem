@@ -97,7 +97,7 @@ $conn->close();
     <!-- 🔷 Report Form -->
     <div class="report-container">
         <div class="report-card">
-            <h2>Generate Medical Report</h2>
+            <h2>Generate Report</h2>
 
             <form action="php/generate_report.php" method="POST">
             <div class="mb-3">

@@ -19,17 +19,20 @@ z-index: 1000;
 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
-/* Dividing Line */
+/* Modern Header Divider */
 .header::after {
-content: '';
-position: absolute;
-right: 129px; /* Position the dividing line 80px from the right (adjust for icon size) */
-top: 50%; /* Center the line vertically */
-transform: translateY(-50%); /* Ensure it stays vertically centered */
-height: 100%; /* Line height, relative to header height */
-width: 5px; /* Thin dividing line */
-background-color: rgba(255, 255, 255, 0.2); /* Line color */
+    content: '';
+    position: absolute;
+    right: 90px; /* Adjust based on button/icon size */
+    top: 50%; /* Center the line vertically */
+    transform: translateY(-50%); /* Ensure perfect vertical alignment */
+    height: 60%; /* Make it slightly shorter than the full height */
+    width: 3px; /* Slim and modern thickness */
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1)); /* Subtle gradient */
+    border-radius: 5px; /* Rounded edges for a sleek look */
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.4); /* Soft glow effect */
 }
+
 
 /* Power Icon Box */
 .header .power-icon-box {
@@ -45,7 +48,7 @@ transition: transform 0.2s ease, background-color 0.3s ease;
 
 /* Move the icon more to the left */
 margin-left: auto; /* Ensure alignment to the left of its container */
-margin-right: 20px; /* Adjust spacing from the dividing line */
+margin-right: 0px; /* Adjust spacing from the dividing line */
 position: relative; /* Enable precise control */
 right: 10px; /* Move the icon left by 10px */
 }
