@@ -270,6 +270,28 @@ th {
     color: white;
 }
 
+/* Sorting Icons Container */
+.sorting-icons {
+    display: flex;
+    gap: 15px; /* Space between icons */
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0px;
+}
+
+/* Sorting Icons */
+.sort-icon {
+    font-size: 26px; /* Adjust size */
+    color: #06799e; /* Match system theme */
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.3s;
+}
+
+.sort-icon:hover {
+    color: rgb(2, 81, 107); /* Darker shade on hover */
+    transform: scale(1.2); /* Slight zoom effect */
+}
+
 /* Buttons */
 .btn {
     border: none;
@@ -380,7 +402,7 @@ th {
 
 /* Tile Content */
 .navigation-tile i {
-    font-size: 42px; /* Larger icon size */
+    font-size: 50px; /* Larger icon size */
     margin-bottom: 10px;
     z-index: 1; /* Above the tile */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Text shadow for depth */

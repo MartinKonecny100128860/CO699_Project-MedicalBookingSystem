@@ -161,9 +161,12 @@ $conn->close();
             </select>
 
             <!-- Sorting Options -->
-            <button class="btn btn-secondary" onclick="sortUsers('username')">Sort by Name</button>
-            <button class="btn btn-secondary" onclick="sortUsers('user_id')">Sort by ID</button>
-            <button class="btn btn-secondary" onclick="sortUsers('role')">Sort by Role</button>
+            <div class="sorting-icons">
+            <i class="fas fa-sort-alpha-down sort-icon" onclick="sortUsers('username')" title="Sort by Name"></i>
+            <i class="fas fa-sort-numeric-down sort-icon" onclick="sortUsers('user_id')" title="Sort by ID"></i>
+            <i class="fas fa-user-tie sort-icon" onclick="sortUsers('role')" title="Sort by Role"></i>
+        </div>
+
         </div>
 
         <!-- User Table -->
