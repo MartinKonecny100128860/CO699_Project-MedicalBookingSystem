@@ -352,8 +352,8 @@ th {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 220px;
-    height: 140px;
+    width: 330px;
+    height: 210px;
     background: linear-gradient(145deg, #495390, #323861); /* Highlighted gradient for 3D effect */
     color: white;
     border-radius: 15px; /* Rounded corners */

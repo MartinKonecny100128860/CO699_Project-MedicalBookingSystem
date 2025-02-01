@@ -166,12 +166,6 @@ $conn->close();
             <i class="fas fa-file-invoice"></i>
             <h3>Reports</h3>
         </a>
-        <!-- Tile: Notifications -->
-        <a href="#" class="navigation-tile">
-            <i class="fas fa-bell"></i>
-            <h3>Notifications</h3>
-        </a>
-    </div>
 
 <!-- Manage Roles Modal -->
 <div class="modal fade" id="manageRolesModal" tabindex="-1" aria-hidden="true">
