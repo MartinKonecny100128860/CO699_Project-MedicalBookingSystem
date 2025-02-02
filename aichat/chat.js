@@ -1,4 +1,4 @@
-// /* CODE TO HANDLE CHAT POPUP */
+// /* CODE TO HANDLE AI CHAT POPUP */
 
 // Function to close the chat container
 function closeChat() {

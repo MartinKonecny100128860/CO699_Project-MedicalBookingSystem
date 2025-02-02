@@ -1,301 +1,303 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat Interface</title>
-</head>
-<body>
-    <!-- Chat Icon Section -->
-    <div id="chat-icon">
-        <!-- Outer circle with gradient, shadow, and rounded edges -->
-        <div class="chat-icon-circle">
-            <!-- Chat icon GIF -->
-            <img src="assets/gifs/chat.gif" alt="Chat Icon" id="chat-icon-img">
-        </div>
-        <!-- Notification badge to indicate new messages -->
-        <div id="notification-badge">1</div>
-    </div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Chat Interface</title>
 
-    <!-- Chat Container Section -->
-    <div id="chat-container">
-        <!-- Chat Header -->
-        <div id="chat-header">
-            <div class="chat-header-icon">
-                <!-- Chat bot icon with gradient background and rounded edges -->
-                <div class="chat-icon-circle small">
-                    <img src="assets/gifs/chat.gif" alt="Bot">
-                </div>
-                <!-- Header text -->
-                <span>Chat with Us</span>
+            <!-- JavaScript for chat functionality -->
+            <script src="scripts/aichat/chat.js"></script>
+    </head>
+    <body>
+        <!-- Chat Icon Section -->
+        <div id="chat-icon">
+            <!-- Outer circle with gradient, shadow, and rounded edges -->
+            <div class="chat-icon-circle">
+                <!-- Chat icon GIF -->
+                <img src="assets/gifs/chat.gif" alt="Chat Icon" id="chat-icon-img">
             </div>
-            <!-- Close button for the chat container -->
-            <button onclick="closeChat()">&#10006;</button>
+            <!-- Notification badge to indicate new messages -->
+            <div id="notification-badge">1</div>
         </div>
-        <!-- Messages container where chat messages appear -->
-        <div id="messages"></div>
-        <!-- Chat Footer -->
-        <div id="chat-footer">
-            <!-- Input field for typing messages -->
-            <input type="text" id="chat-input" placeholder="Type a message...">
-            <!-- Send button to submit messages -->
-            <button onclick="sendMessageFromInput()">Send</button>
-        </div>
-    </div>
 
-    <!-- JavaScript for chat functionality -->
-    <script src="scripts/aichat/chat.js"></script>
-</body>
+        <!-- Chat Container Section -->
+        <div id="chat-container">
+            <!-- Chat Header -->
+            <div id="chat-header">
+                <div class="chat-header-icon">
+                    <!-- Chat bot icon with gradient background and rounded edges -->
+                    <div class="chat-icon-circle small">
+                        <img src="assets/gifs/chat.gif" alt="Bot">
+                    </div>
+                    <!-- Header text -->
+                    <span>Chat with Us</span>
+                </div>
+                <!-- Close button for the chat container -->
+                <button onclick="closeChat()">&#10006;</button>
+            </div>
+            <!-- Messages container where chat messages appear -->
+            <div id="messages"></div>
+            <!-- Chat Footer -->
+            <div id="chat-footer">
+                <!-- Input field for typing messages -->
+                <input type="text" id="chat-input" placeholder="Type a message...">
+                <!-- Send button to submit messages -->
+                <button onclick="sendMessageFromInput()">Send</button>
+            </div>
+        </div>
+    </body>
 </html>
 
 <style>
-/* Chat Icon Styles */
-#chat-icon {
-    /* Fixed position for the chat icon */
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    cursor: pointer;
-    z-index: 1000; 
-}
-
-.chat-icon-circle {
-    /* Circular container with gradient background and shadow */
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #f2f2f2, #d9d9d9);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid #b0b0b0;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-.chat-icon-circle.small {
-    /* Smaller version of the circle for the header */
-    width: 40px;
-    height: 40px;
-}
-
-.chat-icon-circle.small img {
-    /* Resized bot icon for the header */
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-#chat-icon-img {
-    /* Chat icon inside the main circle */
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-#notification-badge {
-    /* Styling for the notification badge */
-    position: absolute;
-    top: 5px;
-    right: -5px;
-    background-color: #ff4d4f;
-    color: white;
-    border-radius: 50%;
-    width: 22px;
-    height: 22px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: bold;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    border: 1px solid white;
-}
-
-/* Chat Container Styles */
-#chat-container {
-    /* Main chat container styling */
-    display: none;
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    width: 400px;
-    height: 500px;
-    border: 1px solid #ccc;
-    border-radius: 15px;
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    transition: width 0.3s, height 0.3s;
-}
-
-/* Chat Header Styles */
-#chat-header {
-    /* Header section styling */
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
-    background-color: #009688; 
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top-left-radius: 15px; 
-    border-top-right-radius: 15px; 
-}
-
-.chat-header-icon {
-    /* Container for the header icon and text */
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-#chat-header button {
-    /* Close button styling */
-    background: none;
-    border: none;
-    color: white;
-    font-size: 20px;
-}
-
-/* Chat Messages Area */
-#messages {
-    /* Chat area for displaying messages */
-    height: 400px;
-    overflow-y: auto;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px; 
-}
-
-/* Chat Footer Styles */
-#chat-footer {
-    /* Footer containing input and send button */
-    border-top: 1px solid #ccc;
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    background-color: #fff;
-    border-bottom-left-radius: 15px; 
-    border-bottom-right-radius: 15px; 
-}
-
-#chat-footer input {
-    /* Styling for the input field */
-    flex: 1;
-    border: none;
-    padding: 10px;
-    outline: none;
-    font-size: 14px;
-    border-radius: 5px;
-    background-color: #f1f1f1;
-    margin-right: 10px;
-}
-
-#chat-footer button {
-    /* Styling for the send button */
-    background-color: #009688; 
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 14px;
-}
-
-#chat-footer button:hover {
-    /* Hover effect for the send button */
-    background-color: #00796b;
-}
-
-/* Responsive Design */
-/* Adjustments for tablets */
-@media (max-width: 1024px) {
-    #chat-container {
-        width: 90%;
-        height: 55%; 
+    /* Chat Icon Styles */
+    #chat-icon {
+        /* Fixed position for the chat icon */
+        position: fixed;
         bottom: 20px;
-        right: 5%;
-        left: 5%;
-        border-radius: 15px;
-    }
-
-    #chat-header {
-        font-size: 14px; 
-        padding: 10px;
+        left: 20px;
+        cursor: pointer;
+        z-index: 1000; 
     }
 
     .chat-icon-circle {
-        /* Smaller icon for mobile */
-        width: 60px;
-        height: 60px;
+        /* Circular container with gradient background and shadow */
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #f2f2f2, #d9d9d9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid #b0b0b0;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
     }
 
-    .chat-icon-circle img {
-        /* Resize chat icon for mobile */
+    .chat-icon-circle.small {
+        /* Smaller version of the circle for the header */
         width: 40px;
         height: 40px;
     }
-}
 
-/* Adjustments for smaller tablets */
-@media (max-width: 768px) {
+    .chat-icon-circle.small img {
+        /* Resized bot icon for the header */
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    #chat-icon-img {
+        /* Chat icon inside the main circle */
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    #notification-badge {
+        /* Styling for the notification badge */
+        position: absolute;
+        top: 5px;
+        right: -5px;
+        background-color: #ff4d4f;
+        color: white;
+        border-radius: 50%;
+        width: 22px;
+        height: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: bold;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        border: 1px solid white;
+    }
+
+    /* Chat Container Styles */
     #chat-container {
-        width: 90%;
-        height: 55%; 
+        /* Main chat container styling */
+        display: none;
+        position: fixed;
         bottom: 20px;
-        right: 5%;
-        left: 5%;
+        left: 20px;
+        width: 400px;
+        height: 500px;
+        border: 1px solid #ccc;
         border-radius: 15px;
+        background-color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        transition: width 0.3s, height 0.3s;
     }
 
+    /* Chat Header Styles */
     #chat-header {
-        font-size: 14px; 
+        /* Header section styling */
         padding: 10px;
+        border-bottom: 1px solid #ccc;
+        background: linear-gradient(145deg, #495390, #323861);
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top-left-radius: 15px; 
+        border-top-right-radius: 15px; 
     }
 
-    .chat-icon-circle {
-        /* Smaller icon for mobile */
-        width: 60px;
-        height: 60px;
+    .chat-header-icon {
+        /* Container for the header icon and text */
+        display: flex;
+        align-items: center;
+        gap: 15px;
     }
 
-    .chat-icon-circle img {
-        /* Resize chat icon for mobile */
-        width: 40px;
-        height: 40px;
-    }
-}
-
-/* Adjustments for mobile devices */
-@media (max-width: 600px) {
-    #chat-container {
-        width: 90%;
-        height: 55%; 
-        bottom: 20px;
-        right: 5%;
-        left: 5%;
-        border-radius: 15px;
+    #chat-header button {
+        /* Close button styling */
+        background: none;
+        border: none;
+        color: white;
+        font-size: 20px;
     }
 
-    #chat-header {
-        font-size: 14px; 
+    /* Chat Messages Area */
+    #messages {
+        /* Chat area for displaying messages */
+        height: 400px;
+        overflow-y: auto;
         padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px; 
     }
 
-    .chat-icon-circle {
-        /* Smaller icon for mobile */
-        width: 60px;
-        height: 60px;
+    /* Chat Footer Styles */
+    #chat-footer {
+        /* Footer containing input and send button */
+        border-top: 1px solid #ccc;
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        background-color: #fff;
+        border-bottom-left-radius: 15px; 
+        border-bottom-right-radius: 15px; 
     }
 
-    .chat-icon-circle img {
-        /* Resize chat icon for mobile */
-        width: 40px;
-        height: 40px;
+    #chat-footer input {
+        /* Styling for the input field */
+        flex: 1;
+        border: none;
+        padding: 10px;
+        outline: none;
+        font-size: 14px;
+        border-radius: 5px;
+        background-color: #f1f1f1;
+        margin-right: 10px;
     }
-}
+
+    #chat-footer button {
+        /* Styling for the send button */
+        background-color: #06799e;
+        border-color: #06799e;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+
+    #chat-footer button:hover {
+        /* Hover effect for the send button */
+        background-color: rgb(2, 81, 107);
+    }
+
+    /* Responsive Design */
+    /* Adjustments for tablets */
+    @media (max-width: 1024px) {
+        #chat-container {
+            width: 90%;
+            height: 55%; 
+            bottom: 20px;
+            right: 5%;
+            left: 5%;
+            border-radius: 15px;
+        }
+
+        #chat-header {
+            font-size: 14px; 
+            padding: 10px;
+        }
+
+        .chat-icon-circle {
+            /* Smaller icon for mobile */
+            width: 60px;
+            height: 60px;
+        }
+
+        .chat-icon-circle img {
+            /* Resize chat icon for mobile */
+            width: 40px;
+            height: 40px;
+        }
+    }
+
+    /* Adjustments for smaller tablets */
+    @media (max-width: 768px) {
+        #chat-container {
+            width: 90%;
+            height: 55%; 
+            bottom: 20px;
+            right: 5%;
+            left: 5%;
+            border-radius: 15px;
+        }
+
+        #chat-header {
+            font-size: 14px; 
+            padding: 10px;
+        }
+
+        .chat-icon-circle {
+            /* Smaller icon for mobile */
+            width: 60px;
+            height: 60px;
+        }
+
+        .chat-icon-circle img {
+            /* Resize chat icon for mobile */
+            width: 40px;
+            height: 40px;
+        }
+    }
+
+    /* Adjustments for mobile devices */
+    @media (max-width: 600px) {
+        #chat-container {
+            width: 90%;
+            height: 55%; 
+            bottom: 20px;
+            right: 5%;
+            left: 5%;
+            border-radius: 15px;
+        }
+
+        #chat-header {
+            font-size: 14px; 
+            padding: 10px;
+        }
+
+        .chat-icon-circle {
+            /* Smaller icon for mobile */
+            width: 60px;
+            height: 60px;
+        }
+
+        .chat-icon-circle img {
+            /* Resize chat icon for mobile */
+            width: 40px;
+            height: 40px;
+        }
+    }
+    
 </style>
