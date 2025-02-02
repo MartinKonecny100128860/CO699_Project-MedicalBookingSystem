@@ -88,6 +88,16 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
 $sql = "SELECT user_id, username, first_name, last_name, email, role, date_of_birth FROM users WHERE role IN ('admin', 'staff', 'doctor') $roleFilter $searchQuery ORDER BY $orderBy $orderDir";
 $result = $conn->query($sql);
 
+// Fetch users excluding patients
+$usersQuery = "SELECT user_id, first_name, last_name, username, role FROM users WHERE role NOT IN ('patient')";
+$usersResult = $conn->query($usersQuery);
+$users = [];
+
+if ($usersResult->num_rows > 0) {
+    while ($row = $usersResult->fetch_assoc()) {
+        $users[] = $row;
+    }
+}
 
 $conn->close();
 ?>
@@ -135,10 +145,10 @@ $conn->close();
                     <small>ID: <?= htmlspecialchars($_SESSION['user_id'] ?? 'N/A') ?></small>
                 </p>
             </div>
-            <a href="#users" class="active">Manage Users</a>
             <a href="admindash.php">Dashboard</a>
-            <a href="#">Statistics</a>
-            <a href="#">Settings</a>
+            <a href="#users" class="active">Manage Users</a>
+            <a href="#" onclick="showAddUserModal()">Add New User</a>
+            <a href="#" onclick="showManageRolesModal()">Manage Roles</a>
         </div>
         <!-- Content -->
         <div class="content">
@@ -218,7 +228,50 @@ $conn->close();
     <!-- Add New User Modal -->
     <?php include 'includes/add_user_modal.php'; ?>
 
-
+<!-- Manage Roles Modal -->
+<div class="modal fade" id="manageRolesModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content modal-container">
+            <div class="modal-header">
+                <h5 class="modal-title">Manage User Roles</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Full Name</th>
+                            <th>Username</th>
+                            <th>Role</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($users as $user): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($user['first_name'] . " " . $user['last_name']) ?></td>
+                                <td><?= htmlspecialchars($user['username']) ?></td>
+                                <td>
+                                    <select class="form-select role-dropdown" data-user-id="<?= $user['user_id'] ?>">
+                                        <option value="admin" <?= $user['role'] == 'admin' ? 'selected' : '' ?>>Admin</option>
+                                        <option value="staff" <?= $user['role'] == 'staff' ? 'selected' : '' ?>>Staff</option>
+                                        <option value="doctor" <?= $user['role'] == 'doctor' ? 'selected' : '' ?>>Doctor</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm save-role-btn" data-user-id="<?= $user['user_id'] ?>">Save</button>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
     <script>
@@ -266,6 +319,10 @@ $conn->close();
     window.filterUsers = filterUsers;
 });
 
+function showManageRolesModal() {
+        const modal = new bootstrap.Modal(document.getElementById('manageRolesModal'));
+        modal.show();
+    }
     </script>
 
             <!-- Accessibility Icon -->

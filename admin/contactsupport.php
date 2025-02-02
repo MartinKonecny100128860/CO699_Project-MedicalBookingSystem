@@ -99,21 +99,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <div class="sidebar">
-    <div class="profile-pic-container">
-        <div class="profile-pic-wrapper">
-        <img src="<?= htmlspecialchars('../' . ($_SESSION['profile_picture'] ?? 'assets/defaults/user_default.png')) ?>" 
-            alt="Profile Picture" class="profile-pic">
+        <div class="profile-pic-container">
+            <div class="profile-pic-wrapper">
+            <img src="<?= htmlspecialchars('../' . ($_SESSION['profile_picture'] ?? 'assets/defaults/user_default.png')) ?>" 
+                alt="Profile Picture" class="profile-pic">
+            </div>
+            <p class="welcome-text">
+                Welcome back, <?= htmlspecialchars($_SESSION['username'] ?? 'Admin') ?><br>
+                <small>ID: <?= htmlspecialchars($_SESSION['user_id'] ?? 'N/A') ?></small>
+            </p>
         </div>
-        <p class="welcome-text">
-            Welcome back, <?= htmlspecialchars($_SESSION['username'] ?? 'Admin') ?><br>
-            <small>ID: <?= htmlspecialchars($_SESSION['user_id'] ?? 'N/A') ?></small>
-        </p>
-    </div>
         <div class="scroll-container">
             <h4 class="sidebar-heading">Quick Links</h4>
             <a href="admindash.php">Dashboard</a>
-            <a href="contact_support.php" class="active">Contact IT Support</a>
-            <a href="support_messages.php">View Sent Messages</a>
+            <a href="contactsupport.php" class="active">Contact IT Support</a>
+            <a href="adminfeedback.php">Send Feedback</a>
         </div>
     </div>
 

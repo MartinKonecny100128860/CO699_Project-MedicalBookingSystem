@@ -76,6 +76,77 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
 
                 $conn->query("UPDATE users SET last_active = NOW() WHERE user_id = " . $_SESSION['user_id']);
+                // ✅ Function to Get User's Real IP Address
+                function getUserIP() {
+                    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+                        return $_SERVER['HTTP_CLIENT_IP'];
+                    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+                        return trim(explode(',', $_SERVER['HTTP_X_FORWARDED_FOR'])[0]); // Get first valid IP
+                    } else {
+                        return $_SERVER['REMOTE_ADDR'];
+                    }
+                }
+
+                // ✅ Get the actual user's public IP
+                $ip_address = getUserIP();
+
+                // ✅ If local (127.0.0.1 or ::1), use external API to get real public IP
+                if ($ip_address === '::1' || $ip_address === '127.0.0.1') {
+                    $external_ip = @file_get_contents("https://api64.ipify.org?format=json");
+                    if ($external_ip) {
+                        $ip_data = json_decode($external_ip, true);
+                        $ip_address = $ip_data['ip'] ?? 'Unknown';
+                    }
+                }
+
+                // ✅ Fetch Geolocation Data
+                $api_url = "http://ip-api.com/json/$ip_address?fields=status,country,countryCode,city,query";
+                $response = @file_get_contents($api_url);
+                $geo_data = $response ? json_decode($response, true) : null;
+
+                // ✅ Assign country & city with fallback
+                if ($geo_data && $geo_data['status'] === 'success') {
+                    $country = $geo_data['country'] ?? 'Unknown';
+                    $city = $geo_data['city'] ?? 'Unknown';
+                    $country_code = strtolower($geo_data['countryCode'] ?? ''); // Needed for flag display
+                } else {
+                    $country = 'Unknown';
+                    $city = 'Unknown';
+                    $country_code = ''; // No valid country code
+                }
+
+                // ✅ If location is still unknown, use a default fallback (Czech Republic, Karviná)
+                if ($country === 'Unknown' || $city === 'Unknown') {
+                    $country = 'Czech Republic';
+                    $city = 'Karviná';
+                    $country_code = 'cz'; // Default Czech flag
+                }
+
+                // ✅ Store Last Login Info in Database
+                $updateQuery = "UPDATE users SET last_active = NOW(), last_ip = ?, last_country = ?, last_city = ? WHERE user_id = ?";
+                $stmt = $conn->prepare($updateQuery);
+                if ($stmt) {
+                    $stmt->bind_param("sssi", $ip_address, $country, $city, $_SESSION['user_id']);
+                    $stmt->execute();
+                    $stmt->close();
+                } else {
+                    error_log("Failed to update user last login info: " . $conn->error);
+                }
+
+
+                // ✅ Redirect the user based on their role
+                $redirectMap = [
+                    'admin' => "admin/admindash.php",
+                    'doctor' => "doctor_dashboard.php",
+                    'staff' => "staff_dashboard.php"
+                ];
+
+                if (isset($redirectMap[$role])) {
+                    header("Location: " . $redirectMap[$role]);
+                    exit();
+                } else {
+                    error_log("User role not recognized: $role");
+                }
 
 
                 // Redirect the user to the appropriate dashboard based on their role.

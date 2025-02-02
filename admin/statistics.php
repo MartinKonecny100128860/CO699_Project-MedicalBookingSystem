@@ -97,12 +97,13 @@ $conn->close();
                     <small>ID: <?= htmlspecialchars($_SESSION['user_id'] ?? 'N/A') ?></small>
                 </p>
             </div>
-            <a href="#users" class="active">Manage Users</a>
-            <a href="admindash.php">Dashboard</a>
-            <a href="#">Statistics</a>
-            <a href="#">Settings</a>
+            <div class="scroll-container">
+                <h4 class="sidebar-heading">Quick Links</h4>
+                    <a href="admindash.php">Dashboard</a>
+                    <a href="logs.php">View Logs</a>
+                    <a href="statistics.php"  class="active">Statistics</a>
         </div>
-
+        </div>
     <!-- Content -->
     <div class="content">
         <!-- Statistics Cards -->

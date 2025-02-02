@@ -123,14 +123,14 @@ $conn->close();
         <h4 class="sidebar-heading">Quick Links</h4>
         <a href="#" onclick="showAddUserModal()">Add New User</a>
         <a href="#" onclick="showManageRolesModal()">Manage Roles</a>
-        <a href="#system-logs">System Logs</a>
-        <h4 class="sidebar-heading">Appointments</h4>
-        <a href="#scheduled-appointments">View Scheduled Appointments</a>
-        <a href="#active-doctors">View Active Doctors</a>
+        <a href="logs.php">System Logs</a>
         <h4 class="sidebar-heading">Resources</h4>
         <a href="#" onclick="showHelpGuideModal()">Admin Help Guide</a>
         <a href="contactsupport.php">Contact IT Support</a>
         <a href="adminfeedback.php">Submit Feedback</a>
+        <h4 class="sidebar-heading">Appointments</h4>
+        <a href="#scheduled-appointments">View Scheduled Appointments</a>
+        <a href="#active-doctors">View Active Doctors</a>
         <h4 class="sidebar-heading">Analytics</h4>
         <a href="statistics.php">View Statistics</a>
         <a href="adminreport.php">Generate Reports</a>
@@ -157,7 +157,7 @@ $conn->close();
             <h3>Statistics</h3>
         </a>
         <!-- Tile: Settings -->
-        <a href="#" class="navigation-tile">
+        <a href="settings.php" class="navigation-tile">
             <i class="fas fa-cogs"></i>
             <h3>Settings</h3>
         </a>
@@ -212,32 +212,9 @@ $conn->close();
     </div>
 </div>
 
-<!-- Admin Help Guide Modal -->
-<div class="modal fade" id="helpGuideModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content modal-container">
-            <div class="modal-header">
-                <h5 class="modal-title">Admin Help Guide</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <p>Welcome to the Admin Dashboard! Here’s a quick guide to help you navigate:</p>
-                <ul>
-                    <li><strong>Managing Users:</strong> Use the "Manage Roles" option to assign roles.</li>
-                    <li><strong>Contact IT Support:</strong> If you encounter any issues, use the "Contact IT Support" page.</li>
-                    <li><strong>Logs & Reports:</strong> You can track system logs in the admin panel.</li>
-                </ul>
-                <p>For a complete guide, download the full PDF below.</p>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button class="btn btn-primary" onclick="confirmDownload()">Download PDF Guide</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <?php include 'includes/add_user_modal.php'; ?>
+<?php include 'includes/guide_modal.php'; ?>
 
 
             <!-- Accessibility Icon -->

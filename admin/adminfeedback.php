@@ -112,8 +112,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="scroll-container">
             <h4 class="sidebar-heading">Quick Links</h4>
             <a href="admindash.php">Dashboard</a>
-            <a href="contact_support.php" class="active">Contact IT Support</a>
-            <a href="support_messages.php">View Sent Messages</a>
+            <a href="contactsupport.php">Contact IT Support</a>
+            <a href="adminfeedback.php" class="active">Send Feedback</a>
         </div>
     </div>
 

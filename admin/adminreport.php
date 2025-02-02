@@ -63,6 +63,7 @@ $conn->close();
     <script src="scripts/edituser.js"></script>
     <script src="scripts/adduser.js"></script>
     <link rel="stylesheet" href="styles/report.css">
+    <?php include 'includes/guide_modal.php'; ?>
 
 </head>
 <body>
@@ -87,10 +88,12 @@ $conn->close();
                     <small>ID: <?= htmlspecialchars($_SESSION['user_id'] ?? 'N/A') ?></small>
                 </p>
             </div>
-            <a href="#users" class="active">Manage Users</a>
-            <a href="admindash.php">Dashboard</a>
-            <a href="#">Statistics</a>
-            <a href="#">Settings</a>
+            <div class="scroll-container">
+                <h4 class="sidebar-heading">Quick Links</h4>
+                    <a href="admindash.php">Dashboard</a>
+                    <a href="adminreport.php" class="active">Generate Report</a>
+                    <a href="#" onclick="showHelpGuideModal()">Admin Help Guide</a>
+        </div>
         </div>
 
 
@@ -162,6 +165,13 @@ $conn->close();
                 </li>
             </ul>
         </div>
+
+        <script>
+                function showHelpGuideModal() {
+        const helpModal = new bootstrap.Modal(document.getElementById('helpGuideModal'));
+        helpModal.show();
+    }
+    </script>
 
 </body>
 </html>

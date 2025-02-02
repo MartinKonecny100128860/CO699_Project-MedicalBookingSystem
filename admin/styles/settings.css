@@ -1,0 +1,65 @@
+/* 🟢 General Page Styling */
+.settings-container {
+    max-width: 80%;
+    margin: 50px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* 🟢 Header */
+.header {
+    text-align: center;
+    padding: 15px;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* 🟢 Table Styling */
+.table-container {
+    margin-top: 20px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table th {
+    background: #06799e;
+    color: white;
+    text-align: left;
+    padding: 12px;
+}
+
+.table td {
+    padding: 10px;
+    vertical-align: middle;
+}
+
+/* 🟢 Center flags inside table cells */
+.table img {
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+/* 🟢 Responsive Design */
+@media screen and (max-width: 1024px) {
+    .settings-container {
+        max-width: 90%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .settings-container {
+        max-width: 100%;
+        padding: 15px;
+    }
+
+    .table-container {
+        overflow-x: auto; /* Enable scrolling for small screens */
+    }
+}
