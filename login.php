@@ -123,16 +123,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
 
                 // ✅ Store Last Login Info in Database
-                $updateQuery = "UPDATE users SET last_active = NOW(), last_ip = ?, last_country = ?, last_city = ? WHERE user_id = ?";
+                $updateQuery = "UPDATE users SET last_active = NOW(), last_ip = ?, last_country = ?, last_city = ?, last_country_code = ? WHERE user_id = ?";
                 $stmt = $conn->prepare($updateQuery);
-                if ($stmt) {
-                    $stmt->bind_param("sssi", $ip_address, $country, $city, $_SESSION['user_id']);
-                    $stmt->execute();
-                    $stmt->close();
-                } else {
-                    error_log("Failed to update user last login info: " . $conn->error);
-                }
-
+                $stmt->bind_param("ssssi", $ip_address, $country, $city, $country_code, $_SESSION['user_id']);
+                $stmt->execute();
+                $stmt->close();                
 
                 // ✅ Redirect the user based on their role
                 $redirectMap = [

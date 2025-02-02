@@ -95,8 +95,16 @@ $conn->close();
                         <td><?= htmlspecialchars($row['last_ip']) ?></td>
                         <td>
                             <?= htmlspecialchars($row['last_country']) ?>, <?= htmlspecialchars($row['last_city']) ?>
-                            <?php if (!empty($row['last_country'])): ?>
-                                <img src="https://flagcdn.com/w40/<?= strtolower($row['last_country']) ?>.png" alt="Flag" style="height: 16px;">
+                            <?php 
+                                $country_code = strtolower(trim($row['last_country_code'] ?? '')); // Ensure lowercase and remove spaces
+                                if (!empty($country_code) && strlen($country_code) == 2): // Check it's a valid 2-letter country code
+                            ?>
+                                <img src="https://flagcdn.com/w40/<?= $country_code ?>.png" 
+                                    alt="<?= htmlspecialchars($row['last_country']) ?> Flag"
+                                    title="<?= htmlspecialchars($row['last_country']) ?>"
+                                    style="height: 20px;">
+                            <?php else: ?>
+                                <img src="https://flagcdn.com/w40/gb.png" alt="Unknown Flag" title="Unknown Country" style="height: 20px;">
                             <?php endif; ?>
                         </td>
                         <td><?= htmlspecialchars($row['last_active']) ?></td>
