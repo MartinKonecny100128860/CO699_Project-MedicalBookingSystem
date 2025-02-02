@@ -33,7 +33,7 @@ $(document).ready(function() {
                 $("#edit_emergency_contact").val(safeValue(response.emergency_contact));
                 $("#edit_gender").val(safeValue(response.gender));
 
-                // ✅ Set the Date of Birth properly
+                // Set the Date of Birth properly
                 if (response.date_of_birth) {
                     $("#edit_date_of_birth").val(response.date_of_birth);
                 } else {

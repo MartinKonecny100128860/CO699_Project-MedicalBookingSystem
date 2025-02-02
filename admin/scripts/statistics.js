@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            // 🟢 User Growth Chart (Ignore appointments)
+            // User Growth Chart (Ignore appointments)
             const userMonths = data.usersPerMonth.map(item => item.month);
             const userCounts = data.usersPerMonth.map(item => item.count);
 

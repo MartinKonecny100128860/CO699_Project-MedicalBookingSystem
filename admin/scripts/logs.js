@@ -1,3 +1,4 @@
+// adds and fetches logs. any change the admin makes is logged. 
 document.addEventListener("DOMContentLoaded", function () {
     let currentPage = 1;
     const logsPerPage = 5;

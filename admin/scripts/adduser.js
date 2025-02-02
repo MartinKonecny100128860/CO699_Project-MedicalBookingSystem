@@ -1,3 +1,4 @@
+// script that adds users to the database
 $(document).ready(function() {
     $("#addUserForm").submit(function(event) {
         event.preventDefault();
