@@ -11,7 +11,7 @@ accessibilityClose.addEventListener("click", () => togglePopup(false));
 
 /**
  * Toggle the display of the accessibility popup.
- * @param {boolean} show - Whether to show or hide the popup.
+ * @param {boolean} show - Whether to show or hide the popup
  */
 function togglePopup(show) {
     if (show) {

@@ -217,9 +217,9 @@ body.high-contrast-mode {
     text-shadow: 1px 1px 3px rgba(255, 255, 0, 0.5); /* Yellow glow */
 }
 
-/* =================================== */
-/* LOGS HIGH CONTRAST */
-/* =================================== */
+/* ====================== */
+/* LOGS HIGH CONTRAST    */
+/* ===================== */
 
 .high-contrast-mode .logs-container {
     background-color: #1f1f1f; /* Dark background */

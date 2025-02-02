@@ -3,7 +3,7 @@
     <i class="fas fa-universal-access"></i>
 </button>
 
-<!-- Accessibility Popup Window -->
+<!-- Accessibility Pop-up Window -->
 <div id="accessibility-popup" class="accessibility-options">
     <div class="accessibility-popup-header">
         <h5>Accessibility Settings</h5>
