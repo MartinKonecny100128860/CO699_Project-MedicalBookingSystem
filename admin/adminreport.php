@@ -1,73 +1,76 @@
 <?php
-session_start();
+    session_start();
 
-// Redirect to login if not authenticated
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    header("Location: login.php");
-    exit();
-}
+    // Redirect to login if not authenticated
+    if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+        header("Location: login.php");
+        exit();
+    }
 
-// Database connection setup
-$conn = new mysqli("localhost", "root", "", "MedicalBookingSystem");
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+    // Database connection setup
+    $conn = new mysqli("localhost", "root", "", "MedicalBookingSystem");
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
 
-// Fetch Admin Info
-$admin_id = $_SESSION['user_id'] ?? 'N/A';
+    // Fetch Admin Info
+    $admin_id = $_SESSION['user_id'] ?? 'N/A';
 
-// Query to fetch full name from DB
-$stmt = $conn->prepare("SELECT first_name, last_name FROM users WHERE user_id = ?");
-$stmt->bind_param("i", $admin_id);
-$stmt->execute();
-$stmt->bind_result($first_name, $last_name);
-$stmt->fetch();
-$stmt->close();
+    // Query to fetch full name from DB
+    $stmt = $conn->prepare("SELECT first_name, last_name FROM users WHERE user_id = ?");
+    $stmt->bind_param("i", $admin_id);
+    $stmt->execute();
+    $stmt->bind_result($first_name, $last_name);
+    $stmt->fetch();
+    $stmt->close();
 
-// Store the full name correctly
-$admin_full_name = trim("$first_name $last_name") ?: "N/A";
+    // Store the full name correctly
+    $admin_full_name = trim("$first_name $last_name") ?: "N/A";
 
 
-// Get profile picture
-$profilePictureQuery = "SELECT profile_picture FROM users WHERE user_id = ?";
-$profilePictureStmt = $conn->prepare($profilePictureQuery);
-if ($profilePictureStmt) {
-    $profilePictureStmt->bind_param("i", $admin_id);
-    $profilePictureStmt->execute();
-    $profilePictureStmt->bind_result($profile_picture);
-    $profilePictureStmt->fetch();
-    $profilePictureStmt->close();
-}
+    // Get profile picture
+    $profilePictureQuery = "SELECT profile_picture FROM users WHERE user_id = ?";
+    $profilePictureStmt = $conn->prepare($profilePictureQuery);
+    if ($profilePictureStmt) {
+        $profilePictureStmt->bind_param("i", $admin_id);
+        $profilePictureStmt->execute();
+        $profilePictureStmt->bind_result($profile_picture);
+        $profilePictureStmt->fetch();
+        $profilePictureStmt->close();
+    }
 
-$_SESSION['profile_picture'] = $profile_picture ?? 'assets/defaults/admin_default.png';
+    $_SESSION['profile_picture'] = $profile_picture ?? 'assets/defaults/admin_default.png';
 
-$conn->close();
+    $conn->close();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="styles/admindash.css">
-    <link rel="stylesheet" href="styles/modals.css">
-    <link rel="stylesheet" href="../accessibility/accessibility.css">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Admin Dashboard</title>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <link rel="stylesheet" href="../accessibility/accessibility.css">
         <link rel="stylesheet" href="../accessibility/highcontrast.css">
+        <link rel="stylesheet" href="styles/admindash.css">
+        <link rel="stylesheet" href="styles/modals.css">
+        <link rel="stylesheet" href="styles/report.css">
+
         <script src="../accessibility/accessibility.js" defer></script>
-    <script src="scripts/edituser.js"></script>
-    <script src="scripts/adduser.js"></script>
-    <link rel="stylesheet" href="styles/report.css">
-    <?php include 'includes/guide_modal.php'; ?>
+        <script src="scripts/edituser.js"></script>
+        <script src="scripts/adduser.js"></script>
 
-</head>
-<body>
 
+        <?php include 'includes/guide_modal.php'; ?>
+    </head>
+    <body>
         <div class="header">
             <div style="display: flex; align-items: center;">
                 <img src="../assets/logos/logo-dark.png" alt="Logo">
@@ -77,6 +80,7 @@ $conn->close();
                 <i class="material-icons">&#xe8ac;</i>    
             </a>
         </div>
+
         <div class="sidebar">
             <div class="profile-pic-container">
                 <div class="profile-pic-wrapper">
@@ -88,52 +92,50 @@ $conn->close();
                     <small>ID: <?= htmlspecialchars($_SESSION['user_id'] ?? 'N/A') ?></small>
                 </p>
             </div>
+
             <div class="scroll-container">
                 <h4 class="sidebar-heading">Quick Links</h4>
-                    <a href="admindash.php">Dashboard</a>
-                    <a href="adminreport.php" class="active">Generate Report</a>
-                    <a href="#" onclick="showHelpGuideModal()">Admin Help Guide</a>
-        </div>
-        </div>
-
-
-    <!-- 🔷 Report Form -->
-    <div class="report-container">
-        <div class="report-card">
-            <h2>Generate Report</h2>
-
-            <form action="php/generate_report.php" method="POST">
-            <div class="mb-3">
-                <label for="admin_id" class="form-label">Admin's ID</label>
-                <input type="text" class="form-control" id="admin_id" name="admin_id" 
-                    value="<?= isset($_SESSION['user_id']) ? htmlspecialchars($_SESSION['user_id']) : 'N/A'; ?>" 
-                    readonly>
+                <a href="admindash.php">Dashboard</a>
+                <a href="adminreport.php" class="active">Generate Report</a>
+                <a href="#" onclick="showHelpGuideModal()">Admin Help Guide</a>
             </div>
-
-            <div class="mb-3">
-                <label for="admin_name" class="form-label">Admin's Full Name</label>
-                <input type="text" class="form-control" id="admin_name" name="admin_name" 
-                value="<?= htmlspecialchars($admin_full_name) ?>" readonly>
-            </div>
-
-
-                <div class="mb-3">
-                    <label for="report_title" class="form-label">Report Title</label>
-                    <input type="text" class="form-control" id="report_title" name="report_title" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="report_content" class="form-label">Report Content</label>
-                    <textarea class="form-control" id="report_content" name="report_content" rows="6" required></textarea>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Download PDF</button>
-            </form>
         </div>
-    </div>
 
-                <!-- Accessibility Icon -->
-                <div id="accessibility-icon" class="accessibility-icon">
+        <!-- 🔷 Report Form -->
+        <div class="report-container">
+            <div class="report-card">
+                <h2>Generate Report</h2>
+                <form action="php/generate_report.php" method="POST">
+                    <div class="mb-3">
+                        <label for="admin_id" class="form-label">Admin's ID</label>
+                        <input type="text" class="form-control" id="admin_id" name="admin_id" 
+                        value="<?= isset($_SESSION['user_id']) ? htmlspecialchars($_SESSION['user_id']) : 'N/A'; ?>" 
+                        readonly>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="admin_name" class="form-label">Admin's Full Name</label>
+                        <input type="text" class="form-control" id="admin_name" name="admin_name" 
+                        value="<?= htmlspecialchars($admin_full_name) ?>" readonly>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="report_title" class="form-label">Report Title</label>
+                        <input type="text" class="form-control" id="report_title" name="report_title" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="report_content" class="form-label">Report Content</label>
+                        <textarea class="form-control" id="report_content" name="report_content" rows="6" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Download PDF</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Accessibility Icon -->
+        <div id="accessibility-icon" class="accessibility-icon">
             <i class="fa fa-universal-access"></i>
         </div>
 
@@ -165,13 +167,12 @@ $conn->close();
                 </li>
             </ul>
         </div>
-
+        <!-- Scripts for this page -->
         <script>
-                function showHelpGuideModal() {
-        const helpModal = new bootstrap.Modal(document.getElementById('helpGuideModal'));
-        helpModal.show();
-    }
-    </script>
-
-</body>
+            function showHelpGuideModal() {
+                const helpModal = new bootstrap.Modal(document.getElementById('helpGuideModal'));
+                helpModal.show();
+            }
+        </script>
+    </body>
 </html>

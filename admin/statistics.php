@@ -1,82 +1,83 @@
 <?php
-session_start();
+    session_start();
 
-// Redirect to login page if not logged in
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    header("Location: login.php");
-    exit();
-}
-
-// Database connection setup
-$conn = new mysqli("localhost", "root", "", "MedicalBookingSystem");
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Check for and set the profile picture for the logged-in user
-$user_id = $_SESSION['user_id'];
-$profilePictureQuery = "SELECT profile_picture FROM users WHERE user_id = ?";
-$profilePictureStmt = $conn->prepare($profilePictureQuery);
-if (!$profilePictureStmt) {
-    die("Error preparing profile picture query: " . $conn->error); // Optional: Remove in production
-}
-
-$profilePictureStmt->bind_param("i", $user_id);
-$profilePictureStmt->execute();
-$profilePictureStmt->bind_result($profile_picture);
-$profilePictureStmt->fetch();
-$profilePictureStmt->close();
-
-// Assign profile picture or default if not set
-if (empty($profile_picture)) {
-    switch ($_SESSION['role']) {
-        case 'admin':
-            $_SESSION['profile_picture'] = 'assets/defaults/admin_default.png';
-            break;
-        case 'doctor':
-            $_SESSION['profile_picture'] = 'assets/defaults/doctor_default.png';
-            break;
-        case 'staff':
-            $_SESSION['profile_picture'] = 'assets/defaults/staff_default.png';
-            break;
-        default:
-            $_SESSION['profile_picture'] = 'assets/defaults/user_default.png';
-            break;
+    // Redirect to login page if not logged in
+    if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+        header("Location: login.php");
+        exit();
     }
-} else {
-    $_SESSION['profile_picture'] = $profile_picture;
-}
+
+    // Database connection setup
+    $conn = new mysqli("localhost", "root", "", "MedicalBookingSystem");
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Check for and set the profile picture for the logged-in user
+    $user_id = $_SESSION['user_id'];
+    $profilePictureQuery = "SELECT profile_picture FROM users WHERE user_id = ?";
+    $profilePictureStmt = $conn->prepare($profilePictureQuery);
+    if (!$profilePictureStmt) {
+        die("Error preparing profile picture query: " . $conn->error); // Optional: Remove in production
+    }
+
+    $profilePictureStmt->bind_param("i", $user_id);
+    $profilePictureStmt->execute();
+    $profilePictureStmt->bind_result($profile_picture);
+    $profilePictureStmt->fetch();
+    $profilePictureStmt->close();
+
+    // Assign profile picture or default if not set
+    if (empty($profile_picture)) {
+        switch ($_SESSION['role']) {
+            case 'admin':
+                $_SESSION['profile_picture'] = 'assets/defaults/admin_default.png';
+                break;
+            case 'doctor':
+                $_SESSION['profile_picture'] = 'assets/defaults/doctor_default.png';
+                break;
+            case 'staff':
+                $_SESSION['profile_picture'] = 'assets/defaults/staff_default.png';
+                break;
+            default:
+                $_SESSION['profile_picture'] = 'assets/defaults/user_default.png';
+                break;
+        }
+    } else {
+        $_SESSION['profile_picture'] = $profile_picture;
+    }
 
 
-$conn->close();
+    $conn->close();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="styles/admindash.css">
-    <link rel="stylesheet" href="styles/modals.css">
-    <link rel="stylesheet" href="../accessibility/accessibility.css">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Admin Dashboard</title>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <link rel="stylesheet" href="styles/admindash.css">
+        <link rel="stylesheet" href="styles/modals.css">
+        <link rel="stylesheet" href="../accessibility/accessibility.css">
         <link rel="stylesheet" href="../accessibility/highcontrast.css">
+        <link rel="stylesheet" href="styles/statistics.css">
+
+        <script src="scripts/statistics.js" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="../accessibility/accessibility.js" defer></script>
-    <script src="scripts/edituser.js"></script>
-    <script src="scripts/adduser.js"></script>
-    <link rel="stylesheet" href="styles/statistics.css">
-    <script src="scripts/statistics.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="scripts/edituser.js"></script>
+        <script src="scripts/adduser.js"></script>
+    </head>
 
-</head>
-<body>
-
-<body>
+    <body>
         <div class="header">
             <div style="display: flex; align-items: center;">
                 <img src="../assets/logos/logo-dark.png" alt="Logo">
@@ -86,6 +87,7 @@ $conn->close();
                 <i class="material-icons">&#xe8ac;</i>    
             </a>
         </div>
+
         <div class="sidebar">
             <div class="profile-pic-container">
                 <div class="profile-pic-wrapper">
@@ -99,52 +101,54 @@ $conn->close();
             </div>
             <div class="scroll-container">
                 <h4 class="sidebar-heading">Quick Links</h4>
-                    <a href="admindash.php">Dashboard</a>
-                    <a href="logs.php">View Logs</a>
-                    <a href="statistics.php"  class="active">Statistics</a>
-        </div>
-        </div>
-    <!-- Content -->
-    <div class="content">
-        <!-- Statistics Cards -->
-        <div class="stats-container">
-            <div class="stat-box">
-                <h3>Total Users</h3>
-                <p id="totalUsers">0</p>
-            </div>
-            <div class="stat-box">
-                <h3>Total Appointments</h3>
-                <p id="totalAppointments">0</p>
-            </div>
-            <div class="stat-box">
-                <h3>Total Logs</h3>
-                <p id="totalLogs">0</p>
-            </div>
-            <div class="stat-box">
-                <h3>Most Active Admin (ID)</h3>
-                <p id="mostActiveAdmin">-</p>
+                <a href="admindash.php">Dashboard</a>
+                <a href="logs.php">View Logs</a>
+                <a href="statistics.php"  class="active">Statistics</a>
             </div>
         </div>
 
-        <!-- Charts Section -->
-        <div class="charts-container">
-            <canvas id="userRegistrationsChart"></canvas>
+        <!-- Content -->
+        <div class="content">
+            <!-- Statistics Cards -->
+            <div class="stats-container">
+                <div class="stat-box">
+                    <h3>Total Users</h3>
+                    <p id="totalUsers">0</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Total Appointments</h3>
+                    <p id="totalAppointments">0</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Total Logs</h3>
+                    <p id="totalLogs">0</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Most Active Admin (ID)</h3>
+                    <p id="mostActiveAdmin">-</p>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts-container">
+                <canvas id="userRegistrationsChart"></canvas>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="recent-logs">
+                <h3>Recent Activity</h3>
+                <ul id="recentLogs"></ul>
+            </div>
+
+            <!-- Active Admins -->
+            <div class="active-users">
+                <h3>Active Admins</h3>
+                <ul id="activeAdmins"></ul>
+            </div>
         </div>
 
-        <!-- Recent Activity -->
-        <div class="recent-logs">
-            <h3>Recent Activity</h3>
-            <ul id="recentLogs"></ul>
-        </div>
-
-        <!-- Active Admins -->
-        <div class="active-users">
-            <h3>Active Admins</h3>
-            <ul id="activeAdmins"></ul>
-        </div>
-    </div>
-            <!-- Accessibility Icon -->
-            <div id="accessibility-icon" class="accessibility-icon">
+        <!-- Accessibility Icon -->
+        <div id="accessibility-icon" class="accessibility-icon">
             <i class="fa fa-universal-access"></i>
         </div>
 
@@ -176,5 +180,5 @@ $conn->close();
                 </li>
             </ul>
         </div>
-</body>
+    </body>
 </html>
