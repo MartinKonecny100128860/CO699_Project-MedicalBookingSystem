@@ -1,4 +1,4 @@
-/* 🟢 General Page Styling */
+/* General Page Styling */
 .settings-container {
     max-width: 80%;
     margin: 50px auto;
@@ -9,7 +9,7 @@
     animation: fadeIn 0.5s ease-in-out;
 }
 
-/* 🟢 Header */
+/* Header */
 .header {
     text-align: center;
     padding: 15px;
@@ -19,7 +19,7 @@
     font-weight: bold;
 }
 
-/* 🟢 Table Styling */
+/* Table Styling */
 .table-container {
     margin-top: 20px;
     background: white;
@@ -40,13 +40,13 @@
     vertical-align: middle;
 }
 
-/* 🟢 Center flags inside table cells */
+/* Center flags inside table cells */
 .table img {
     vertical-align: middle;
     margin-right: 8px;
 }
 
-/* 🟢 Responsive Design */
+/* Responsive Design */
 @media screen and (max-width: 1024px) {
     .settings-container {
         max-width: 90%;
@@ -60,6 +60,6 @@
     }
 
     .table-container {
-        overflow-x: auto; /* Enable scrolling for small screens */
+        overflow-x: auto;
     }
 }

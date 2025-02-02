@@ -4,7 +4,7 @@
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    margin: 80px 0 0 380px; /* Increased left margin for more right alignment */
+    margin: 80px 0 0 380px;
     max-width: 900px;
     font-family: 'Roboto', sans-serif;
 }
@@ -26,29 +26,29 @@
 .form-group input,
 .form-group textarea,
 .form-group select {
-    width: 100%; /* Consistent width for all elements */
-    padding: 12px; /* Same padding */
-    border-radius: 8px; /* Rounded corners */
-    border: 1px solid #ccc; /* Border style */
-    font-size: 16px; /* Font size */
-    box-sizing: border-box; /* Include padding in width calculation */
-    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Apply focus styles */
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
-    border-color: #005b96; /* Blue border for focus */
-    box-shadow: 0 0 6px rgba(0, 91, 150, 0.5); /* Subtle glow */
-    outline: none; /* Remove default outline */
+    border-color: #005b96;
+    box-shadow: 0 0 6px rgba(0, 91, 150, 0.5);
+    outline: none;
 }
 
 
 
 /* Unique Submit Button Styles */
 .custom-submit-button {
-    background-color: #005b96; /* Primary blue color */
+    background-color: #005b96;
     color: #ffffff;
     padding: 12px 30px;
     font-size: 16px;
@@ -59,18 +59,18 @@
     text-transform: uppercase;
     transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
     display: block;
-    margin: 20px auto 0; /* Center the button */
+    margin: 20px auto 0;
 }
 
 .custom-submit-button:hover {
-    background-color: #003f6b; /* Darker blue for hover effect */
-    transform: translateY(-3px); /* Slight lift on hover */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    background-color: #003f6b;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .custom-submit-button:focus {
     outline: none;
-    box-shadow: 0 0 8px rgba(0, 91, 150, 0.8); /* Stronger focus glow */
+    box-shadow: 0 0 8px rgba(0, 91, 150, 0.8);
 }
 
 

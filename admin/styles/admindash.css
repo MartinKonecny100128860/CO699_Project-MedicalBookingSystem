@@ -1,12 +1,12 @@
 body {
-    font-family: 'Roboto', sans-serif; /* More modern and readable font */
-    background-color: #f4f7f9; /* Softer background color */
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f7f9;
     margin: 0;
     padding: 0;
 }
 /* Header Styles */
 .header {
-background-color:rgb(99, 139, 185); /* Softer and calming blue */
+background-color:rgb(99, 139, 185);
 color: white;
 padding: 10px;
 display: flex;
@@ -16,21 +16,21 @@ position: fixed;
 top: 0;
 width: 100%;
 z-index: 1000;
-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Modern Header Divider */
 .header::after {
     content: '';
     position: absolute;
-    right: 90px; /* Adjust based on button/icon size */
-    top: 50%; /* Center the line vertically */
-    transform: translateY(-50%); /* Ensure perfect vertical alignment */
-    height: 60%; /* Make it slightly shorter than the full height */
-    width: 3px; /* Slim and modern thickness */
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1)); /* Subtle gradient */
-    border-radius: 5px; /* Rounded edges for a sleek look */
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.4); /* Soft glow effect */
+    right: 90px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 60%;
+    width: 3px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
+    border-radius: 5px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.4); 
 }
 
 /* Power Icon Box - Modern Style */
@@ -40,58 +40,58 @@ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
     justify-content: center;
     width: 52px;
     height: 52px;
-    border-radius: 50%; /* Keep circular shape */
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.1)); /* Soft gradient */
+    border-radius: 50%;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.1));
     box-shadow: 
         inset 2px 2px 5px rgba(255, 255, 255, 0.3), 
         inset -2px -2px 5px rgba(0, 0, 0, 0.1),
-        3px 3px 10px rgba(0, 0, 0, 0.2); /* Soft 3D effect */
+        3px 3px 10px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
 
     /* Positioning Adjustments */
-    margin-left: auto; /* Ensure it stays aligned to the right */
-    margin-right: 0px; /* Keep space from the dividing line */
+    margin-left: auto; 
+    margin-right: 0px;
     position: relative;
-    right: 10px; /* Fine-tune left movement */
+    right: 10px; 
 }
 
 /* Power Icon Box Hover Effect */
 .header .power-icon-box:hover {
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.2)); /* Brighter effect */
-    transform: scale(1.1); /* Slightly bigger */
+    transform: scale(1.1);
     box-shadow: 
         0 4px 8px rgba(0, 0, 0, 0.25), 
-        0 2px 4px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+        0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 /* Power Icon */
 .header .power-icon-box i {
-    font-size: 24px; /* Slightly larger icon */
+    font-size: 24px;
     color: white;
     transition: color 0.3s ease, transform 0.3s ease;
 }
 
 /* Icon Hover Effect */
 .header .power-icon-box:hover i {
-    color: #FF3B30; /* Stronger red hover color */
-    transform: rotate(10deg); /* Subtle rotation effect */
+    color: #FF3B30;
+    transform: rotate(10deg);
 }
 
 
 /* Logo Styles */
 .header img {
-width: 170px; /* Balanced logo size */
+width: 170px; 
 height: auto;
 }
 
 /* Title Styles */
 .header h1 {
-position: absolute; /* Make the title independent of flexbox alignment */
-left: 50%; /* Center horizontally */
-transform: translateX(-50%); /* Adjust for the title width */
+position: absolute;
+left: 50%;
+transform: translateX(-50%);
 margin: 0;
-font-size: 26px; /* Larger title for prominence */
+font-size: 26px;
 font-weight: bold;
 color: #ffffff;
 }
@@ -99,7 +99,7 @@ color: #ffffff;
 
 /* Remove Text Decoration */
 a {
-text-decoration: none; /* Ensure no underline */
+text-decoration: none;
 }
 
 
@@ -107,62 +107,62 @@ text-decoration: none; /* Ensure no underline */
 .sidebar {
 width: 250px;
 height: 100vh;
-background-color: #eff3f6; /* Softer neutral background for modern look */
+background-color: #eff3f6;
 position: fixed;
 top: 60px;
 left: 0;
-padding-top: 30px; /* Add some padding to move everything lower */
+padding-top: 30px;
 overflow-y: auto;
-box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 z-index: 999;
 }
 
 /* Sidebar Links */
 .sidebar a {
 text-decoration: none;
-color: #333; /* Neutral dark gray for readability */
+color: #333;
 display: block;
 padding: 10px 20px;
 font-size: 16px;
-font-weight: 500; /* Slightly bold for better readability */
+font-weight: 500;
 transition: all 0.3s ease-in-out;
-border-left: 3px solid transparent; /* Indicator for active link */
+border-left: 3px solid transparent;
 }
 
 .sidebar a:hover, .sidebar .active {
-background-color: #d4ebf7; /* Light blue for hover and active states */
-color: #0078D7; /* Vibrant blue for active link */
-border-left: 3px solid #0078D7; /* Add active state indicator */
+background-color: #d4ebf7;
+color: #0078D7;
+border-left: 3px solid #0078D7;
 }
 
 /* Sidebar Styles */
 .sidebar {
     width: 250px;
     height: 100vh;
-    background-color: #eff3f6; /* Softer neutral background for modern look */
+    background-color: #eff3f6;
     position: fixed;
     top: 60px;
     left: 0;
-    padding-top: 30px; /* Add some padding to move everything lower */
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    padding-top: 30px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     z-index: 999;
     display: flex;
-    flex-direction: column; /* Arrange children vertically */
+    flex-direction: column;
 }
 
 /* Profile Section (Non-Scrollable) */
 .profile-pic-container {
-    flex-shrink: 0; /* Prevent resizing */
+    flex-shrink: 0;
     padding-bottom: 20px;
-    border-bottom: 1px solid #ccc; /* Divider below the profile section */
+    border-bottom: 1px solid #ccc;
 }
 
 /* Scrollable Container within Sidebar */
 .scroll-container {
-    flex-grow: 1; /* Allow this section to take up remaining space */
-    overflow-y: auto; /* Enable vertical scrolling for this section only */
-    max-height: calc(100vh - 180px); /* Subtract profile section height + padding */
-    padding: 10px 20px; /* Add padding for spacing */
+    flex-grow: 1;
+    overflow-y: auto;
+    max-height: calc(100vh - 180px);
+    padding: 10px 20px;
 }
 
 /* Sidebar Section Heading */
@@ -170,8 +170,8 @@ border-left: 3px solid #0078D7; /* Add active state indicator */
     font-size: 14px;
     font-weight: bold;
     margin: 20px 0 10px 0;
-    color: #666; /* Subtle text for headings */
-    border-bottom: 1px solid #ddd; /* Divider below heading */
+    color: #666;
+    border-bottom: 1px solid #ddd;
     padding-bottom: 5px;
 }
 
@@ -196,48 +196,48 @@ border-left: 3px solid #0078D7; /* Add active state indicator */
 /* Profile Picture Container */
 .profile-pic-container {
 display: flex;
-flex-direction: column; /* Stack picture and welcome text vertically */
+flex-direction: column;
 align-items: center;
 margin-top: 20px;
-margin-bottom: 15px; /* Add spacing below the profile section */
-padding-bottom: 20px; /* Add padding below welcome text for spacing */
-border-bottom: 1px solid #ccc; /* Subtle dividing line below welcome text */
+margin-bottom: 15px;
+padding-bottom: 20px;
+border-bottom: 1px solid #ccc;
 }
 
 /* Profile Picture Wrapper */
 .profile-pic-wrapper {
-width: 100px; /* Slightly larger profile picture size */
+width: 100px;
 height: 100px;
 overflow: hidden;
-border-radius: 50%; /* Circular frame for the image */
-border: 3px solid #0078D7; /* Blue border for emphasis */
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+border-radius: 50%;
+border: 3px solid #0078D7;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Profile Picture */
 .profile-pic {
-width: 100%; /* Ensure the image fills the wrapper */
-height: 100%; /* Ensure the image fills the wrapper */
-object-fit: cover; /* Maintain proper aspect ratio */
-transition: transform 0.3s ease; /* Smooth zoom effect */
+width: 100%;
+height: 100%;
+object-fit: cover;
+transition: transform 0.3s ease;
 }
 
 /* Profile Picture Hover Effect */
 .profile-pic-wrapper:hover .profile-pic {
-transform: scale(1.05); /* Slight zoom-in effect */
+transform: scale(1.05);
 }
 
 /* Welcome Text */
 .welcome-text {
 margin-top: 10px;
 text-align: center;
-color: #333; /* Neutral dark gray text */
-font-size: 16px; /* Readable font size */
+color: #333;
+font-size: 16px;
 font-weight: bold;
 }
 
 .welcome-text small {
-color: #555; /* Subtle gray for the ID */
+color: #555;
 font-size: 14px;
 }
 
@@ -247,14 +247,14 @@ content: '';
 display: block;
 width: 80%;
 height: 1px;
-background-color: #ccc; /* Light gray dividing line */
+background-color: #ccc;
 margin-top: 15px;
 }
 
 /* Content Area */
 .content {
     margin-left: 250px;
-    padding: 90px 20px; /* Adjusted padding for better spacing */
+    padding: 90px 20px; 
 }
 
 /* Table Styles */
@@ -277,14 +277,14 @@ th, td {
 }
 
 th {
-    background-color: #005b96; /* Consistent header color */
+    background-color: #005b96;
     color: white;
 }
 
 /* Sorting Icons Container */
 .sorting-icons {
     display: flex;
-    gap: 15px; /* Space between icons */
+    gap: 15px; 
     justify-content: center;
     align-items: center;
     margin-bottom: 0px;
@@ -292,15 +292,15 @@ th {
 
 /* Sorting Icons */
 .sort-icon {
-    font-size: 26px; /* Adjust size */
-    color: #06799e; /* Match system theme */
+    font-size: 26px;
+    color: #06799e;
     cursor: pointer;
     transition: transform 0.2s ease, color 0.3s;
 }
 
 .sort-icon:hover {
-    color: rgb(2, 81, 107); /* Darker shade on hover */
-    transform: scale(1.2); /* Slight zoom effect */
+    color: rgb(2, 81, 107);
+    transform: scale(1.2);
 }
 
 /* Buttons */
@@ -322,7 +322,7 @@ th {
 }
 
 .btn-primary:hover {
-    background-color: #00796b; /* Deeper blue on hover */
+    background-color: #00796b;
 }
 
 .btn-warning {
@@ -331,7 +331,7 @@ th {
 }
 
 .btn-warning:hover {
-    background-color: #ec971f; /* Darker shade on hover */
+    background-color: #ec971f;
 }
 
 .btn-danger {
@@ -345,14 +345,14 @@ th {
 
 @media screen and (max-width: 576px) {
     .sidebar {
-        position: static; /* i can change this if nav bar overlaps with content */
+        position: static;
         width: 100%;
         height: auto;
         top: 60px;
     }
 
     .content {
-        padding: calc(60px + 10px) 10px; /* i can change this if content is too high or low */
+        padding: calc(60px + 10px) 10px;
     }
 
     .header h1 {
@@ -374,9 +374,9 @@ th {
     display: flex;
     flex-wrap: wrap;
     gap: 25px;
-    justify-content: center; /* Center tiles in the container */
-    margin: 50px 0; /* Add spacing around the container */
-    padding: 0 20px; /* Add padding for better spacing on smaller screens */
+    justify-content: center;
+    margin: 50px 0;
+    padding: 0 20px;
 }
 
 /* Navigation Tile Styles */
@@ -387,82 +387,82 @@ th {
     justify-content: center;
     width: 330px;
     height: 210px;
-    background: linear-gradient(145deg, #495390, #323861); /* Highlighted gradient for 3D effect */
+    background: linear-gradient(145deg, #495390, #323861);
     color: white;
-    border-radius: 15px; /* Rounded corners */
-    text-decoration: none; /* Remove underline from links */
+    border-radius: 15px;
+    text-decoration: none;
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s;
-    box-shadow: inset 2px 2px 5px rgba(255, 255, 255, 0.2), /* Inner highlight */
-                inset -2px -2px 5px rgba(0, 0, 0, 0.1),      /* Inner shadow */
-                5px 5px 15px rgba(0, 0, 0, 0.3),             /* Outer shadow for depth */
-                -5px -5px 15px rgba(255, 255, 255, 0.1);     /* Outer highlight */
-    position: relative; /* Allows for content layering */
-    overflow: hidden; /* Prevents child overflow */
+    box-shadow: inset 2px 2px 5px rgba(255, 255, 255, 0.2), 
+                inset -2px -2px 5px rgba(0, 0, 0, 0.1), 
+                5px 5px 15px rgba(0, 0, 0, 0.3),
+                -5px -5px 15px rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
 }
 
 /* 3D Press Effect on Hover */
 .navigation-tile:hover {
-    transform: translateY(-5px); /* Slight lift on hover */
-    box-shadow: inset 3px 3px 8px rgba(255, 255, 255, 0.1), /* Inner shadows shift */
+    transform: translateY(-5px);
+    box-shadow: inset 3px 3px 8px rgba(255, 255, 255, 0.1),
                 inset -3px -3px 8px rgba(0, 0, 0, 0.2),
-                8px 8px 18px rgba(0, 0, 0, 0.4),             /* Outer shadows increase */
+                8px 8px 18px rgba(0, 0, 0, 0.4),  
                 -8px -8px 18px rgba(255, 255, 255, 0.2);
-    background: linear-gradient(145deg, #d4eaf7, #628bb9); /* Darker gradient on hover */
+    background: linear-gradient(145deg, #d4eaf7, #628bb9);
 }
 
 /* Tile Content */
 .navigation-tile i {
-    font-size: 50px; /* Larger icon size */
+    font-size: 50px; 
     margin-bottom: 10px;
-    z-index: 1; /* Above the tile */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Text shadow for depth */
+    z-index: 1;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); 
 }
 
 .navigation-tile h3 {
-    font-size: 20px; /* Larger font size */
-    font-weight: 600; /* Semi-bold for emphasis */
+    font-size: 20px;
+    font-weight: 600;
     margin: 0;
-    z-index: 1; /* Above the tile */
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Text shadow for depth */
-    transition: color 0.3s ease; /* Smooth color transition */
+    z-index: 1;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    transition: color 0.3s ease;
 }
 
 .navigation-tile:hover i {
-    transform: scale(1.1); /* Slight zoom effect on icon */
+    transform: scale(1.1); 
 }
 
 .navigation-tile:hover h3 {
-    color: #FFDD93; /* Highlight text color on hover */
+    color: #FFDD93;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
     .navigation-tile {
-        width: 180px; /* Smaller tiles for medium screens */
+        width: 180px;
         height: 120px;
     }
 
     .navigation-tile i {
-        font-size: 36px; /* Adjust icon size */
+        font-size: 36px;
     }
 
     .navigation-tile h3 {
-        font-size: 18px; /* Adjust title size */
+        font-size: 18px;
     }
 }
 
 @media (max-width: 576px) {
     .navigation-tile {
-        width: 150px; /* Smaller tiles for small screens */
+        width: 150px;
         height: 100px;
     }
 
     .navigation-tile i {
-        font-size: 32px; /* Adjust icon size */
+        font-size: 32px;
     }
 
     .navigation-tile h3 {
-        font-size: 16px; /* Adjust title size */
+        font-size: 16px;
     }
 }
