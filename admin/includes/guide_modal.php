@@ -1,4 +1,4 @@
-<!-- Admin Help Guide Modal -->
+<!-- Admin Help Guide Modal PHP -->
 <div class="modal fade" id="helpGuideModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content modal-container">

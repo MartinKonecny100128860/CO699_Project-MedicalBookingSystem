@@ -1,3 +1,4 @@
+<!-- Edit user modal -->
 <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -74,7 +75,7 @@
                             <option value="prefer not to say">Prefer not to say</option>
                         </select>
                     </div>
-                 <!--    <div class="mb-3">
+                 <!-- MIGHT ADD IT BACK    <div class="mb-3">
                         <label for="edit_profile_picture" class="form-label">Profile Picture</label>
                         <input type="file" class="form-control" id="edit_profile_picture" name="profile_picture">
                         <small>Leave blank to keep the current profile picture.</small>
