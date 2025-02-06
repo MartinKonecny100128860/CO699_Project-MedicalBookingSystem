@@ -90,45 +90,46 @@
             </div>
         </div>
 
-        <!-- Last 10 Connected Users -->
-        <div class="card mt-4 p-4">
-            <h3>Last 10 Connected Users</h3>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>User ID</th>
-                        <th>Role</th>
-                        <th>IP Address</th>
-                        <th>Location</th>
-                        <th>Last Active</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php while ($row = $result->fetch_assoc()): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($row['user_id']) ?></td>
-                        <td><?= ucfirst(htmlspecialchars($row['role'])) ?></td>
-                        <td><?= htmlspecialchars($row['last_ip']) ?></td>
-                        <td>
-                            <?= htmlspecialchars($row['last_country']) ?>, <?= htmlspecialchars($row['last_city']) ?>
-                            <?php 
-                                $country_code = strtolower(trim($row['last_country_code'] ?? '')); // Ensure lowercase and remove spaces
-                                if (!empty($country_code) && strlen($country_code) == 2): // Check it's a valid 2-letter country code
-                            ?>
-                                <img src="https://flagcdn.com/w40/<?= $country_code ?>.png" 
-                                alt="<?= htmlspecialchars($row['last_country']) ?> Flag"
-                                title="<?= htmlspecialchars($row['last_country']) ?>"
-                                style="height: 20px;">
-                                <?php else: ?>
-                                <img src="https://flagcdn.com/w40/gb.png" alt="Unknown Flag" title="Unknown Country" style="height: 20px;">
-                                <?php endif; ?>
-                        </td>
-                        <td><?= htmlspecialchars($row['last_active']) ?></td>
-                    </tr>
-                    <?php endwhile; ?>
-                </tbody>
-            </table>
+            <!-- Last 10 Connected Users -->
+        <div class="content">
+            <div class="card mt-4 p-4">
+                <h3>Last 10 Connected Users</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>User ID</th>
+                            <th>Role</th>
+                            <th>IP Address</th>
+                            <th>Location</th>
+                            <th>Last Active</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php while ($row = $result->fetch_assoc()): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($row['user_id']) ?></td>
+                            <td><?= ucfirst(htmlspecialchars($row['role'])) ?></td>
+                            <td><?= htmlspecialchars($row['last_ip']) ?></td>
+                            <td>
+                                <?= htmlspecialchars($row['last_country']) ?>, <?= htmlspecialchars($row['last_city']) ?>
+                                <?php 
+                                    $country_code = strtolower(trim($row['last_country_code'] ?? '')); // Ensure lowercase and remove spaces
+                                    if (!empty($country_code) && strlen($country_code) == 2): // Check it's a valid 2-letter country code
+                                ?>
+                                    <img src="https://flagcdn.com/w40/<?= $country_code ?>.png" 
+                                    alt="<?= htmlspecialchars($row['last_country']) ?> Flag"
+                                    title="<?= htmlspecialchars($row['last_country']) ?>"
+                                    style="height: 20px;">
+                                    <?php else: ?>
+                                    <img src="https://flagcdn.com/w40/gb.png" alt="Unknown Flag" title="Unknown Country" style="height: 20px;">
+                                    <?php endif; ?>
+                            </td>
+                            <td><?= htmlspecialchars($row['last_active']) ?></td>
+                        </tr>
+                        <?php endwhile; ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <!-- </div> I think this is spare -->
     </body>
 </html>

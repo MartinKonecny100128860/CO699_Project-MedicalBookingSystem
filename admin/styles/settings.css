@@ -1,7 +1,7 @@
 /* General Page Styling */
 .settings-container {
-    max-width: 80%;
-    margin: 50px auto;
+    max-width: 60%; /* Ensures settings content is not too wide */
+    margin: 120px auto 20px 280px; /* Moves content to the right to avoid sidebar overlap */
     background: white;
     padding: 25px;
     border-radius: 12px;
@@ -9,14 +9,10 @@
     animation: fadeIn 0.5s ease-in-out;
 }
 
-/* Header */
-.header {
-    text-align: center;
-    padding: 15px;
-    background: linear-gradient(135deg, #007bff, #0056b3);
-    color: white;
-    font-size: 24px;
-    font-weight: bold;
+/* Ensure content is properly spaced and not hidden by the header */
+.content {
+    margin-left: 270px; /* Moves content to avoid sidebar overlap */
+    padding-top: 100px; /* Ensures content starts below the header */
 }
 
 /* Table Styling */
@@ -26,8 +22,10 @@
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-x: auto; /* Enables horizontal scrolling on small screens */
 }
 
+/* Table Header */
 .table th {
     background: #06799e;
     color: white;
@@ -35,6 +33,7 @@
     padding: 12px;
 }
 
+/* Table Data */
 .table td {
     padding: 10px;
     vertical-align: middle;
@@ -46,16 +45,26 @@
     margin-right: 8px;
 }
 
-/* Responsive Design */
+/* Responsive Adjustments */
+@media screen and (max-width: 1200px) {
+    .settings-container {
+        max-width: 65%;
+        margin-left: 280px;
+    }
+}
+
 @media screen and (max-width: 1024px) {
     .settings-container {
-        max-width: 90%;
+        max-width: 70%;
+        margin-left: 260px;
     }
 }
 
 @media screen and (max-width: 768px) {
     .settings-container {
-        max-width: 100%;
+        max-width: 85%;
+        margin-left: auto;
+        margin-right: auto;
         padding: 15px;
     }
 
