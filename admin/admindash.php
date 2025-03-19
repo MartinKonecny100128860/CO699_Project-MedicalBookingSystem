@@ -7,11 +7,11 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     exit();
 }
 
-// Database connection setup (Ensure correct DB name and charset)
+// Database connection setup
 $servername = "localhost";
 $dbUsername = "root";
 $dbPassword = "";
-$dbName = "medicalbookingsystem"; // Corrected database name
+$dbName = "medicalbookingsystem";
 
 // Create database connection
 $conn = new mysqli($servername, $dbUsername, $dbPassword, $dbName);
@@ -22,19 +22,11 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch users for admin view (excluding patients)
-$sql = "SELECT user_id, username, email, role FROM users WHERE role IN ('admin', 'staff', 'doctor', 'patient')";
-$result = $conn->query($sql);
-
-// Check for query errors
-if (!$result) {
-    die("Error fetching users: " . $conn->error);
-}
-
 // Fetch profile picture for the logged-in user
 $user_id = $_SESSION['user_id'];
 $profilePictureQuery = "SELECT profile_picture FROM users WHERE user_id = ?";
 $profilePictureStmt = $conn->prepare($profilePictureQuery);
+
 if (!$profilePictureStmt) {
     die("Error preparing profile picture query: " . $conn->error);
 }
@@ -47,20 +39,13 @@ $profilePictureStmt->close();
 
 // Assign profile picture or default if not set
 if (empty($profile_picture)) {
-    switch ($_SESSION['role']) {
-        case 'admin':
-            $_SESSION['profile_picture'] = 'assets/defaults/admin_default.png';
-            break;
-        case 'doctor':
-            $_SESSION['profile_picture'] = 'assets/defaults/doctor_default.png';
-            break;
-        case 'staff':
-            $_SESSION['profile_picture'] = 'assets/defaults/staff_default.png';
-            break;
-        default:
-            $_SESSION['profile_picture'] = 'assets/defaults/user_default.png';
-            break;
-    }
+    $default_pictures = [
+        'admin' => 'assets/defaults/admin_default.png',
+        'doctor' => 'assets/defaults/doctor_default.png',
+        'staff' => 'assets/defaults/staff_default.png',
+        'default' => 'assets/defaults/user_default.png',
+    ];
+    $_SESSION['profile_picture'] = $default_pictures[$_SESSION['role']] ?? $default_pictures['default'];
 } else {
     $_SESSION['profile_picture'] = $profile_picture;
 }
@@ -70,7 +55,7 @@ $usersQuery = "SELECT user_id, first_name, last_name, username, role FROM users 
 $usersResult = $conn->query($usersQuery);
 $users = [];
 
-if ($usersResult->num_rows > 0) {
+if ($usersResult && $usersResult->num_rows > 0) {
     while ($row = $usersResult->fetch_assoc()) {
         $users[] = $row;
     }
@@ -79,7 +64,6 @@ if ($usersResult->num_rows > 0) {
 // Close connection
 $conn->close();
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
