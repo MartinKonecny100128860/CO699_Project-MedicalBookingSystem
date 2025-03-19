@@ -85,25 +85,35 @@ $(document).ready(function() {
 
 
 $(document).ready(function () {
-    $(".save-role-btn").click(function () {
-        const userId = $(this).data("user-id");
-        const newRole = $(this).closest("tr").find(".role-dropdown").val();
+    $("#editUserForm").submit(function (event) {
+        event.preventDefault();
+
+        var formData = new FormData(this);
+        formData.append("action", "update");
 
         $.ajax({
-            url: "php/update_user_role.php",
-            type: "POST",
-            data: { user_id: userId, role: newRole },
+            url: 'php/admin_edit_users.php',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: 'json',
             success: function (response) {
-                let data = JSON.parse(response);
-                if (data.success) {
-                    alert("User role updated successfully.");
+                console.log("Update Response:", response);
+
+                if (response.error) {
+                    alert(response.error);
+                } else if (response.message) {
+                    alert(response.message);
                     location.reload();
                 } else {
-                    alert("Error updating role.");
+                    alert("Unexpected response from server.");
                 }
             },
-            error: function () {
-                alert("An error occurred while updating the role.");
+            error: function (xhr, status, error) {
+                console.error("AJAX Error:", error);
+                console.log(xhr.responseText);
+                alert('Error updating user.');
             }
         });
     });

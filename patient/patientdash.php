@@ -131,7 +131,7 @@
                     <img src="../assets/misc/userdash1.png" alt="Appointments">
                     <p>Book An Appointment</p>
                 </a>
-                <a href="schedule.php" class="dashboard-item">
+                <a href="manageappointments.php" class="dashboard-item">
                     <img src="../assets/misc/schedule.jpg" alt="Schedule">
                     <p>Manage Your Schedule</p>
                 </a>

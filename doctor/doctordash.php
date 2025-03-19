@@ -127,7 +127,7 @@
         <div class="content">
             <h2 class="dashboard-title">Doctor's Dashboard</h2>
             <div class="dashboard-grid">
-                <a href="appointments.php" class="dashboard-item">
+                <a href="viewappointments.php" class="dashboard-item">
                     <img src="../assets/misc/appointments.jpg" alt="Appointments">
                     <p>View This Week's Appointments</p>
                 </a>

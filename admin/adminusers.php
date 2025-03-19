@@ -167,73 +167,73 @@
             <a href="#" onclick="showManageRolesModal()">Manage Roles</a>
         </div>
 
-        <!-- Content -->
-        <div class="content">
-            <div class="table-container" id="users">
-                <h2>Users</h2>
-                <button class="btn btn-primary mb-3" onclick="showAddUserModal()">Add New User</button>
+<!-- Content -->
+<div class="content">
+    <div class="table-container" id="users">
+        <h2>Users</h2>
+        <button class="btn btn-primary mb-3" onclick="showAddUserModal()">Add New User</button>
 
-                <!-- Search & Filtering -->
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <!-- Search Bar -->
-                    <input type="text" id="searchUser" class="form-control me-2" placeholder="Search by Name or Email" onkeyup="filterUsers()">
+        <!-- Search & Filtering -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <!-- Search Bar -->
+            <input type="text" id="searchUser" class="form-control me-2" placeholder="Search by Name or Email" onkeyup="filterUsers()">
 
-                    <!-- Role Filter -->
-                    <select id="roleFilter" class="form-select me-2" onchange="filterUsers()">
-                        <option value="">All Roles</option>
-                        <option value="admin">Admin</option>
-                        <option value="doctor">Doctor</option>
-                        <option value="receptionist">Receptionist</option>
-                        <option value="staff">Staff</option>
-                    </select>
+            <!-- Role Filter -->
+            <select id="roleFilter" class="form-select me-2" onchange="filterUsers()">
+                <option value="">All Roles</option>
+                <option value="admin">Admin</option>
+                <option value="doctor">Doctor</option>
+                <option value="receptionist">Receptionist</option>
+                <option value="staff">Staff</option>
+            </select>
 
-                    <!-- Sorting Options -->
-                    <div class="sorting-icons">
-                        <i class="fas fa-sort-alpha-down sort-icon" onclick="sortUsers('username')" title="Sort by Name"></i>
-                        <i class="fas fa-sort-numeric-down sort-icon" onclick="sortUsers('user_id')" title="Sort by ID"></i>
-                        <i class="fas fa-user-tie sort-icon" onclick="sortUsers('role')" title="Sort by Role"></i>
-                    </div>
-                </div>
-
-                <!-- User Table -->
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th><a href="#" onclick="sortUsers('user_id')">User ID</a></th>
-                            <th><a href="#" onclick="sortUsers('username')">Username</a></th>
-                            <th><a href="#" onclick="sortUsers('first_name')">First Name</a></th>
-                            <th><a href="#" onclick="sortUsers('last_name')">Last Name</a></th>
-                            <th><a href="#" onclick="sortUsers('date_of_birth')">Date of Birth</a></th> <!-- NEW COLUMN -->
-                            <th><a href="#" onclick="sortUsers('email')">Email</a></th>
-                            <th><a href="#" onclick="sortUsers('role')">Role</a></th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-
-                    <tbody id="userTableBody">
-                        <?php if ($result && $result->num_rows > 0): ?>
-                        <?php while ($row = $result->fetch_assoc()): ?>
-                        <tr>
-                            <td><?= htmlspecialchars($row['user_id']) ?></td>
-                            <td><?= htmlspecialchars($row['username']) ?></td>
-                            <td><?= htmlspecialchars($row['first_name'] ?? 'N/A') ?></td>
-                            <td><?= htmlspecialchars($row['last_name'] ?? 'N/A') ?></td>
-                            <td><?= !empty($row['date_of_birth']) ? date("d/m/Y", strtotime($row['date_of_birth'])) : '-' ?></td>
-                            <td><?= htmlspecialchars($row['email']) ?></td>
-                            <td><?= ucfirst(htmlspecialchars($row['role'])) ?></td>
-                            <td>
-                                <button class="btn btn-warning btn-sm edit-user-btn" data-id="<?= $row['user_id'] ?>">Edit</button>
-                                <button class="btn btn-danger btn-sm" onclick="deleteUser(<?= $row['user_id'] ?>)">Delete</button>
-                            </td>
-                        </tr>
-                        <?php endwhile; ?>
-                        <?php else: ?>
-                        <tr><td colspan="8">No users found.</td></tr>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
+            <!-- Sorting Options -->
+            <div class="sorting-icons">
+                <i class="fas fa-sort-alpha-down sort-icon" data-column="user_id" title="Sort by ID"></i>
+                <i class="fas fa-sort-numeric-down sort-icon" data-column="username" title="Sort by Username (A-Z)"></i>
+                <i class="fas fa-user-tie sort-icon" data-column="role" title="Sort by Role Type"></i>
             </div>
         </div>
+
+        <!-- User Table -->
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th><a href="javascript:void(0);" onclick="sortUsers('user_id')">User ID</a></th>
+                    <th><a href="javascript:void(0);" onclick="sortUsers('username')">Username</a></th>
+                    <th><a href="javascript:void(0);" onclick="sortUsers('first_name')">First Name</a></th>
+                    <th><a href="javascript:void(0);" onclick="sortUsers('last_name')">Last Name</a></th>
+                    <th><a href="javascript:void(0);" onclick="sortUsers('date_of_birth')">Date of Birth</a></th> 
+                    <th><a href="javascript:void(0);" onclick="sortUsers('email')">Email</a></th>
+                    <th><a href="javascript:void(0);" onclick="sortUsers('role')">Role</a></th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody id="userTableBody">
+                <?php if ($result && $result->num_rows > 0): ?>
+                <?php while ($row = $result->fetch_assoc()): ?>
+                <tr>
+                    <td><?= htmlspecialchars($row['user_id']) ?></td>
+                    <td><?= htmlspecialchars($row['username']) ?></td>
+                    <td><?= htmlspecialchars($row['first_name'] ?? 'N/A') ?></td>
+                    <td><?= htmlspecialchars($row['last_name'] ?? 'N/A') ?></td>
+                    <td><?= !empty($row['date_of_birth']) ? date("d/m/Y", strtotime($row['date_of_birth'])) : '-' ?></td>
+                    <td><?= htmlspecialchars($row['email']) ?></td>
+                    <td><?= ucfirst(htmlspecialchars($row['role'])) ?></td>
+                    <td>
+                        <button class="btn btn-warning btn-sm edit-user-btn" data-id="<?= $row['user_id'] ?>">Edit</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteUser(<?= $row['user_id'] ?>)">Delete</button>
+                    </td>
+                </tr>
+                <?php endwhile; ?>
+                <?php else: ?>
+                <tr><td colspan="8">No users found.</td></tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
 
         <!-- Manage Roles Modal -->
         <div class="modal fade" id="manageRolesModal" tabindex="-1" aria-hidden="true">
@@ -325,46 +325,88 @@
                 const editUserModal = new bootstrap.Modal(document.getElementById('editUserModal'));
                 editUserModal.show();
             }
-            document.addEventListener("DOMContentLoaded", function () {
-            // Function to handle sorting
-            function sortUsers(column) {
-                let currentUrl = new URL(window.location.href);
-                let order = currentUrl.searchParams.get("order") === "ASC" ? "DESC" : "ASC";
-
-                currentUrl.searchParams.set("sort_by", column);
-                currentUrl.searchParams.set("order", order);
-
-                window.location.href = currentUrl.toString();
-            }
-
-            // Function to filter users based on role and search query
-            function filterUsers() {
-                let searchValue = document.getElementById("searchUser").value.toLowerCase();
-                let roleValue = document.getElementById("roleFilter").value;
-
-                let rows = document.querySelectorAll("#userTableBody tr");
-
-                rows.forEach(row => {
-                    let username = row.cells[1].textContent.toLowerCase();
-                    let email = row.cells[2].textContent.toLowerCase();
-                    let role = row.cells[3].textContent.toLowerCase();
-
-                    let searchMatch = username.includes(searchValue) || email.includes(searchValue);
-                    let roleMatch = roleValue === "" || role === roleValue.toLowerCase();
-
-                    row.style.display = searchMatch && roleMatch ? "" : "none";
-                });
-            }
-
-                // Attach event listeners to sorting buttons
-                window.sortUsers = sortUsers;
-                window.filterUsers = filterUsers;
-            });
 
             function showManageRolesModal() {
-                    const modal = new bootstrap.Modal(document.getElementById('manageRolesModal'));
-                    modal.show();
+                const modal = new bootstrap.Modal(document.getElementById('manageRolesModal'));
+                modal.show();
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+    // Sorting function
+    function sortUsers(column) {
+        let currentUrl = new URL(window.location.href);
+        let currentOrder = currentUrl.searchParams.get("order");
+
+        // Toggle order between ASC and DESC
+        let newOrder = (currentOrder === "ASC") ? "DESC" : "ASC";
+
+        // Update the URL parameters
+        currentUrl.searchParams.set("sort_by", column);
+        currentUrl.searchParams.set("order", newOrder);
+
+        // Reload with the new sorting parameters
+        window.location.href = currentUrl.toString();
+    }
+
+    // Update sorting icons dynamically
+    function updateSortIcons() {
+        let currentUrl = new URL(window.location.href);
+        let sortBy = currentUrl.searchParams.get("sort_by");
+        let order = currentUrl.searchParams.get("order");
+
+        document.querySelectorAll(".sort-icon").forEach(icon => {
+            icon.classList.remove("fa-sort-alpha-down", "fa-sort-alpha-up", "fa-sort-numeric-down", "fa-sort-numeric-up", "fa-sort-amount-up", "fa-sort-amount-down");
+
+            let column = icon.getAttribute("data-column");
+
+            if (column === sortBy) {
+                if (order === "ASC") {
+                    icon.classList.add(column === "user_id" ? "fa-sort-numeric-up" : "fa-sort-alpha-up"); // Up arrow for ASC
+                } else {
+                    icon.classList.add(column === "user_id" ? "fa-sort-numeric-down" : "fa-sort-alpha-down"); // Down arrow for DESC
                 }
+            } else {
+                icon.classList.add(column === "user_id" ? "fa-sort-numeric-down" : "fa-sort-alpha-down"); // Default icon
+            }
+        });
+    }
+
+    // Function to filter users
+    function filterUsers() {
+        let searchValue = document.getElementById("searchUser").value.toLowerCase();
+        let roleValue = document.getElementById("roleFilter").value.toLowerCase();
+
+        let rows = document.querySelectorAll("#userTableBody tr");
+        rows.forEach(row => {
+            let username = row.cells[1].textContent.toLowerCase();
+            let email = row.cells[5].textContent.toLowerCase();
+            let firstName = row.cells[2].textContent.toLowerCase();
+            let lastName = row.cells[3].textContent.toLowerCase();
+            let role = row.cells[6].textContent.toLowerCase();
+
+            let searchMatch = username.includes(searchValue) || email.includes(searchValue) || firstName.includes(searchValue) || lastName.includes(searchValue);
+            let roleMatch = roleValue === "" || role === roleValue;
+
+            row.style.display = searchMatch && roleMatch ? "" : "none";
+        });
+    }
+
+    // Attach sorting event listeners to sorting icons
+    document.querySelectorAll(".sort-icon").forEach(icon => {
+        icon.addEventListener("click", function () {
+            let column = this.getAttribute("data-column");
+            sortUsers(column);
+        });
+    });
+
+    // Attach event listeners to filter inputs
+    document.getElementById("roleFilter").addEventListener("change", filterUsers);
+    document.getElementById("searchUser").addEventListener("keyup", filterUsers);
+
+    // Update icons on page load
+    updateSortIcons();
+});
+
         </script>
     </body>
 </html>
