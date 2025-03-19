@@ -1,18 +1,20 @@
 <?php
     session_start(); // Start a new session or resume the existing one for user session management.
 
-    // Database connection setup
     $servername = "localhost";
     $dbUsername = "root";
     $dbPassword = "";
-    $dbName = "MedicalBookingSystem";
-
+    $dbName = "medicalbookingsystem"; // Ensure correct database name (CASE SENSITIVE)
+    
     // Create database connection
     $conn = new mysqli($servername, $dbUsername, $dbPassword, $dbName);
-
+    
+    // Force the correct database to be used
+    $conn->query("USE medicalbookingsystem");
+    
     // Check connection
     if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error); // Stop execution if the database connection fails.
+        die("Connection failed: " . $conn->connect_error);
     }
 
     $error = ''; // Variable to store error messages for invalid login attempts.
@@ -132,8 +134,9 @@
                     // Redirect the user based on their role
                     $redirectMap = [
                         'admin' => "admin/admindash.php",
-                        'doctor' => "doctor_dashboard.php",
-                        'staff' => "staff_dashboard.php"
+                        'doctor' => "doctor/doctordash.php",
+                        'receptionist' => "staff/staffdash.php",
+                        'patient' => "patient/patientdash.php",
                     ];
 
                     if (isset($redirectMap[$role])) {
@@ -150,10 +153,10 @@
                             header("location: admin/admindash.php");
                             break;
                         case 'doctor':
-                            header("location: doctor_dashboard.php");
+                            header("location: doctor/doctordash.php");
                             break;
                         case 'staff':
-                            header("location: staff_dashboard.php");
+                            header("location: staff/staffdash.php");
                             break;
                         default:
                             $error = 'Invalid role'; // Handle unexpected roles.

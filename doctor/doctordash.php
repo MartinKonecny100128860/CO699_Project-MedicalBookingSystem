@@ -7,25 +7,19 @@
         exit();
     }
 
-    // Database connection setup (Ensure correct DB name and charset)
-    $servername = "localhost";
-    $dbUsername = "root";
-    $dbPassword = "";
-    $dbName = "medicalbookingsystem"; // Corrected database name
-
-    // Create database connection
-    $conn = new mysqli($servername, $dbUsername, $dbPassword, $dbName);
-    $conn->set_charset("utf8mb4");
-
-    // Check connection
+    // Database connection setup
+    $conn = new mysqli("localhost", "root", "", "MedicalBookingSystem");
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Redirect to login page if not logged in
-    if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-        header("Location: login.php");
-        exit();
+    // Fetch users for admin view (excluding patients)
+    $sql = "SELECT user_id, username, email, role FROM users WHERE role IN ('admin', 'staff', 'doctor', 'patient')";
+    $result = $conn->query($sql);
+
+    // Check for query errors
+    if (!$result) {
+        die("Error fetching users: " . $conn->error);
     }
 
     // Check for and set the profile picture for the logged-in user
@@ -33,7 +27,7 @@
     $profilePictureQuery = "SELECT profile_picture FROM users WHERE user_id = ?";
     $profilePictureStmt = $conn->prepare($profilePictureQuery);
     if (!$profilePictureStmt) {
-        die("Error preparing profile picture query: " . $conn->error); // Optional: Remove in production
+        die("Error preparing profile picture query: " . $conn->error);
     }
 
     $profilePictureStmt->bind_param("i", $user_id);
@@ -62,6 +56,16 @@
         $_SESSION['profile_picture'] = $profile_picture;
     }
 
+    // Fetch users excluding patients
+    $usersQuery = "SELECT user_id, first_name, last_name, username, role FROM users WHERE role NOT IN ('patient')";
+    $usersResult = $conn->query($usersQuery);
+    $users = [];
+
+    if ($usersResult->num_rows > 0) {
+        while ($row = $usersResult->fetch_assoc()) {
+            $users[] = $row;
+        }
+    }
 
     $conn->close();
 ?>
@@ -73,94 +77,83 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Admin Dashboard</title>
 
+        <!-- External links -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-        <link rel="stylesheet" href="styles/admindash.css">
-        <link rel="stylesheet" href="styles/modals.css">
+       
+        <!-- stylesheet from styles folder -->
+        <link rel="stylesheet" href="styles/doctordash.css">
         <link rel="stylesheet" href="../accessibility/accessibility.css">
         <link rel="stylesheet" href="../accessibility/highcontrast.css">
-        <link rel="stylesheet" href="styles/statistics.css">
 
-        <script src="scripts/statistics.js" defer></script>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="../accessibility/accessibility.js" defer></script>
-        <script src="scripts/edituser.js"></script>
-        <script src="scripts/adduser.js"></script>
-    </head>
 
+    </head>
     <body>
+
+        <!-- Header HTML -->
         <div class="header">
             <div style="display: flex; align-items: center;">
                 <img src="../assets/logos/logo-dark.png" alt="Logo">
-                <h1 style="margin-left: 20px;">Admin Dashboard</h1>
+                <h1 style="margin-left: 20px;">Dashboard</h1>
             </div>
             <a href="/MedicalBooking/logout.php" class="power-icon-box">
                 <i class="material-icons">&#xe8ac;</i>    
             </a>
         </div>
 
+        <!-- Side Nav Bar HTML -->
         <div class="sidebar">
             <div class="profile-pic-container">
                 <div class="profile-pic-wrapper">
-                    <img src="<?= htmlspecialchars('../' . ($_SESSION['profile_picture'] ?? 'assets/defaults/user_default.png')) ?>" 
+                <img src="<?= htmlspecialchars('../' . ($_SESSION['profile_picture'] ?? 'assets/defaults/user_default.png')) ?>" 
                     alt="Profile Picture" class="profile-pic">
                 </div>
                 <p class="welcome-text">
-                    Welcome back, <?= htmlspecialchars($_SESSION['username'] ?? 'Admin') ?><br>
+                    Welcome back, <?= htmlspecialchars($_SESSION['username'] ?? 'Doctor') ?><br>
                     <small>ID: <?= htmlspecialchars($_SESSION['user_id'] ?? 'N/A') ?></small>
                 </p>
             </div>
+
+            <!-- Scrollable Container Inside Nav Bar -->
             <div class="scroll-container">
-                <h4 class="sidebar-heading">Quick Links</h4>
-                <a href="admindash.php">Dashboard</a>
-                <a href="logs.php">View Logs</a>
-                <a href="statistics.php"  class="active">Statistics</a>
+
             </div>
         </div>
 
-        <!-- Content -->
         <div class="content">
-            <!-- Statistics Cards -->
-            <div class="stats-container">
-                <div class="stat-box">
-                    <h3>Total Users</h3>
-                    <p id="totalUsers">0</p>
-                </div>
-                <div class="stat-box">
-                    <h3>Total Appointments</h3>
-                    <p id="totalAppointments">0</p>
-                </div>
-                <div class="stat-box">
-                    <h3>Total Logs</h3>
-                    <p id="totalLogs">0</p>
-                </div>
-                <div class="stat-box">
-                    <h3>Most Active Admin (ID)</h3>
-                    <p id="mostActiveAdmin">-</p>
-                </div>
-            </div>
-
-            <!-- Charts Section -->
-            <div class="charts-container">
-                <canvas id="userRegistrationsChart"></canvas>
-            </div>
-
-            <!-- Recent Activity -->
-            <div class="recent-logs">
-                <h3>Recent Activity</h3>
-                <ul id="recentLogs"></ul>
-            </div>
-
-            <!-- Active Admins -->
-            <div class="active-users">
-                <h3>Active Admins</h3>
-                <ul id="activeAdmins"></ul>
+            <h2 class="dashboard-title">Doctor's Dashboard</h2>
+            <div class="dashboard-grid">
+                <a href="appointments.php" class="dashboard-item">
+                    <img src="../assets/misc/appointments.jpg" alt="Appointments">
+                    <p>View This Week's Appointments</p>
+                </a>
+                <a href="doctor_schedule.php" class="dashboard-item">
+                    <img src="../assets/misc/schedule.jpg" alt="Schedule">
+                    <p>Manage Your Schedule</p>
+                </a>
+                <a href="medical_records.php" class="dashboard-item">
+                    <img src="../assets/misc/records.jpg" alt="Medical Records">
+                    <p>View Medical Records</p>
+                </a>
+                <a href="prescriptions.php" class="dashboard-item">
+                    <img src="../assets/misc/prescription.jpg" alt="Prescriptions">
+                    <p>Prescribe Medication</p>
+                </a>
+                <a href="test_results.php" class="dashboard-item">
+                    <img src="../assets/misc/results.jpg" alt="Tests">
+                    <p>Medical Reports & Test Results</p>
+                </a>
+                <a href="emergency_cases.php" class="dashboard-item">
+                    <img src="../assets/misc/emergency.jpg" alt="Emergency">
+                    <p>Emergency Cases</p>
+                </a>
             </div>
         </div>
+
 
         <!-- Accessibility Icon -->
         <div id="accessibility-icon" class="accessibility-icon">
@@ -195,5 +188,7 @@
                 </li>
             </ul>
         </div>
+        
+        
     </body>
 </html>

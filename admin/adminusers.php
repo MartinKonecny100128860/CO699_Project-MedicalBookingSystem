@@ -7,8 +7,17 @@
         exit();
     }
 
-    // Database connection setup
-    $conn = new mysqli("localhost", "root", "", "MedicalBookingSystem");
+    // Database connection setup (Ensure correct DB name and charset)
+    $servername = "localhost";
+    $dbUsername = "root";
+    $dbPassword = "";
+    $dbName = "medicalbookingsystem"; // Corrected database name
+
+    // Create database connection
+    $conn = new mysqli($servername, $dbUsername, $dbPassword, $dbName);
+    $conn->set_charset("utf8mb4");
+
+    // Check connection
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }

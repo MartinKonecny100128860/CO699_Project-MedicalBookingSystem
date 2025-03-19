@@ -1,14 +1,21 @@
 <?php
     session_start();
 
-    // Database connection setup
+    // Redirect to login page if not logged in
+    if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+        header("Location: login.php");
+        exit();
+    }
+
+    // Database connection setup (Ensure correct DB name and charset)
     $servername = "localhost";
     $dbUsername = "root";
     $dbPassword = "";
-    $dbName = "MedicalBookingSystem";
+    $dbName = "medicalbookingsystem"; // Corrected database name
 
     // Create database connection
     $conn = new mysqli($servername, $dbUsername, $dbPassword, $dbName);
+    $conn->set_charset("utf8mb4");
 
     // Check connection
     if ($conn->connect_error) {

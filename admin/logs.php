@@ -8,185 +8,169 @@
     }
 
     // Database connection setup
-    $conn = new mysqli("localhost", "root", "", "MedicalBookingSystem");
+    $servername = "localhost";
+    $dbUsername = "root";
+    $dbPassword = "";
+    $dbName = "medicalbookingsystem";
+
+    $conn = new mysqli($servername, $dbUsername, $dbPassword, $dbName);
+    $conn->set_charset("utf8mb4");
+
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Fetch users for admin view (excluding patients)
-    $sql = "SELECT user_id, username, email, role FROM users WHERE role IN ('admin', 'staff', 'doctor')";
-    $result = $conn->query($sql);
+    // Fetch logs with filtering, sorting, and searching
+    $searchQuery = isset($_GET["search"]) ? "%" . $conn->real_escape_string($_GET["search"]) . "%" : "%";
+    $adminFilter = isset($_GET["admin_id"]) && $_GET["admin_id"] !== "" ? intval($_GET["admin_id"]) : null;
+    $actionFilter = isset($_GET["action"]) && $_GET["action"] !== "" ? "%" . $conn->real_escape_string($_GET["action"]) . "%" : "%";
 
-    // Check for query errors
-    if (!$result) {
-        die("Error fetching users: " . $conn->error); // Optional: Remove in production
-    }
+    $logsQuery = "SELECT logs.log_id, logs.admin_id, logs.action, 
+                        DATE_FORMAT(logs.log_timestamp, '%d/%m/%Y %H:%i:%s') AS timestamp,
+                        users.username AS admin_name 
+                FROM logs 
+                LEFT JOIN users ON logs.admin_id = users.user_id
+                WHERE logs.action LIKE ? 
+                AND (logs.admin_id = ? OR ? IS NULL)
+                ORDER BY logs.log_timestamp DESC";
 
-    // Check for and set the profile picture for the logged-in user
-    $user_id = $_SESSION['user_id'];
-    $profilePictureQuery = "SELECT profile_picture FROM users WHERE user_id = ?";
-    $profilePictureStmt = $conn->prepare($profilePictureQuery);
-    if (!$profilePictureStmt) {
-        die("Error preparing profile picture query: " . $conn->error); // Optional: Remove in production
-    }
+    $stmt = $conn->prepare($logsQuery);
+    $stmt->bind_param("sii", $actionFilter, $adminFilter, $adminFilter);
+    $stmt->execute();
+    $logsResult = $stmt->get_result();
+    $logs = $logsResult->fetch_all(MYSQLI_ASSOC);
 
-    $profilePictureStmt->bind_param("i", $user_id);
-    $profilePictureStmt->execute();
-    $profilePictureStmt->bind_result($profile_picture);
-    $profilePictureStmt->fetch();
-    $profilePictureStmt->close();
-
-    // Assign profile picture or default if not set
-    if (empty($profile_picture)) {
-        switch ($_SESSION['role']) {
-            case 'admin':
-                $_SESSION['profile_picture'] = 'assets/defaults/admin_default.png';
-                break;
-            case 'doctor':
-                $_SESSION['profile_picture'] = 'assets/defaults/doctor_default.png';
-                break;
-            case 'staff':
-                $_SESSION['profile_picture'] = 'assets/defaults/staff_default.png';
-                break;
-            default:
-                $_SESSION['profile_picture'] = 'assets/defaults/user_default.png';
-                break;
-        }
-    } else {
-        $_SESSION['profile_picture'] = $profile_picture;
-    }
+    // Fetch all admins for filter dropdown
+    $adminQuery = "SELECT user_id, username FROM users WHERE role = 'admin'";
+    $adminResult = $conn->query($adminQuery);
+    $admins = $adminResult->fetch_all(MYSQLI_ASSOC);
 
     $conn->close();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Admin Dashboard</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Logs</title>
 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-        <link rel="stylesheet" href="styles/admindash.css">
-        <link rel="stylesheet" href="../accessibility/accessibility.css">
-        <link rel="stylesheet" href="../accessibility/highcontrast.css">
-        <link rel="stylesheet" href="styles/logs.css">
-    
-        <script src="scripts/logs.js" defer></script>
-        <script src="../accessibility/accessibility.js" defer></script>
-    </head>
+    <link rel="stylesheet" href="styles/admindash.css">
+    <link rel="stylesheet" href="styles/logs.css">
+</head>
 
-    <body>
-        <div class="header">
-            <div style="display: flex; align-items: center;">
-                <img src="../assets/logos/logo-dark.png" alt="Logo">
-                <h1 style="margin-left: 20px;">Admin Dashboard</h1>
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center;">
+            <img src="../assets/logos/logo-dark.png" alt="Logo">
+            <h1 style="margin-left: 20px;">System Logs</h1>
+        </div>
+        <a href="/MedicalBooking/logout.php" class="power-icon-box">
+            <i class="material-icons">&#xe8ac;</i>    
+        </a>
+    </div>
+
+    <div class="sidebar">
+        <div class="profile-pic-container">
+            <div class="profile-pic-wrapper">
+                <img src="<?= htmlspecialchars('../' . ($_SESSION['profile_picture'] ?? 'assets/defaults/user_default.png')) ?>" 
+                alt="Profile Picture" class="profile-pic">
             </div>
-            <a href="/MedicalBooking/logout.php" class="power-icon-box">
-                <i class="material-icons">&#xe8ac;</i>    
-            </a>
+            <p class="welcome-text">
+                Welcome back, <?= htmlspecialchars($_SESSION['username'] ?? 'Admin') ?><br>
+                <small>ID: <?= htmlspecialchars($_SESSION['user_id'] ?? 'N/A') ?></small>
+            </p>
+        </div>
+        <div class="scroll-container">
+            <h4 class="sidebar-heading">Quick Links</h4>
+            <a href="admindash.php">Dashboard</a>
+            <a href="logs.php" class="active">View Logs</a>
+            <a href="statistics.php">Statistics</a>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="logs-container">
+        <h2>Admin Logs</h2>
+
+        <!-- Search and Filter Controls -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <input type="text" id="searchLogs" class="form-control me-2" placeholder="Search logs by action (e.g., 'Deleted user')">
+
+            <select id="filterAction" class="form-select me-2">
+                <option value="">All Actions</option>
+                <option value="Added">Added</option>
+                <option value="Updated">Updated</option>
+                <option value="Deleted">Deleted</option>
+            </select>
+
+            <select id="filterAdmin" class="form-select me-2">
+                <option value="">All Admins</option>
+                <?php foreach ($admins as $admin): ?>
+                    <option value="<?= $admin['user_id'] ?>"><?= htmlspecialchars($admin['username']) ?></option>
+                <?php endforeach; ?>
+            </select>
+
+            <button id="applyFilters" class="btn btn-primary">Apply Filters</button>
         </div>
 
-        <div class="sidebar">
-            <div class="profile-pic-container">
-                <div class="profile-pic-wrapper">
-                    <img src="<?= htmlspecialchars('../' . ($_SESSION['profile_picture'] ?? 'assets/defaults/user_default.png')) ?>" 
-                    alt="Profile Picture" class="profile-pic">
-                </div>
-                <p class="welcome-text">
-                    Welcome back, <?= htmlspecialchars($_SESSION['username'] ?? 'Admin') ?><br>
-                    <small>ID: <?= htmlspecialchars($_SESSION['user_id'] ?? 'N/A') ?></small>
-                </p>
-            </div>
-            <div class="scroll-container">
-                <h4 class="sidebar-heading">Quick Links</h4>
-                <a href="admindash.php">Dashboard</a>
-                <a href="logs.php" class="active">View Logs</a>
-                <a href="statistics.php">Statistics</a>
-            </div>
-        </div>
+        <!-- Logs Table -->
+        <table class="table table-bordered logs-table">
+            <thead>
+                <tr>
+                    <th>Admin</th>
+                    <th>Action</th>
+                    <th>Date & Time</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody id="logsTableBody">
+                <?php foreach ($logs as $log): ?>
+                <tr>
+                    <td><?= htmlspecialchars($log['admin_name']) ?></td>
+                    <td><?= htmlspecialchars($log['action']) ?></td>
+                    <td><?= htmlspecialchars($log['timestamp']) ?></td>
+                    <td>
+                        <button class="btn btn-danger btn-sm delete-log" data-log-id="<?= $log['log_id'] ?>">Delete</button>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        $(document).ready(function () {
+            // Handle search and filtering
+            $("#applyFilters").click(function () {
+                const searchQuery = $("#searchLogs").val();
+                const selectedAction = $("#filterAction").val();
+                const selectedAdmin = $("#filterAdmin").val();
 
-        <!-- Logs Content -->
-        <div class="content">
-            <div class="logs-container">
-                <h2>Logs</h2>
+                let url = "logs.php?search=" + encodeURIComponent(searchQuery) + "&action=" + encodeURIComponent(selectedAction) + "&admin_id=" + encodeURIComponent(selectedAdmin);
+                window.location.href = url;
+            });
 
-                <!-- Search and Filter Controls -->
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <input type="text" id="searchLogs" class="form-control me-2" placeholder="Search logs...">
-                    
-                    <select id="filterAction" class="form-select me-2">
-                        <option value="">All Actions</option>
-                        <option value="Added">Added</option>
-                        <option value="Updated">Updated</option>
-                        <option value="Deleted">Deleted</option>
-                    </select>
+            // Handle log deletion
+            $(".delete-log").click(function () {
+                const logId = $(this).data("log-id");
 
-                    <select id="filterAdmin" class="form-select me-2">
-                        <option value="">All Admins</option>
-                    </select>
-                </div>
-
-                <!-- Logs Table -->
-                <table class="table table-bordered logs-table">
-                    <thead>
-                        <tr>
-                            <th>Admin ID</th>
-                            <th>Action</th>
-                            <th>Date & Time</th>
-                            <th>Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody id="logsTableBody">
-                        <!-- Logs will be loaded here via AJAX -->
-                    </tbody>
-                </table>
-
-                <!-- Pagination Controls -->
-                <div class="pagination-controls d-flex justify-content-center">
-                    <button id="prevPage" class="btn btn-custom me-2" disabled>Previous</button>
-                    <span id="currentPage">Page 1</span>
-                    <button id="nextPage" class="btn btn-custom ms-2" disabled>Next</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Accessibility Icon -->
-        <div id="accessibility-icon" class="accessibility-icon">
-            <i class="fa fa-universal-access"></i>
-        </div>
-
-        <!-- Accessibility Popup Window -->
-        <div id="accessibility-popup" class="accessibility-options">
-            <div class="accessibility-popup-header">
-                <h5>Accessibility Settings</h5>
-                <span id="accessibility-close" class="accessibility-close">&times;</span>
-            </div>
-            <ul>
-                <li>
-                    <span>Dark Mode:</span>
-                    <div id="dark-mode-toggle" class="dark-mode-toggle"></div>
-                </li>
-                <li>
-                    <span>Text Resizing:</span>
-                    <div>
-                        <button class="text-resize-decrease accessibility-option">A-</button>
-                        <button class="text-resize-increase accessibility-option">A+</button>
-                    </div>
-                </li>
-                <li>
-                    <span>High Contrast Mode:</span>
-                    <button class="high-contrast-enable accessibility-option">Enable</button>
-                </li>
-                <li>
-                    <span>Text-to-Speech:</span>
-                    <button class="tts-on-click-enable accessibility-option">Enable</button>
-                </li>
-            </ul>
-        </div>
-    </body>
+                if (confirm("Are you sure you want to delete this log?")) {
+                    $.post("delete_log.php", { log_id: logId }, function (response) {
+                        if (response.message) {
+                            alert(response.message);
+                            location.reload();
+                        } else if (response.error) {
+                            alert("Error: " + response.error);
+                        }
+                    }, "json");
+                }
+            });
+        });
+    </script>
+</body>
 </html>
