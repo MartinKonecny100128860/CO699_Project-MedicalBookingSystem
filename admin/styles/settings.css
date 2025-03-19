@@ -39,11 +39,18 @@
     vertical-align: middle;
 }
 
+/* Add specific style for the last column with the delete button */
+.table td:last-child {
+    width: 150px; /* Make sure there's enough space for the button */
+    text-align: center; /* Center the button */
+}
+
 /* Center flags inside table cells */
 .table img {
     vertical-align: middle;
     margin-right: 8px;
 }
+
 
 /* Responsive Adjustments */
 @media screen and (max-width: 1200px) {

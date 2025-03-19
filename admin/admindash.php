@@ -14,7 +14,7 @@
     }
 
     // Fetch users for admin view (excluding patients)
-    $sql = "SELECT user_id, username, email, role FROM users WHERE role IN ('admin', 'staff', 'doctor')";
+    $sql = "SELECT user_id, username, email, role FROM users WHERE role IN ('admin', 'staff', 'doctor', 'patient')";
     $result = $conn->query($sql);
 
     // Check for query errors

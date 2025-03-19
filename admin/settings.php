@@ -52,6 +52,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         
         <link rel="stylesheet" href="styles/settings.css">
         <link rel="stylesheet" href="styles/admindash.css">
@@ -59,6 +60,7 @@
         <link rel="stylesheet" href="../accessibility/highcontrast.css">
     
         <script src="../accessibility/accessibility.js" defer></script>
+        
     </head>
     <body>
         <div class="header">
@@ -95,41 +97,90 @@
             <div class="card mt-4 p-4">
                 <h3>Last 10 Connected Users</h3>
                 <table class="table">
-                    <thead>
-                        <tr>
-                            <th>User ID</th>
-                            <th>Role</th>
-                            <th>IP Address</th>
-                            <th>Location</th>
-                            <th>Last Active</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php while ($row = $result->fetch_assoc()): ?>
-                        <tr>
-                            <td><?= htmlspecialchars($row['user_id']) ?></td>
-                            <td><?= ucfirst(htmlspecialchars($row['role'])) ?></td>
-                            <td><?= htmlspecialchars($row['last_ip']) ?></td>
-                            <td>
-                                <?= htmlspecialchars($row['last_country']) ?>, <?= htmlspecialchars($row['last_city']) ?>
-                                <?php 
-                                    $country_code = strtolower(trim($row['last_country_code'] ?? '')); // Ensure lowercase and remove spaces
-                                    if (!empty($country_code) && strlen($country_code) == 2): // Check it's a valid 2-letter country code
-                                ?>
-                                    <img src="https://flagcdn.com/w40/<?= $country_code ?>.png" 
-                                    alt="<?= htmlspecialchars($row['last_country']) ?> Flag"
-                                    title="<?= htmlspecialchars($row['last_country']) ?>"
-                                    style="height: 20px;">
-                                    <?php else: ?>
-                                    <img src="https://flagcdn.com/w40/gb.png" alt="Unknown Flag" title="Unknown Country" style="height: 20px;">
-                                    <?php endif; ?>
-                            </td>
-                            <td><?= htmlspecialchars($row['last_active']) ?></td>
-                        </tr>
-                        <?php endwhile; ?>
-                    </tbody>
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Role</th>
+                        <th>IP Address</th>
+                        <th>Location</th>
+                        <th>Last Active</th>
+                        <th>Actions</th> <!-- Add header for the action buttons -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($row = $result->fetch_assoc()): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($row['user_id']) ?></td>
+                        <td><?= ucfirst(htmlspecialchars($row['role'])) ?></td>
+                        <td><?= htmlspecialchars($row['last_ip']) ?></td>
+                        <td>
+                            <?= htmlspecialchars($row['last_country']) ?>, <?= htmlspecialchars($row['last_city']) ?>
+                            <?php 
+                                $country_code = strtolower(trim($row['last_country_code'] ?? '')); // Ensure lowercase and remove spaces
+                                if (!empty($country_code) && strlen($country_code) == 2): // Check it's a valid 2-letter country code
+                            ?>
+                                <img src="https://flagcdn.com/w40/<?= $country_code ?>.png" 
+                                alt="<?= htmlspecialchars($row['last_country']) ?> Flag"
+                                title="<?= htmlspecialchars($row['last_country']) ?>"
+                                style="height: 20px;">
+                            <?php else: ?>
+                                <img src="https://flagcdn.com/w40/gb.png" alt="Unknown Flag" title="Unknown Country" style="height: 20px;">
+                            <?php endif; ?>
+                        </td>
+                        <td><?= htmlspecialchars($row['last_active']) ?></td>
+                        <td>
+                            <button class="btn btn-danger btn-sm" onclick="deleteUser(<?= $row['user_id'] ?>)">Delete</button>
+                        </td> <!-- Add delete button -->
+                    </tr>
+                    <?php endwhile; ?>
+                </tbody>
                 </table>
             </div>
+        </div>
+        <script>
+            function deleteUser(userId) {
+                if (confirm("Are you sure you want to delete this user?")) {
+                    $.post("php/delete_user.php", { id: userId }, function() {
+                        alert("User deleted successfully.");
+                        location.reload(); // Refresh the page after deletion
+                    }).fail(function() {
+                        alert("Error deleting user.");
+                    });
+                }
+            }
+        </script>
+                <!-- Accessibility Icon -->
+                <div id="accessibility-icon" class="accessibility-icon">
+            <i class="fa fa-universal-access"></i>
+        </div>
+
+        <!-- Accessibility Popup Window -->
+        <div id="accessibility-popup" class="accessibility-options">
+            <div class="accessibility-popup-header">
+                <h5>Accessibility Settings</h5>
+                <span id="accessibility-close" class="accessibility-close">&times;</span>
+            </div>
+            <ul>
+                <li>
+                    <span>Dark Mode:</span>
+                    <div id="dark-mode-toggle" class="dark-mode-toggle"></div>
+                </li>
+                <li>
+                    <span>Text Resizing:</span>
+                    <div>
+                        <button class="text-resize-decrease accessibility-option">A-</button>
+                        <button class="text-resize-increase accessibility-option">A+</button>
+                    </div>
+                </li>
+                <li>
+                    <span>High Contrast Mode:</span>
+                    <button class="high-contrast-enable accessibility-option">Enable</button>
+                </li>
+                <li>
+                    <span>Text-to-Speech:</span>
+                    <button class="tts-on-click-enable accessibility-option">Enable</button>
+                </li>
+            </ul>
         </div>
     </body>
 </html>

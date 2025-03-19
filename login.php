@@ -132,8 +132,9 @@
                     // Redirect the user based on their role
                     $redirectMap = [
                         'admin' => "admin/admindash.php",
-                        'doctor' => "doctor_dashboard.php",
-                        'staff' => "staff_dashboard.php"
+                        'doctor' => "doctor/doctordash.php",
+                        'receptionist' => "staff/staffdash.php",
+                        'patient' => "patient/patientdash.php",
                     ];
 
                     if (isset($redirectMap[$role])) {
@@ -150,10 +151,10 @@
                             header("location: admin/admindash.php");
                             break;
                         case 'doctor':
-                            header("location: doctor_dashboard.php");
+                            header("location: doctor/doctordash.php");
                             break;
                         case 'staff':
-                            header("location: staff_dashboard.php");
+                            header("location: staff/staffdash.php");
                             break;
                         default:
                             $error = 'Invalid role'; // Handle unexpected roles.
