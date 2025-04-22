@@ -59,6 +59,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<link rel="stylesheet" href="styles/theme.css"> <!-- ← your override -->
 
     <link rel="stylesheet" href="styles/admindash.css">
     <link rel="stylesheet" href="styles/logs.css">
@@ -160,7 +164,7 @@
                 const logId = $(this).data("log-id");
 
                 if (confirm("Are you sure you want to delete this log?")) {
-                    $.post("delete_log.php", { log_id: logId }, function (response) {
+                    $.post("php/delete_log.php", { log_id: logId }, function (response) {
                         if (response.message) {
                             alert(response.message);
                             location.reload();

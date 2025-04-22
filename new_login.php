@@ -2,7 +2,7 @@
 session_start(); // Start a new session or resume the existing one for user session management.
 
 // Database connection setup
-$servername = "localhost";
+$servername = "127.0.0.1";
 $dbUsername = "root";
 $dbPassword = "";
 $dbName = "medicalbookingsystem"; // Ensure correct database name (CASE SENSITIVE)
@@ -109,9 +109,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // If location is still unknown, use default values
             if ($country === 'Unknown' || $city === 'Unknown') {
-                $country = 'Czech Republic';
-                $city = 'Karviná';
-                $country_code = 'cz';
+                $country = 'United Kingdom';
+                $city = 'Nelson';
+                $country_code = 'GB';
             }
 
             // Store Last Login Info in Database
@@ -139,7 +139,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $error = "Invalid username.";
     }
-    $stmt->close();
+    // $stmt->close();
 }
 $conn->close();
 ?>
@@ -202,9 +202,6 @@ $conn->close();
             </form>
         </div>
 
-        <!-- Include chat feature -->
-        <div id="chat-placeholder"></div>
-        <script src="aichat/chat.js"></script>
 
         <!-- Include accessibility styles and scripts -->
         <link rel="stylesheet" href="accessibility/accessibility.css">

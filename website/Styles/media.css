@@ -1,0 +1,57 @@
+      /* media querie for hero section*/ 
+      @media (max-width: 767px) {
+        .hero-title {
+          font-size: 40px;
+        }
+      }
+      /* media querie ofr product cards*/ 
+      @media (max-width: 767px) {
+        .card-deck .col-md-4 {
+          flex-basis: 100%;
+          margin-bottom: 20px;
+        }
+      }
+      /* media querie map section*/
+      @media (max-width: 768px) {
+  .box {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .left-box,
+  .right-box {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .content-container {
+    flex-direction: column;
+  }
+
+  .box.left-box,
+  .box.right-box {
+    width: 100%;
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .box.right-box {
+    display: flex;
+    justify-content: center; /* Center the map horizontally */
+  }
+
+  .box.right-box iframe {
+    width: 100%; /* Set the width of the map iframe to 100% */
+    max-width: 100%; /* Ensure the map iframe does not exceed the available width */
+    height: 300px; /* Adjust the height of the map iframe as desired */
+  }
+}
+      /* review box */
+      @media (min-width: 768px) {
+        .review-box {
+          width: calc(33.33% - 20px);
+          margin-right: 20px;
+          margin-bottom: 0;
+        }
+      }
+    

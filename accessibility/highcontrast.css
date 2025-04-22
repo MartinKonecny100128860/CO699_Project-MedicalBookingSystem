@@ -342,3 +342,497 @@ body.high-contrast-mode .modal-footer {
     background-color: black;
     border-color: yellow;
 }
+
+/* =================================== */
+/* DROPDOWNS & SELECT MENUS */
+/* =================================== */
+.high-contrast-mode select,
+.high-contrast-mode .form-select {
+    background-color: #2b2b2b;
+    color: #ffff00;
+    border: 1px solid #ffff00;
+}
+
+.high-contrast-mode select:focus,
+.high-contrast-mode .form-select:focus {
+    border-color: #ffd700;
+    box-shadow: 0 0 6px #ffd700;
+}
+
+/* =================================== */
+/* INPUT FIELDS & FORMS */
+/* =================================== */
+.high-contrast-mode input[type="text"],
+.high-contrast-mode input[type="email"],
+.high-contrast-mode input[type="password"],
+.high-contrast-mode input[type="date"],
+.high-contrast-mode input[type="time"],
+.high-contrast-mode textarea {
+    background-color: #2b2b2b;
+    color: #fff;
+    border: 1px solid #444;
+}
+
+.high-contrast-mode input:focus,
+.high-contrast-mode textarea:focus {
+    border-color: #ffff00;
+    box-shadow: 0 0 5px #ffff00;
+}
+
+/* =================================== */
+/* PAGINATION */
+/* =================================== */
+.high-contrast-mode .pagination .page-link {
+    background-color: #000;
+    color: #ffff00;
+    border: 1px solid #ffff00;
+}
+
+.high-contrast-mode .pagination .page-link:hover {
+    background-color: #444;
+    color: #fff;
+}
+
+/* =================================== */
+/* CARDS & BOXES */
+/* =================================== */
+.high-contrast-mode .card {
+    background-color: #111;
+    border: 1px solid #ffff00;
+    color: #fff;
+}
+
+.high-contrast-mode .card-header {
+    background-color: #222;
+    color: #ffff00;
+    border-bottom: 1px solid #ffff00;
+}
+
+.high-contrast-mode .card-body {
+    background-color: #111;
+    color: #fff;
+}
+
+/* =================================== */
+/* ALERTS */
+/* =================================== */
+.high-contrast-mode .alert {
+    border: 2px solid #ffff00;
+    color: #000;
+    background-color: #ffff00;
+    font-weight: bold;
+}
+
+/* =================================== */
+/* FILE UPLOAD FIELDS */
+/* =================================== */
+.high-contrast-mode input[type="file"] {
+    background-color: #2b2b2b;
+    color: #fff;
+    border: 1px solid #ffff00;
+}
+
+/* =================================== */
+/* CHAT COMPONENT */
+/* =================================== */
+.high-contrast-mode #chat-container {
+    background-color: #111;
+    border: 1px solid #ffff00;
+    color: #fff;
+}
+
+.high-contrast-mode #chat-header {
+    background-color: #000;
+    color: #ffff00;
+    border-bottom: 1px solid #ffff00;
+}
+
+.high-contrast-mode #chat-footer input {
+    background-color: #2b2b2b;
+    color: #ffff00;
+    border: 1px solid #ffff00;
+}
+
+.high-contrast-mode #chat-footer button {
+    background-color: #ffff00;
+    color: #000;
+    border: 1px solid #000;
+}
+
+/* =================================== */
+/* MODAL OVERLAYS & CLOSE BUTTON */
+/* =================================== */
+.high-contrast-mode .modal-content {
+    background-color: #111;
+    color: #ffff00;
+    border: 2px solid #ffff00;
+}
+
+.high-contrast-mode .modal-header button.close,
+.high-contrast-mode .modal-header .btn-close {
+    color: #ffff00;
+}
+.high-contrast-mode .schedule-card {
+    background-color: #111; /* Dark background for contrast */
+    border: 2px solid #ffff00; /* Bright yellow border */
+    color: #ffff00; /* Yellow text */
+    box-shadow: 0 4px 12px rgba(255, 255, 0, 0.3); /* Soft yellow glow */
+}
+.high-contrast-mode .schedule-card:hover {
+    background-color: #1a1a1a;
+    box-shadow: 0 6px 18px rgba(255, 255, 0, 0.4);
+}
+.high-contrast-mode .container {
+    background-color: #000; /* Pure black background */
+    color: #ffff00; /* Bright yellow text for visibility */
+    border: 2px solid #ffff00; /* Yellow border for contrast */
+    box-shadow: 0px 6px 14px rgba(255, 255, 0, 0.3); /* Yellowish glow for elevation */
+}
+/* PRESCRIBE MEDICATION PAGE - HIGH CONTRAST MODE */
+
+.high-contrast-mode .search-container {
+    background-color: #1f1f1f;
+    color: #ffff00;
+    border: 1px solid #ffff00;
+    box-shadow: 0 6px 16px rgba(255, 255, 0, 0.15);
+}
+
+.high-contrast-mode .search-title {
+    color: #ffff00;
+    border-bottom: 1px solid #ffff00;
+}
+
+.high-contrast-mode .form-control {
+    background-color: #2b2b2b;
+    color: #fff;
+    border: 1px solid #ffff00;
+}
+
+.high-contrast-mode .form-control:focus {
+    border-color: #ffff00;
+    box-shadow: 0 0 6px #ffff00;
+}
+
+.high-contrast-mode .patient-card {
+    background-color: #000;
+    color: #ffff00;
+    border: 1px solid #ffff00;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+}
+
+.high-contrast-mode .patient-card:hover {
+    box-shadow: 0 6px 18px rgba(255, 255, 0, 0.3);
+}
+
+.high-contrast-mode .btn-prescribe {
+    background-color: #ffff00;
+    color: #000;
+    border: 1px solid #000;
+}
+
+.high-contrast-mode .btn-prescribe:hover {
+    background-color: #ffd700;
+    color: #000;
+}
+
+.high-contrast-mode .no-results {
+    background-color: #111;
+    color: #ffff00;
+    border: 1px dashed #ffff00;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+/* ============================== */
+/* HIGH CONTRAST - CREATE PRESCRIPTION */
+/* ============================== */
+
+.high-contrast-mode .form-container {
+    background-color: #1a1a1a;
+    color: #ffff00;
+    border: 1px solid #ffff00;
+    box-shadow: 0 0 16px rgba(255, 255, 0, 0.3);
+}
+
+.high-contrast-mode .form-header {
+    color: #ffff00;
+    border-bottom: 2px solid #ffff00;
+}
+
+.high-contrast-mode .form-control,
+.high-contrast-mode .form-select,
+.high-contrast-mode textarea {
+    background-color: #000;
+    color: #fff;
+    border: 1px solid #ffff00;
+}
+
+.high-contrast-mode .form-control:focus,
+.high-contrast-mode .form-select:focus,
+.high-contrast-mode textarea:focus {
+    border-color: #ffff00;
+    box-shadow: 0 0 8px #ffff00;
+}
+
+.high-contrast-mode label {
+    color: #ffff00;
+}
+
+.high-contrast-mode .btn-custom {
+    background-color: #ffff00;
+    color: #000;
+    border: 1px solid #000;
+}
+
+.high-contrast-mode .btn-custom:hover {
+    background-color: #ffd700;
+    color: #000;
+    box-shadow: 0 6px 14px rgba(255, 255, 0, 0.3);
+}
+
+.high-contrast-mode .btn-secondary {
+    background-color: #444;
+    color: #fff;
+    border: 1px solid #fff;
+}
+
+.high-contrast-mode .btn-secondary:hover {
+    background-color: #333;
+    color: #ffff00;
+}
+
+.high-contrast-mode .preview-img {
+    border: 2px solid #ffff00;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.3);
+}
+/* =============================== */
+/* EMERGENCY CASES - HIGH CONTRAST */
+/* =============================== */
+
+.high-contrast-mode .container {
+    background-color: #000;
+    color: #ffff00;
+    border: 1px solid #ffff00;
+}
+
+.high-contrast-mode h2 {
+    color: #ffff00;
+}
+
+.high-contrast-mode .emergency-card {
+    background-color: #1a1a1a;
+    color: #fff;
+    border: 1px solid #ffff00;
+    box-shadow: 0 0 10px rgba(255, 255, 0, 0.2);
+}
+
+.high-contrast-mode .emergency-card:hover {
+    transform: scale(1.01);
+    box-shadow: 0 0 12px rgba(255, 255, 0, 0.4);
+}
+
+.high-contrast-mode .card-header .location {
+    color: #ccc;
+}
+
+.high-contrast-mode .severity-critical {
+    background-color: #ff0000;
+    color: #fff;
+}
+
+.high-contrast-mode .severity-severe {
+    background-color: #ffa500;
+    color: #000;
+}
+
+.high-contrast-mode .severity-moderate {
+    background-color: #ffff00;
+    color: #000;
+}
+
+.high-contrast-mode .severity-mild {
+    background-color: #32cd32;
+    color: #000;
+}
+
+.high-contrast-mode .btn-take {
+    background-color: #ffff00;
+    color: #000;
+    font-weight: bold;
+}
+
+.high-contrast-mode .btn-take:hover {
+    background-color: #ffd700;
+    color: #000;
+}
+
+.high-contrast-mode .assigned-doctor.name {
+    color: #00ff00;
+}
+
+.high-contrast-mode .assigned-doctor.none {
+    color: #ff4444;
+}
+/* =============================== */
+/* STAFF DASHBOARD - HIGH CONTRAST */
+/* =============================== */
+
+.high-contrast-mode body {
+    background-color: #000;
+    color: #ffff00;
+}
+
+.high-contrast-mode .content {
+    background-color: #000;
+    color: #ffff00;
+}
+
+.high-contrast-mode h3 {
+    color: #ffff00;
+    border-bottom: 2px solid #ffff00;
+    padding-bottom: 10px;
+}
+
+/* 🧩 Staff Card Container */
+.high-contrast-mode .staff-card {
+    background: #1f1f1f;
+    border: 1px solid #ffff00;
+    color: #ffff00;
+    box-shadow: 0 6px 12px rgba(255, 255, 0, 0.2);
+}
+
+/* 🧠 Hover Effect */
+.high-contrast-mode .staff-card:hover {
+    box-shadow: 0 10px 20px rgba(255, 255, 0, 0.3);
+    transform: translateY(-3px);
+}
+
+/* ✨ Card Icon Backgrounds */
+.high-contrast-mode .staff-card-icon.bg-success,
+.high-contrast-mode .staff-card-icon.bg-primary,
+.high-contrast-mode .staff-card-icon.bg-info,
+.high-contrast-mode .staff-card-icon.bg-warning,
+.high-contrast-mode .staff-card-icon.bg-secondary,
+.high-contrast-mode .staff-card-icon.bg-dark {
+    background-color: #000 !important;
+    color: #ffff00 !important;
+    border: 2px solid #ffff00;
+}
+
+/* 🟡 Button Styles */
+.high-contrast-mode .staff-card .btn {
+    background-color: #ffff00 !important;
+    color: #000 !important;
+    border: 1px solid #000;
+    font-weight: bold;
+}
+
+.high-contrast-mode .staff-card .btn:hover {
+    background-color: #ffd700 !important;
+    color: #000;
+}
+
+/* 🧾 Small Paragraphs */
+.high-contrast-mode .staff-card p {
+    color: #ccc;
+}
+/* ✅ High Contrast Styles for Patient Check-In Page */
+.high-contrast-mode h2,
+.high-contrast-mode .card-body,
+.high-contrast-mode .table,
+.high-contrast-mode .table th,
+.high-contrast-mode .table td,
+.high-contrast-mode .text-muted,
+.high-contrast-mode .fw-bold,
+.high-contrast-mode .fst-italic {
+    color: yellow !important;
+}
+
+.high-contrast-mode .badge {
+    background-color: transparent !important;
+    color: yellow !important;
+    border: 1px solid yellow;
+}
+
+.high-contrast-mode .btn-outline-success {
+    border-color: yellow !important;
+    color: yellow !important;
+}
+
+.high-contrast-mode .btn-outline-success:hover {
+    background-color: yellow !important;
+    color: black !important;
+}
+
+/* Optional: Override Bootstrap’s background */
+.high-contrast-mode .card {
+    background-color: black !important;
+    border: 1px solid yellow;
+}
+
+.high-contrast-mode .table-primary {
+    background-color: black !important;
+    color: yellow !important;
+}
+/* ========================== */
+/* HIGH CONTRAST FOR REGISTER */
+/* ========================== */
+
+.high-contrast-mode body,
+.high-contrast-mode .content,
+.high-contrast-mode .container,
+.high-contrast-mode .card,
+.high-contrast-mode .card-body {
+    background-color: #000 !important;
+    color: yellow !important;
+}
+
+.high-contrast-mode .card-header {
+    background-color: #111 !important;
+    color: yellow !important;
+    border-bottom: 1px solid yellow;
+}
+
+.high-contrast-mode .card-header i,
+.high-contrast-mode .card-header h4,
+.high-contrast-mode label,
+.high-contrast-mode h2,
+.high-contrast-mode h4,
+.high-contrast-mode .form-label {
+    color: yellow !important;
+}
+
+.high-contrast-mode .form-control,
+.high-contrast-mode .form-select {
+    background-color: #1a1a1a !important;
+    color: yellow !important;
+    border: 1px solid yellow !important;
+}
+
+.high-contrast-mode .form-control::placeholder {
+    color: #cccc00 !important;
+}
+
+.high-contrast-mode .form-control:focus,
+.high-contrast-mode .form-select:focus {
+    outline: none;
+    border-color: yellow !important;
+    box-shadow: 0 0 5px yellow !important;
+}
+
+.high-contrast-mode .btn-primary {
+    background-color: yellow !important;
+    color: black !important;
+    border: 1px solid black !important;
+}
+
+.high-contrast-mode .btn-primary:hover {
+    background-color: #ffd700 !important;
+    color: black !important;
+}
+
+.high-contrast-mode option {
+    background-color: black !important;
+    color: yellow !important;
+}

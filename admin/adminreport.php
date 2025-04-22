@@ -77,6 +77,8 @@
         <link rel="stylesheet" href="styles/admindash.css">
         <link rel="stylesheet" href="styles/modals.css">
         <link rel="stylesheet" href="styles/report.css">
+        <link rel="stylesheet" href="styles/theme.css">
+
 
         <script src="../accessibility/accessibility.js" defer></script>
         <script src="scripts/edituser.js"></script>
@@ -89,7 +91,7 @@
         <div class="header">
             <div style="display: flex; align-items: center;">
                 <img src="../assets/logos/logo-dark.png" alt="Logo">
-                <h1 style="margin-left: 20px;">Admin Dashboard</h1>
+                <h1 style="margin-left: 20px;">Report</h1>
             </div>
             <a href="/MedicalBooking/logout.php" class="power-icon-box">
                 <i class="material-icons">&#xe8ac;</i>    

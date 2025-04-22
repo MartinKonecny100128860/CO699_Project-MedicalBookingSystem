@@ -133,8 +133,8 @@ $conn->close();
                 <a href="adminfeedback.php">Submit Feedback</a>
 
                 <h4 class="sidebar-heading">Appointments</h4>
-                <a href="#scheduled-appointments">View Scheduled Appointments</a>
-                <a href="#active-doctors">View Active Doctors</a>
+                <a href="viewappointments.php">View Scheduled Appointments</a>
+                <a href="viewdoctors.php">View Active Doctors</a>
 
                 <h4 class="sidebar-heading">Analytics</h4>
                 <a href="statistics.php">View Statistics</a>
@@ -281,6 +281,31 @@ $conn->close();
                     window.location.href = "files/adminguide.pdf";
                 }
             }
+
+            document.querySelectorAll('.save-role-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const userId = this.getAttribute('data-user-id');
+                const select = document.querySelector(`.role-dropdown[data-user-id="${userId}"]`);
+                const newRole = select.value;
+
+                fetch('php/update_user_role.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `user_id=${userId}&role=${newRole}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                if (data.success) {
+                    alert("Role updated successfully.");
+                } else {
+                    alert("Failed to update role.");
+                }
+                });
+            });
+            });
+
         </script>
     </body>
 </html>

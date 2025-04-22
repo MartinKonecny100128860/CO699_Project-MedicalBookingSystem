@@ -1,0 +1,266 @@
+.container {
+    margin-top: 50px;
+    max-width: 1500px;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+}
+
+*,
+*::before,
+*::after {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+
+.image-gallery {
+padding: 2em 1em;
+color:rgb(4, 4, 4);
+text-align: center;
+}
+
+.gallery-container {
+    max-width: 1500px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 20px;
+    padding: 20px 0;
+    margin-left: 80px; /* ← Adjust this value to shift right */
+}
+
+
+.card-box {
+position: relative;
+background-color: #1d1d1d;
+max-width: 280px;
+min-width: 230px;
+width: 100%;
+overflow: hidden;
+flex: 1 0 280px;
+}
+
+.card-box img {
+    width: 100%;
+    height: 300px; /* Keep your chosen height */
+    object-fit: cover;
+    object-position: top; /* <-- This moves the crop focus to the top (face-focused) */
+    transition: opacity 0.35s ease;
+    display: block;
+}
+
+
+
+.card-info {
+position: absolute;
+inset: 0;
+padding: 20px 30px;
+background-color: rgba(239, 239, 239, 0.05);
+opacity: 0;
+z-index: 2;
+transition: opacity 0.35s ease;
+text-align: left;
+}
+
+.card-info h3 {
+font-size: 1em;
+text-transform: uppercase;
+margin-bottom: 10px;
+font-weight: 700;
+color: #fff;
+}
+
+.card-info p {
+font-size: 0.8em;
+line-height: 1.5em;
+color: #fff;
+}
+
+.card-box::before,
+.card-box::after,
+.card-info::before,
+.card-info::after {
+content: '';
+position: absolute;
+background: rgb(55, 255, 0);
+transition: all 0.35s ease-in;
+opacity: 1;
+z-index: 1;
+}
+
+.card-box::before,
+.card-box::after {
+height: 3px;
+width: 0;
+}
+
+.card-info::before,
+.card-info::after {
+width: 3px;
+height: 0;
+}
+
+.card-box::before {
+top: 0;
+left: 0;
+}
+
+.card-box::after {
+bottom: 0;
+right: 0;
+}
+
+.card-info::before {
+top: 0;
+right: 0;
+}
+
+.card-info::after {
+bottom: 0;
+left: 0;
+}
+
+.card-box:hover img {
+opacity: 0.4;
+}
+
+.card-box:hover .card-info {
+opacity: 1;
+}
+
+.card-box:hover::before,
+.card-box:hover::after {
+width: 100%;
+}
+
+.card-box:hover .card-info::before,
+.card-box:hover .card-info::after {
+height: 100%;
+}
+
+.card-box form {
+position: absolute;
+bottom: 15px;
+left: 50%;
+transform: translateX(-50%);
+z-index: 3;
+width: 80%;
+text-align: center;
+}
+
+.card-box .btn {
+padding: 10px 16px;
+font-size: 0.9rem;
+font-weight: 600;
+border-radius: 8px;
+background-color: #28a745;
+border: none;
+transition: background-color 0.3s ease;
+width: 100%;
+}
+
+.card-box .btn:hover {
+background-color: #218838;
+}
+
+
+.btn-primary {
+    width: 100%;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    background-color: #007bff;
+    border-color: #007bff;
+    padding: 12px;
+}
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+.slot-table td, .slot-table th {
+    padding: 15px;
+    text-align: center;
+    vertical-align: middle;
+}
+.slot-table th {
+    background-color: #f1f1f1;
+}
+.slot-table td input {
+    margin: 5px;
+}
+.alert {
+    text-align: center;
+    margin-top: 20px;
+}
+.select-container, .slot-container {
+    margin-top: 20px;
+}
+.select-container h4, .slot-container h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+}
+select {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
+}
+select:focus {
+    outline: none;
+    border-color: #007bff;
+    background-color: #ffffff;
+}
+select option {
+    padding: 10px;
+    font-size: 1rem;
+}
+.btn-primary {
+    font-size: 1.1rem;
+    background-color: #28a745;
+    border-color: #28a745;
+    padding: 10px 20px;
+    border-radius: 8px;
+}
+.btn-primary:hover {
+    background-color: #218838;
+    border-color: #218838;
+}
+.doctor-card h5 {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+.slot-table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+.slot-table td {
+    padding: 12px;
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
+}
+.slot-table td input {
+    margin: 0;
+    cursor: pointer;
+}
+.slot-table td label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.slot-table td input:checked + label {
+    font-weight: bold;
+    background-color: #e7f7e7;
+    border-radius: 5px;
+    padding: 5px;
+}
+

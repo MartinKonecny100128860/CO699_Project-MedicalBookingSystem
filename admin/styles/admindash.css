@@ -4,6 +4,7 @@ body {
     margin: 0;
     padding: 0;
 }
+
 /* Header Styles */
 .header {
 background-color:rgb(99, 139, 185);
@@ -76,6 +77,10 @@ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 .header .power-icon-box:hover i {
     color: #FF3B30;
     transform: rotate(10deg);
+}
+
+.header .power-icon-box {
+    text-decoration: none;
 }
 
 
@@ -256,6 +261,31 @@ margin-top: 15px;
     margin-left: 250px;
     padding: 90px 20px; 
 }
+
+.contentforms {
+    margin-left: -100px; /* remove - sign if on pc*/
+    margin-top: 20px;  /* height of header */
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+}
+
+/* iPad Landscape (1024px and below) */
+@media screen and (max-width: 1024px) {
+    .contentforms {
+        margin-left: -100px;
+        margin-top: 20px;
+        padding: 15px;
+    }
+}
+
+/* iPad Portrait and small tablets (768px and below) */
+@media screen and (max-width: 768px) {
+    .contentforms {
+        margin-left: 10px;
+        padding: 12px;
+    }
+}
+
 
 /* Table Styles */
 .table-container {

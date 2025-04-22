@@ -53,6 +53,10 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+
         
         <link rel="stylesheet" href="styles/settings.css">
         <link rel="stylesheet" href="styles/admindash.css">
@@ -66,7 +70,7 @@
         <div class="header">
             <div style="display: flex; align-items: center;">
                 <img src="../assets/logos/logo-dark.png" alt="Logo">
-                <h1 style="margin-left: 20px;">Admin Dashboard</h1>
+                <h1 style="margin-left: 20px;">Settings</h1>
             </div>
             <a href="/MedicalBooking/logout.php" class="power-icon-box">
                 <i class="material-icons">&#xe8ac;</i>    

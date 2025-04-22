@@ -1,0 +1,61 @@
+      /* Hero section start*/
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+      .hero {
+        position: relative;
+        background-image: url("../assets/misc/hero.jpeg"); /* Replace with your hero image URL */
+        background-size: cover;
+        background-position: center;
+        padding: 150px 25px; /* Adjust the padding as needed */
+        text-align: center;
+        font-family: 'Montserrat', sans-serif;
+        color: #ffffff;
+      }
+
+      .hero:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5); /* Adjust the overlay color and opacity as needed */
+      }
+
+      .hero-content {
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-title {
+        font-size: 50px;
+        font-weight: bold;
+        letter-spacing: 4px;
+        opacity: 0;
+        transform: translateX(-50px);
+        animation: title-entrance 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        animation-delay: 0.5s;
+      }
+
+      @keyframes title-entrance {
+        0% {
+          opacity: 0;
+          transform: translateX(-50px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      /* Fade-in effect on scroll */
+      .fade-in {
+        opacity: 0;
+        transition: opacity 0.5s;
+      }
+
+      .fade-in.active {
+        opacity: 1;
+      }
+      /* Hero section finish */

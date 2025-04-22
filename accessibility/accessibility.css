@@ -666,3 +666,403 @@ body.dark-mode .modal-footer {
     border-color: #444;
 }
 
+/* ============================= */
+/* DARK MODE EXTENSIONS */
+/* ============================= */
+
+/* Form Container & Headers */
+body.dark-mode .form-container {
+    background-color: #222;
+    color: #e0e0e0;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .form-header {
+    border-color: #66c2ff;
+    color: #66c2ff;
+}
+
+/* Search Container */
+body.dark-mode .search-container {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    border: 1px solid #333;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Patient Card */
+body.dark-mode .patient-card {
+    background-color: #2a2a2a;
+    color: #f1f1f1;
+    border: 1px solid #444;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .btn-prescribe {
+    background-color: #495390;
+}
+
+body.dark-mode .btn-prescribe:hover {
+    background-color: #16192b;
+}
+
+/* Schedule Cards */
+body.dark-mode .schedule-card {
+    background-color: #1f1f1f;
+    border-color: #333;
+    color: #f1f1f1;
+}
+
+/* Emergency Cards */
+body.dark-mode .emergency-card {
+    background-color: #1f1f1f;
+    color: #ddd;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .severity-critical { background-color: #b71c1c; color: white; }
+body.dark-mode .severity-severe { background-color: #e65100; color: white; }
+body.dark-mode .severity-moderate { background-color: #ffeb3b; color: black; }
+body.dark-mode .severity-mild { background-color: #388e3c; color: white; }
+
+body.dark-mode .btn-take {
+    background-color: #495390;
+    color: white;
+}
+
+body.dark-mode .btn-take:hover {
+    background-color: #2c2f5c;
+}
+
+body.dark-mode .assigned-doctor.name {
+    color: #7dd87d;
+}
+
+body.dark-mode .assigned-doctor.none {
+    color: #ff6b6b;
+}
+/* Dark Mode Styles for .container */
+body.dark-mode .container {
+    background-color: #1f1f1f;
+    color: #e0e0e0;
+    border: 1px solid #333;
+    box-shadow: 0px 8px 18px rgba(0, 0, 0, 0.4);
+}
+
+/* ========================= */
+/* DARK MODE: Staff Dashboard */
+/* ========================= */
+
+body.dark-mode {
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
+body.dark-mode .content {
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
+/* Staff Cards */
+body.dark-mode .staff-card {
+    background-color: #2a2a2a;
+    border: 1px solid #444;
+    color: #ffffff;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .staff-card:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+    transform: translateY(-3px);
+}
+
+/* Staff Card Text */
+body.dark-mode .staff-card h5 {
+    color: #ffffff;
+}
+
+body.dark-mode .staff-card p {
+    color: #dddddd;
+}
+
+/* Icons in Cards */
+body.dark-mode .staff-card-icon {
+    background-color: #3a3a3a !important;
+    color: #ffffff !important;
+}
+
+/* Buttons inside Cards */
+body.dark-mode .staff-card .btn {
+    background-color: #444;
+    color: #ffffff;
+    border: 1px solid #666;
+}
+
+body.dark-mode .staff-card .btn:hover {
+    background-color: #555;
+    color: #ffffff;
+}
+
+/* Specific Bootstrap Button Colors Adjusted */
+body.dark-mode .btn-primary {
+    background-color: #495390;
+    border-color: #495390;
+    color: #ffffff;
+}
+
+body.dark-mode .btn-primary:hover {
+    background-color: #323a68;
+}
+
+body.dark-mode .btn-success {
+    background-color: #2e7d32;
+    border-color: #2e7d32;
+    color: #ffffff;
+}
+
+body.dark-mode .btn-success:hover {
+    background-color: #1b5e20;
+}
+
+body.dark-mode .btn-info {
+    background-color: #0288d1;
+    border-color: #0288d1;
+    color: #ffffff;
+}
+
+body.dark-mode .btn-info:hover {
+    background-color: #0277bd;
+}
+
+body.dark-mode .btn-warning {
+    background-color: #f57c00;
+    border-color: #f57c00;
+    color: #ffffff;
+}
+
+body.dark-mode .btn-warning:hover {
+    background-color: #ef6c00;
+}
+
+body.dark-mode .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: #ffffff;
+}
+
+body.dark-mode .btn-secondary:hover {
+    background-color: #565e64;
+}
+
+body.dark-mode .btn-dark {
+    background-color: #424242;
+    border-color: #424242;
+    color: #ffffff;
+}
+
+body.dark-mode .btn-dark:hover {
+    background-color: #303030;
+}
+/* Override text-muted in dark mode */
+body.dark-mode .text-muted {
+    color: #dddddd !important; /* Light grey or white text */
+}
+
+/* Optional: make all small tags inside cards lighter */
+body.dark-mode .staff-card small,
+body.dark-mode .staff-card p {
+    color: #dddddd !important;
+}
+/* ========================= */
+/* DARK MODE FOR CHECK-IN PAGE */
+/* ========================= */
+
+/* Text override for muted text in dark mode */
+body.dark-mode .text-muted {
+    color: #dddddd !important;
+}
+
+/* Heading and subheadings */
+body.dark-mode h2,
+body.dark-mode .fw-bold {
+    color: #e0e0e0;
+}
+
+/* Card background and table */
+body.dark-mode .card {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    border: 1px solid #333;
+}
+
+body.dark-mode .card-body {
+    background-color: #1e1e1e;
+}
+
+/* Table headers */
+body.dark-mode .table thead {
+    background-color: #333;
+    color: #e0e0e0;
+}
+
+/* Table rows and text */
+body.dark-mode .table tbody tr {
+    background-color: #1f1f1f;
+    color: #e0e0e0;
+    border-bottom: 1px solid #444;
+}
+
+/* Status badge colors are preserved via Bootstrap, no override needed unless you want them custom */
+
+/* Buttons */
+body.dark-mode .btn-outline-success {
+    border-color: #7cd67c;
+    color: #7cd67c;
+}
+
+body.dark-mode .btn-outline-success:hover {
+    background-color: #7cd67c;
+    color: #000;
+}
+
+/* Message when no appointments */
+body.dark-mode .text-center.text-muted {
+    color: #cccccc !important;
+}
+/* ============================= */
+/* REMOVE BLUE TEXT IN DARK MODE */
+/* ============================= */
+
+/* Remove blue from text-primary */
+body.dark-mode .text-primary {
+    color: #e0e0e0 !important; /* or use #ffdd93 for soft yellow */
+}
+
+/* Also remove blue from Bootstrap headings if needed */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6 {
+    color: #e0e0e0 !important;
+}
+
+/* Override all muted text with a lighter grey */
+body.dark-mode .text-muted {
+    color: #cccccc !important;
+}
+
+/* Override any accidental link blue */
+body.dark-mode a,
+body.dark-mode a:visited {
+    color: #e0e0e0;
+}
+
+body.dark-mode a:hover {
+    color: #ffffff;
+}
+
+/* ========================== */
+/* DARK MODE: REMOVE BLUE */
+/* ========================== */
+
+/* Remove blue background on card header */
+body.dark-mode .card-header.bg-primary {
+    background-color: #2e2e2e !important;
+    color: #e0e0e0 !important;
+}
+
+/* Remove blue text anywhere (e.g., .text-primary) */
+body.dark-mode .text-primary,
+body.dark-mode h2.text-primary,
+body.dark-mode h4.text-primary {
+    color: #e0e0e0 !important;
+}
+
+/* Remove blue from labels (if any are styled with text-primary) */
+body.dark-mode label,
+body.dark-mode .form-label {
+    color: #e0e0e0 !important;
+}
+
+/* Optional: change icon colors if they're blue by default */
+body.dark-mode i.fas,
+body.dark-mode i.fa {
+    color: #e0e0e0;
+}
+
+/* File input styling */
+body.dark-mode input[type="file"] {
+    background-color: #2b2b2b;
+    color: #e0e0e0;
+}
+
+/* Fix .form-control input fields */
+body.dark-mode .form-control,
+body.dark-mode .form-select {
+    background-color: #1f1f1f;
+    color: #e0e0e0;
+    border-color: #444;
+}
+/* ============================== */
+/* DARK MODE FOR TEST RESULTS PAGE */
+/* ============================== */
+
+/* Page Background and Text */
+body.dark-mode {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+/* Container Background */
+body.dark-mode .container {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+/* Title Text */
+body.dark-mode h2.text-center {
+    color: #f1f1f1;
+}
+
+/* Test Card */
+body.dark-mode .test-card {
+    background-color: #2a2a2a;
+    border: 1px solid #444;
+    color: #e0e0e0;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
+}
+
+/* Test Header */
+body.dark-mode .test-header {
+    color: #66c2ff;
+    border-color: #66c2ff;
+}
+
+/* Diagnosis Text */
+body.dark-mode .test-diagnosis {
+    color: #ff6b6b;
+}
+
+/* Image Shadow and Hover */
+body.dark-mode .test-image img {
+    box-shadow: 0 6px 14px rgba(255, 255, 255, 0.1);
+}
+
+/* Modal Background */
+body.dark-mode .modal-img {
+    background-color: rgba(0, 0, 0, 0.95);
+}
+
+/* Modal Close Icon */
+body.dark-mode .modal-img-close {
+    color: #ffffff;
+}
+
+/* No Test Box */
+body.dark-mode .no-tests {
+    background-color: #2e2e2e;
+    color: #cccccc;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+}

@@ -2,10 +2,26 @@
 session_start();
 
 // Redirect if not logged in or not a patient
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || $_SESSION['role'] !== 'patient') {
+// Shared booking logic for both patients and staff
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("Location: login.php");
     exit();
 }
+
+$isStaffBooking = ($_SESSION['role'] === 'staff' && isset($_GET['user_id']));
+$patient_id = $_SESSION['user_id'];
+
+// If staff is booking for a patient
+if ($isStaffBooking) {
+    $patient_id = intval($_GET['user_id']);
+    // Optional: fetch patient name to show who you're booking for
+    $conn = new mysqli("localhost", "root", "", "MedicalBookingSystem");
+    $conn->set_charset("utf8mb4");
+    $patientResult = $conn->query("SELECT first_name, last_name FROM users WHERE user_id = $patient_id AND role = 'patient'");
+    $patientData = $patientResult->fetch_assoc();
+    $bookingFor = $patientData ? $patientData['first_name'] . ' ' . $patientData['last_name'] : 'Unknown Patient';
+}
+
 
 // Database connection
 $conn = new mysqli("localhost", "root", "", "MedicalBookingSystem");
@@ -17,13 +33,36 @@ $doctor_id = null;
 $available_slots = [];
 $message = "";
 
-// Fetch all doctors
+$selected_specialty = $_GET['specialty'] ?? '';
+
+$selected_specialty = $_GET['specialty'] ?? '';
+
+// Get all specialties for dropdown
+$specialtyListResult = $conn->query("SELECT DISTINCT specialty FROM doctor_specialties ORDER BY specialty ASC");
+$all_specialties = [];
+while ($row = $specialtyListResult->fetch_assoc()) {
+    $all_specialties[] = $row['specialty'];
+}
+
+// Fetch doctors based on specialty filter
 $doctors = [];
-$doctorQuery = "SELECT user_id, first_name, last_name FROM users WHERE role = 'doctor'";
-$result = $conn->query($doctorQuery);
+if (!empty($selected_specialty)) {
+    $stmt = $conn->prepare("
+        SELECT DISTINCT u.user_id, u.first_name, u.last_name, u.profile_picture, u.description 
+        FROM users u
+        JOIN doctor_specialties ds ON u.user_id = ds.doctor_id
+        WHERE u.role = 'doctor' AND ds.specialty = ?
+    ");
+    $stmt->bind_param("s", $selected_specialty);
+    $stmt->execute();
+    $result = $stmt->get_result();
+} else {
+    $result = $conn->query("SELECT user_id, first_name, last_name, profile_picture, description FROM users WHERE role = 'doctor'");
+}
 while ($row = $result->fetch_assoc()) {
     $doctors[] = $row;
 }
+
 
 // Check if doctor_id is set from the previous form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['doctor_id'])) {
@@ -61,29 +100,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['appointment_day'])) {
 
         while ($current_time < $end_time) {
             $slot_start = date('H:i', $current_time);
-            $current_time += 1800; // Add 30 minutes
+            $current_time += 1800; // 30 minutes
             $slot_end = date('H:i', $current_time);
-            $available_slots[] = ['start' => $slot_start, 'end' => $slot_end];
+        
+            // Format datetime for lookup
+            $formattedDateTime = new DateTime("next $appointment_day " . $slot_start);
+            $slot_time = $formattedDateTime->format('H:i:s');
+        
+            // Check if slot is already booked
+            $checkSlotQuery = $conn->prepare("
+                SELECT 1 FROM appointments 
+                WHERE doctor_id = ? 
+                  AND appointment_day = ? 
+                  AND appointment_time = ?
+            ");
+            $checkSlotQuery->bind_param("iss", $doctor_id, $appointment_day, $slot_time);
+            $checkSlotQuery->execute();
+            $checkSlotQuery->store_result();
+            $isBooked = $checkSlotQuery->num_rows > 0;
+            $checkSlotQuery->close();
+        
+            $available_slots[] = [
+                'start' => $slot_start,
+                'end' => $slot_end,
+                'booked' => $isBooked
+            ];
         }
+        
     }
 }
 
 // Handle the appointment booking when the time is selected
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['book_appointment'])) {
-    $appointment_time = $_POST['appointment_time']; // e.g., '10:30' or '10:30 AM'
+    $appointment_time = $_POST['appointment_time']; // e.g., '10:30'
     $appointment_day = $_POST['appointment_day'];
-    $patient_id = $_SESSION['user_id'];
     $doctor_id = $_POST['doctor_id'];
 
-    // Get the target date and time for the selected day and time
     $today = new DateTime();
-    $targetDay = new DateTime("next $appointment_day"); // Get the next occurrence of the chosen day
+    $targetDay = new DateTime("next $appointment_day");
     $targetDateTime = $targetDay->format('Y-m-d') . ' ' . $appointment_time;
-
-    // Convert this to a proper datetime object
     $formatted_datetime = new DateTime($targetDateTime);
 
-    // Check if the appointment time is available for the given day
+    // Check if slot is already booked
     $appointmentQuery = "SELECT * FROM appointments WHERE doctor_id = $doctor_id AND appointment_day = '$appointment_day' AND appointment_time = '" . $formatted_datetime->format('H:i:s') . "'";
     $appointmentResult = $conn->query($appointmentQuery);
 
@@ -95,18 +153,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['book_appointment'])) {
                       VALUES ($doctor_id, $patient_id, '" . $formatted_datetime->format('H:i:s') . "', '$appointment_day', 'scheduled')";
         if ($conn->query($bookQuery) === TRUE) {
             $message = "Appointment booked successfully!";
+
+            // ✅ Insert notification inside this block
+            $notifyQuery = $conn->prepare("INSERT INTO notifications (user_id, message) VALUES (?, ?)");
+            $notifMessage = "New appointment from Patient ID $patient_id on $appointment_day at " . $formatted_datetime->format('H:i');
+            $notifyQuery->bind_param("is", $doctor_id, $notifMessage);
+            $notifyQuery->execute();
         } else {
             $message = "Error booking appointment: " . $conn->error;
         }
     }
 }
 
+
+
 $conn->close();
+
+// Empathetic and thorough, Dr. Aisha supports women’s health and joint care with a gentle, informed approach tailored to complex, lifelong needs.
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+    // Apply sidebar state BEFORE page renders
+    (function () {
+        const state = localStorage.getItem("sidebarState");
+        if (state === "closed") {
+        document.documentElement.classList.add("sidebar-closed");
+        }
+    })();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Appointment</title>
@@ -121,187 +199,74 @@ $conn->close();
        
         <!-- stylesheet from styles folder -->
         <link rel="stylesheet" href="styles/patientdash.css">
+        <link rel="stylesheet" href="styles/bars.css">
+        <link rel="stylesheet" href="styles/cards.css">
+
         <link rel="stylesheet" href="../accessibility/accessibility.css">
         <link rel="stylesheet" href="../accessibility/highcontrast.css">
 
         <script src="../accessibility/accessibility.js" defer></script>
-    <style>
-    body {
-        background-color: #f8f9fa;
-        font-family: 'Arial', sans-serif;
-    }
-    .container {
-        margin-top: 90px;
-        max-width: 900px;
-        background: #ffffff;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-        margin-bottom: 40px;
-    }
-    .doctor-card {
-        padding: 15px;
-        border-radius: 10px;
-        margin-bottom: 20px;
-        background: #ffffff;
-        border: 1px solid #ddd;
-        transition: all 0.3s ease;
-        cursor: pointer;
-    }
-    .doctor-card:hover {
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        background: #f7f7f7;
-    }
-    .btn-primary {
-        width: 100%;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-        background-color: #007bff;
-        border-color: #007bff;
-        padding: 12px;
-    }
-    .btn-primary:hover {
-        background-color: #0056b3;
-        border-color: #0056b3;
-    }
-    .slot-table td, .slot-table th {
-        padding: 15px;
-        text-align: center;
-        vertical-align: middle;
-    }
-    .slot-table th {
-        background-color: #f1f1f1;
-    }
-    .slot-table td input {
-        margin: 5px;
-    }
-    .alert {
-        text-align: center;
-        margin-top: 20px;
-    }
-    .select-container, .slot-container {
-        margin-top: 20px;
-    }
-    .select-container h4, .slot-container h4 {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: #333;
-        margin-bottom: 15px;
-    }
-    select {
-        width: 100%;
-        padding: 10px;
-        font-size: 1rem;
-        border-radius: 8px;
-        border: 1px solid #ddd;
-        background-color: #f8f9fa;
-        transition: all 0.3s ease;
-    }
-    select:focus {
-        outline: none;
-        border-color: #007bff;
-        background-color: #ffffff;
-    }
-    select option {
-        padding: 10px;
-        font-size: 1rem;
-    }
-    .btn-primary {
-        font-size: 1.1rem;
-        background-color: #28a745;
-        border-color: #28a745;
-        padding: 10px 20px;
-        border-radius: 8px;
-    }
-    .btn-primary:hover {
-        background-color: #218838;
-        border-color: #218838;
-    }
-    .doctor-card h5 {
-        font-size: 1.2rem;
-        font-weight: 600;
-    }
-    .slot-table {
-        width: 100%;
-        margin-top: 20px;
-        border-collapse: collapse;
-    }
-    .slot-table td {
-        padding: 12px;
-        background-color: #f1f1f1;
-        border: 1px solid #ddd;
-    }
-    .slot-table td input {
-        margin: 0;
-        cursor: pointer;
-    }
-    .slot-table td label {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-    }
-    .slot-table td input:checked + label {
-        font-weight: bold;
-        background-color: #e7f7e7;
-        border-radius: 5px;
-        padding: 5px;
-    }
-</style>
+        <script src="scripts/bars.js" defer></script>
+
 
 </head>
 <body>
-            <!-- Header HTML -->
-            <div class="header">
-            <div style="display: flex; align-items: center;">
-                <img src="../assets/logos/logo-dark.png" alt="Logo">
-                <h1 style="margin-left: 20px;">Dashboard</h1>
-            </div>
-            <a href="/MedicalBooking/logout.php" class="power-icon-box">
-                <i class="material-icons">&#xe8ac;</i>    
-            </a>
-        </div>
+  <?php
+    $pageTitle = "Book an Appointment";
+    include 'php/bars.php'; // contains header and sidebar
+  ?>
 
-        <!-- Side Nav Bar HTML -->
-        <div class="sidebar">
-            <div class="profile-pic-container">
-                <div class="profile-pic-wrapper">
-                <img src="<?= htmlspecialchars('../' . ($_SESSION['profile_picture'] ?? 'assets/defaults/user_default.png')) ?>" 
-                    alt="Profile Picture" class="profile-pic">
-                </div>
-                <p class="welcome-text">
-                    Welcome back, <?= htmlspecialchars($_SESSION['username'] ?? 'Doctor') ?><br>
-                    <small>ID: <?= htmlspecialchars($_SESSION['user_id'] ?? 'N/A') ?></small>
-                </p>
-            </div>
-
-            <!-- Scrollable Container Inside Nav Bar -->
-            <div class="scroll-container">
-
-            </div>
-        </div>
-<div class="container">
-    <h2 class="text-center mb-4">Book an Appointment</h2>
-
+  <div class="content">
+    <div class="container">
     <?php if ($message): ?>
         <div class="alert alert-info"><?= $message ?></div>
     <?php endif; ?>
 
-    <!-- Step 1: Select a Doctor -->
-    <h4>Select a Doctor</h4>
-    <div class="row">
-        <?php foreach ($doctors as $doctor): ?>
-            <div class="col-md-4 mb-3">
-                <div class="doctor-card">
-                    <h5><?= $doctor['first_name'] ?> <?= $doctor['last_name'] ?></h5>
-                    <form method="post">
-                        <input type="hidden" name="doctor_id" value="<?= $doctor['user_id'] ?>">
-                        <button type="submit" class="btn btn-primary">Select Doctor</button>
-                    </form>
-                </div>
-            </div>
-        <?php endforeach; ?>
+    <form method="get" class="mb-4">
+  <div class="card p-4 shadow-sm border-0" style="background-color: #f8f9fa;">
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <label for="specialty" class="form-label fw-semibold text-secondary mb-2">
+          <i class="fas fa-filter me-2"></i>Filter by Specialty
+        </label>
+        <select name="specialty" id="specialty" class="form-select form-select-lg" onchange="this.form.submit()">
+          <option value="">-- Show All Specialties --</option>
+          <?php foreach ($all_specialties as $specialty): ?>
+            <option value="<?= htmlspecialchars($specialty) ?>" <?= ($selected_specialty === $specialty) ? 'selected' : '' ?>>
+              <?= htmlspecialchars($specialty) ?>
+            </option>
+          <?php endforeach; ?>
+        </select>
+      </div>
     </div>
+  </div>
+</form>
+
+
+    <section class="image-gallery">
+  <h2>Select a Doctor</h2>
+  <div class="gallery-container">
+    <?php foreach ($doctors as $doctor): ?>
+      <div class="card-box">
+        <img src="<?= htmlspecialchars('../' . ($doctor['profile_picture'] ?? 'assets/defaults/doctor_default.png')) ?>" 
+             alt="<?= $doctor['first_name'] ?> <?= $doctor['last_name'] ?>">
+        <div class="card-info">
+          <h3><?= htmlspecialchars($doctor['first_name'] . ' ' . $doctor['last_name']) ?></h3>
+          <p><?= htmlspecialchars($doctor['description'] ?? 'Consultation Available') ?></p>
+          </div>
+            <form method="post">
+                <input type="hidden" name="doctor_id" value="<?= $doctor['user_id'] ?>">
+                <?php if (!empty($selected_specialty)): ?>
+                    <input type="hidden" name="selected_specialty" value="<?= htmlspecialchars($selected_specialty) ?>">
+                <?php endif; ?>
+                <button type="submit" class="btn btn-success">Select Doctor</button>
+            </form>
+
+      </div>
+    <?php endforeach; ?>
+  </div>
+</section>
+
 
     <!-- Step 2: Select Appointment Day -->
     <?php if (isset($available_days) && count($available_days) > 0): ?>
@@ -338,8 +303,18 @@ $conn->close();
                             <tr>
                                 <td>
                                     <label>
-                                        <input type="radio" name="appointment_time" value="<?= $slot['start'] ?>" required>
-                                        <?= $slot['start'] ?> - <?= $slot['end'] ?>
+                                    <?php if ($slot['booked']): ?>
+    <label class="text-muted" style="text-decoration: line-through;">
+        <input type="radio" disabled>
+        <?= $slot['start'] ?> - <?= $slot['end'] ?> (Booked)
+    </label>
+<?php else: ?>
+    <label>
+        <input type="radio" name="appointment_time" value="<?= $slot['start'] ?>" required>
+        <?= $slot['start'] ?> - <?= $slot['end'] ?>
+    </label>
+<?php endif; ?>
+
                                     </label>
                                 </td>
                             </tr>
@@ -352,7 +327,22 @@ $conn->close();
     <?php elseif (isset($available_days) && count($available_days) == 0): ?>
         <p>No available slots for this doctor on the selected day.</p>
     <?php endif; ?>
+    <?php if ($isStaffBooking && isset($bookingFor)): ?>
+    <div class="alert alert-info">
+        <strong>Staff Booking:</strong> You are booking this appointment for <strong><?= htmlspecialchars($bookingFor) ?></strong>.
+    </div>
+<?php endif; ?>
+
 </div>
+</div>
+
+<?php include '../accessibility/accessibility.php'; ?>
+
+
+<!-- ✅ AI Chat -->
+<div id="chat-placeholder"></div>
+<script src="../aichat/chat.js"></script>
+
 
 </body>
 </html>

@@ -16,14 +16,14 @@
                     </div>
                     <div class="mb-3">
                         <label for="edit_password" class="form-label">New Password (Leave blank to keep current)</label>
-                        <input type="password" class="form-control" id="edit_password" name="password">
+                        <input type="password" name="new_password" placeholder="Leave blank to keep current password" class="form-control">
                     </div>
                     <div class="mb-3">
                         <label for="edit_role" class="form-label">Role</label>
                         <select class="form-control" id="edit_role" name="role" required>
                             <option value="admin">Admin</option>
                             <option value="doctor">Doctor</option>
-                            <option value="receptionist">Receptionist</option>
+                            <option value="staff">Medical Staff</option>
                             <option value="patient">Patient</option>
                         </select>
                     </div>

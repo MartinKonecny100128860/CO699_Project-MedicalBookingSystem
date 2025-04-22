@@ -88,41 +88,19 @@
         <link rel="stylesheet" href="styles/doctordash.css">
         <link rel="stylesheet" href="../accessibility/accessibility.css">
         <link rel="stylesheet" href="../accessibility/highcontrast.css">
+        <link rel="stylesheet" href="styles/bars.css">
+        <script src="scripts/bars.js" defer></script>
+
 
         <script src="../accessibility/accessibility.js" defer></script>
 
     </head>
     <body>
 
-        <!-- Header HTML -->
-        <div class="header">
-            <div style="display: flex; align-items: center;">
-                <img src="../assets/logos/logo-dark.png" alt="Logo">
-                <h1 style="margin-left: 20px;">Dashboard</h1>
-            </div>
-            <a href="/MedicalBooking/logout.php" class="power-icon-box">
-                <i class="material-icons">&#xe8ac;</i>    
-            </a>
-        </div>
-
-        <!-- Side Nav Bar HTML -->
-        <div class="sidebar">
-            <div class="profile-pic-container">
-                <div class="profile-pic-wrapper">
-                <img src="<?= htmlspecialchars('../' . ($_SESSION['profile_picture'] ?? 'assets/defaults/user_default.png')) ?>" 
-                    alt="Profile Picture" class="profile-pic">
-                </div>
-                <p class="welcome-text">
-                    Welcome back, <?= htmlspecialchars($_SESSION['username'] ?? 'Doctor') ?><br>
-                    <small>ID: <?= htmlspecialchars($_SESSION['user_id'] ?? 'N/A') ?></small>
-                </p>
-            </div>
-
-            <!-- Scrollable Container Inside Nav Bar -->
-            <div class="scroll-container">
-
-            </div>
-        </div>
+        <?php
+        $pageTitle = "Dashboard";
+        include 'php/bars.php'; // contains header and sidebar
+        ?>
 
         <div class="content">
             <h2 class="dashboard-title">Doctor's Dashboard</h2>
@@ -135,60 +113,25 @@
                     <img src="../assets/misc/schedule.jpg" alt="Schedule">
                     <p>Manage Your Schedule</p>
                 </a>
-                <a href="medical_records.php" class="dashboard-item">
+                <a href="medicalreports.php" class="dashboard-item">
                     <img src="../assets/misc/records.jpg" alt="Medical Records">
                     <p>View Medical Records</p>
                 </a>
-                <a href="prescriptions.php" class="dashboard-item">
+                <a href="prescribemedication.php" class="dashboard-item">
                     <img src="../assets/misc/prescription.jpg" alt="Prescriptions">
                     <p>Prescribe Medication</p>
                 </a>
-                <a href="test_results.php" class="dashboard-item">
-                    <img src="../assets/misc/results.jpg" alt="Tests">
-                    <p>Medical Reports & Test Results</p>
+                <a href="createtest.php" class="dashboard-item">
+                    <img src="../assets/misc/emergency.jpg" alt="Test">
+                    <p>Tests</p>
                 </a>
-                <a href="emergency_cases.php" class="dashboard-item">
+                <a href="emergencycases.php" class="dashboard-item">
                     <img src="../assets/misc/emergency.jpg" alt="Emergency">
                     <p>Emergency Cases</p>
                 </a>
             </div>
         </div>
-
-
-        <!-- Accessibility Icon -->
-        <div id="accessibility-icon" class="accessibility-icon">
-            <i class="fa fa-universal-access"></i>
-        </div>
-
-        <!-- Accessibility Popup Window -->
-        <div id="accessibility-popup" class="accessibility-options">
-            <div class="accessibility-popup-header">
-                <h5>Accessibility Settings</h5>
-                <span id="accessibility-close" class="accessibility-close">&times;</span>
-            </div>
-            <ul>
-                <li>
-                    <span>Dark Mode:</span>
-                    <div id="dark-mode-toggle" class="dark-mode-toggle"></div>
-                </li>
-                <li>
-                    <span>Text Resizing:</span>
-                    <div>
-                        <button class="text-resize-decrease accessibility-option">A-</button>
-                        <button class="text-resize-increase accessibility-option">A+</button>
-                    </div>
-                </li>
-                <li>
-                    <span>High Contrast Mode:</span>
-                    <button class="high-contrast-enable accessibility-option">Enable</button>
-                </li>
-                <li>
-                    <span>Text-to-Speech:</span>
-                    <button class="tts-on-click-enable accessibility-option">Enable</button>
-                </li>
-            </ul>
-        </div>
         
-        
+        <?php include '../accessibility/accessibility.php'; ?>
     </body>
 </html>

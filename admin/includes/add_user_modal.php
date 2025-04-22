@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="styles/theme.css">
+
 <!-- Add user modal -->
 <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -21,7 +24,7 @@
                         <select class="form-control" id="role" name="role" required>
                             <option value="admin">Admin</option>
                             <option value="doctor">Doctor</option>
-                            <option value="receptionist">Receptionist</option>
+                            <option value="staff">Medical Staff</option>
                             <option value="patient">Patient</option>
                         </select>
                     </div>

@@ -96,7 +96,7 @@
         <div class="header">
             <div style="display: flex; align-items: center;">
                 <img src="../assets/logos/logo-dark.png" alt="Logo">
-                <h1 style="margin-left: 20px;">Admin Dashboard</h1>
+                <h1 style="margin-left: 20px;">Statistics</h1>
             </div>
             <a href="/MedicalBooking/logout.php" class="power-icon-box">
                 <i class="material-icons">&#xe8ac;</i>    

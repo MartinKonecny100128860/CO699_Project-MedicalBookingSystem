@@ -1,0 +1,223 @@
+/* General Page Styling */
+body {
+    background-color: #f4f7fc;
+    font-family: 'Segoe UI', sans-serif;
+    color: #333;
+}
+
+/* Remove underline from links */
+a, a:link, a:visited, a:hover, a:active {
+    text-decoration: none !important;
+    color: inherit;
+}
+
+/* Container */
+.container {
+    max-width: 85%;
+    margin: auto;
+    padding-top: 20px;
+}
+
+/* Page Title */
+h2 {
+    font-weight: 700;
+    color: #06799e;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+}
+
+/* Search Bar */
+#searchBar {
+    max-width: 400px;
+    margin: 0 auto 25px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    padding: 12px 16px;
+    transition: 0.3s ease-in-out;
+    font-size: 1rem;
+}
+
+#searchBar:focus {
+    border-color: #06799e;
+    box-shadow: 0 0 8px rgba(6, 121, 158, 0.2);
+}
+
+/* Table Container */
+.table-container {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.07);
+    overflow-x: auto;
+}
+
+/* Table */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+/* Table Headers */
+.table thead {
+    background: #06799e;
+    color: white;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.table th {
+    padding: 16px;
+    text-align: center;
+    font-weight: 700;
+    border-bottom: 4px solid #05556f;
+}
+
+/* Table Rows */
+.table tbody tr {
+    transition: 0.25s ease;
+    border-bottom: 1px solid #e3e3e3;
+}
+
+.table tbody tr:hover {
+    background: #f0faff;
+}
+
+/* Zebra Striping */
+.table tbody tr:nth-child(even) {
+    background-color: #fbfbfb;
+}
+
+/* Table Cells */
+.table td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 16px;
+    font-size: 14.2px;
+}
+
+/* Status Badges */
+.referral-status {
+    font-weight: bold;
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: inline-block;
+    font-size: 0.85rem;
+    letter-spacing: 0.4px;
+}
+
+.referral-pending {
+    background-color: #ffe08a;
+    color: #856404;
+}
+
+.referral-approved {
+    background-color: #c3e6cb;
+    color: #155724;
+}
+
+.referral-rejected {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.referral-not-referred {
+    background-color: #d6d8db;
+    color: #383d41;
+}
+
+/* Buttons */
+.btn {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 16px;
+    transition: 0.2s ease-in-out;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn i {
+    font-size: 14px;
+    margin-right: 6px;
+}
+
+.btn:hover {
+    transform: scale(1.04);
+}
+
+/* Primary */
+.btn-primary {
+    background-color: #06799e;
+    border-color: #06799e;
+    color: white;
+}
+.btn-primary:hover {
+    background-color: rgb(2, 81, 107);
+    border-color: rgb(2, 81, 107);
+}
+
+/* Warning */
+.btn-warning {
+    background: #ffc107;
+    color: black;
+}
+
+/* Secondary */
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+/* Modal */
+.modal-content {
+    border-radius: 10px;
+}
+
+.modal-header {
+    background: #06799e;
+    color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.modal-footer {
+    border-top: none;
+}
+
+/* Inputs */
+#referralType,
+#referralSubType,
+#customReferralDepartment,
+#referralReason {
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-size: 0.95rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        max-width: 95%;
+    }
+
+    .table-container {
+        padding: 20px;
+    }
+
+    .table th,
+    .table td {
+        padding: 12px;
+        font-size: 13px;
+    }
+
+    .btn {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+}

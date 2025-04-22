@@ -70,16 +70,35 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["action"])) {
         $city = trim($_POST["city"] ?? "");
         $telephone = trim($_POST["telephone"] ?? "");
         $emergency_contact = trim($_POST["emergency_contact"] ?? "");
-        $gender = trim($_POST["gender"] ?? "Prefer not to say");
         $date_of_birth = !empty($_POST["date_of_birth"]) ? $_POST["date_of_birth"] : NULL;
 
-        // Debugging
-        error_log("Updating user ID: $user_id | DOB: " . ($date_of_birth ?? "NULL"));
+        // Step 1: Fetch original user data
+        $originalStmt = $conn->prepare("SELECT * FROM users WHERE user_id = ?");
+        $originalStmt->bind_param("i", $user_id);
+        $originalStmt->execute();
+        $originalResult = $originalStmt->get_result();
+        $original = $originalResult->fetch_assoc();
+        $originalStmt->close();
 
-        // Update Query
+        if (!$original) {
+            echo json_encode(["error" => "Original user not found."]);
+            exit();
+        }
+
+        // ✅ Now safe to handle gender
+        $gender = isset($_POST["gender"]) ? trim($_POST["gender"]) : $original['gender'];
+
+        // ✅ Handle new password logic
+        $new_password = isset($_POST["new_password"]) ? trim($_POST["new_password"]) : null;
+        $hashed_password = $original['password'];
+        if (!empty($new_password)) {
+            $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+        }
+
+        // Step 2: Update query
         $updateQuery = "UPDATE users 
-                        SET username=?, email=?, role=?, first_name=?, last_name=?, house_no=?, street_name=?, post_code=?, city=?, telephone=?, emergency_contact=?, gender=?, date_of_birth=?
-                        WHERE user_id=?";
+            SET username=?, email=?, role=?, first_name=?, last_name=?, house_no=?, street_name=?, post_code=?, city=?, telephone=?, emergency_contact=?, gender=?, date_of_birth=?, password=?
+            WHERE user_id=?";
         $stmt = $conn->prepare($updateQuery);
 
         if (!$stmt) {
@@ -87,20 +106,41 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["action"])) {
             exit();
         }
 
-        $stmt->bind_param("sssssssssssssi", $username, $email, $role, $first_name, $last_name, $house_no, $street_name, $post_code, $city, $telephone, $emergency_contact, $gender, $date_of_birth, $user_id);
+        $stmt->bind_param(
+            "ssssssssssssssi", 
+            $username, $email, $role, $first_name, $last_name, 
+            $house_no, $street_name, $post_code, $city, $telephone, 
+            $emergency_contact, $gender, $date_of_birth, $hashed_password, $user_id
+        );
 
         if ($stmt->execute()) {
-            // **Check Log Table Timestamp Column Name**
-            $logQuery = "INSERT INTO logs (admin_id, action, log_timestamp) VALUES (?, ?, NOW())"; // Ensure correct column name
+            // Step 3: Log what changed
+            $changes = [];
+            if ($username !== $original['username']) $changes[] = "username";
+            if ($email !== $original['email']) $changes[] = "email";
+            if ($role !== $original['role']) $changes[] = "role";
+            if ($first_name !== $original['first_name']) $changes[] = "first name";
+            if ($last_name !== $original['last_name']) $changes[] = "last name";
+            if ($house_no !== $original['house_no']) $changes[] = "house number";
+            if ($street_name !== $original['street_name']) $changes[] = "street name";
+            if ($post_code !== $original['post_code']) $changes[] = "post code";
+            if ($city !== $original['city']) $changes[] = "city";
+            if ($telephone !== $original['telephone']) $changes[] = "telephone";
+            if ($emergency_contact !== $original['emergency_contact']) $changes[] = "emergency contact";
+            if ($gender !== $original['gender']) $changes[] = "gender";
+            if ($date_of_birth !== $original['date_of_birth']) $changes[] = "DOB";
+            if (!empty($new_password)) $changes[] = "password";
 
-            $logStmt = $conn->prepare($logQuery);
-            
-            if ($logStmt) {
-                $adminId = $_SESSION['user_id'];
-                $logAction = "Updated user ID $user_id (DOB: " . ($date_of_birth ?? "NULL") . ")";
-                $logStmt->bind_param("is", $adminId, $logAction);
-                $logStmt->execute();
-                $logStmt->close();
+            if (!empty($changes)) {
+                $logAction = "Updated user ID $user_id (Changed: " . implode(", ", $changes) . ")";
+                $logQuery = "INSERT INTO logs (admin_id, action, log_timestamp) VALUES (?, ?, NOW())";
+                $logStmt = $conn->prepare($logQuery);
+                if ($logStmt) {
+                    $adminId = $_SESSION['user_id'];
+                    $logStmt->bind_param("is", $adminId, $logAction);
+                    $logStmt->execute();
+                    $logStmt->close();
+                }
             }
 
             echo json_encode(["message" => "User updated successfully."]);

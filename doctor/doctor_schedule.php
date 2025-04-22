@@ -72,85 +72,129 @@ $conn->close();
         <link rel="stylesheet" href="styles/doctordash.css">
         <link rel="stylesheet" href="../accessibility/accessibility.css">
         <link rel="stylesheet" href="../accessibility/highcontrast.css">
+        <link rel="stylesheet" href="styles/bars.css">
+        <script src="scripts/bars.js" defer></script>
 
         <script src="../accessibility/accessibility.js" defer></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            background-color: #f8f9fa;
-            font-family: 'Arial', sans-serif;
-        }
-        .container {
-            margin-top: 90px;
-            max-width: 800px;
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
-        }
-        .schedule-card {
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            transition: all 0.3s;
-            background: #ffffff;
-            border: 1px solid #ddd;
-        }
-        .schedule-card:hover {
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            background: #f7f7f7;
-        }
-        .form-check-label {
-            font-weight: 600;
-        }
-        .time-fields {
-            display: flex;
-            gap: 12px;
-        }
-        .btn-primary, .btn-danger {
-            width: 100%;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-        .alert {
-            text-align: center;
-        }
-        .delete-container {
-            margin-top: 15px;
-            text-align: center;
-        }
+body {
+    background-color: #f3f6f9;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.container {
+    margin-top: 90px;
+    max-width: 900px;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e3e3e3;
+}
+
+h2.text-center {
+    font-weight: 700;
+    color: #06799e;
+    margin-bottom: 30px;
+}
+
+.schedule-card {
+    background: #fdfdfd;
+    border: 1px solid #dedede;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: box-shadow 0.3s ease;
+}
+
+.schedule-card:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+    background-color: #fcfcfc;
+}
+
+.schedule-card h5 {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.form-check-label {
+    font-weight: 500;
+    color: #333;
+}
+
+.form-check-input:checked {
+    background-color: #06799e;
+    border-color: #06799e;
+}
+
+.time-fields {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+    align-items: center;
+}
+
+.time-fields label {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 0;
+}
+
+.time-fields input[type="time"] {
+    width: 150px;
+}
+
+.btn-primary {
+    background-color: #06799e;
+    border-color: #06799e;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 10px 24px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: rgb(2, 81, 107);
+    border-color: rgb(2, 81, 107);
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 10px 24px;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #c82333;
+}
+
+.alert {
+    margin-top: 20px;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.delete-container {
+    margin-top: 25px;
+    text-align: center;
+}
+a {
+    text-decoration: none !important;
+}
+
     </style>
 </head>
 <body>
-        <!-- Header HTML -->
-        <div class="header">
-            <div style="display: flex; align-items: center;">
-                <img src="../assets/logos/logo-dark.png" alt="Logo">
-                <h1 style="margin-left: 20px;">Dashboard</h1>
-            </div>
-            <a href="/MedicalBooking/logout.php" class="power-icon-box">
-                <i class="material-icons">&#xe8ac;</i>    
-            </a>
-        </div>
-
-        <!-- Side Nav Bar HTML -->
-        <div class="sidebar">
-            <div class="profile-pic-container">
-                <div class="profile-pic-wrapper">
-                <img src="<?= htmlspecialchars('../' . ($_SESSION['profile_picture'] ?? 'assets/defaults/user_default.png')) ?>" 
-                    alt="Profile Picture" class="profile-pic">
-                </div>
-                <p class="welcome-text">
-                    Welcome back, <?= htmlspecialchars($_SESSION['username'] ?? 'Doctor') ?><br>
-                    <small>ID: <?= htmlspecialchars($_SESSION['user_id'] ?? 'N/A') ?></small>
-                </p>
-            </div>
-
-            <!-- Scrollable Container Inside Nav Bar -->
-            <div class="scroll-container">
-
-            </div>
-        </div>
+<?php
+        $pageTitle = "Dashboard";
+        include 'php/bars.php'; // contains header and sidebar
+        ?>
+<div class= "content">
     <div class="container">
         <h2 class="text-center mb-4">Set Your Weekly Schedule</h2>
 
@@ -197,6 +241,7 @@ $conn->close();
             </form>
         </div>
     </div>
+    </div>
 
     <script>
         document.querySelectorAll('input[type="radio"]').forEach(radio => {
@@ -211,5 +256,6 @@ $conn->close();
             });
         });
     </script>
+    <?php include '../accessibility/accessibility.php'; ?>
 </body>
 </html>

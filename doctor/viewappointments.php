@@ -62,92 +62,35 @@ $conn->close();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doctor Appointments</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+        <!-- External links -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+       
+        <!-- stylesheet from styles folder -->
+        <link rel="stylesheet" href="styles/doctordash.css">
+        <link rel="stylesheet" href="../accessibility/accessibility.css">
+        <link rel="stylesheet" href="../accessibility/highcontrast.css">
+        <link rel="stylesheet" href="styles/bars.css">
+        <script src="scripts/bars.js" defer></script>
 
-    <style>
-        body {
-            background-color: #f4f7fc;
-            font-family: Arial, sans-serif;
-            color: #333;
-        }
-
-        .container {
-            margin-top: 30px;
-            max-width: 85%;
-        }
-
-        .table-container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .table th {
-            background-color: #007bff;
-            color: white;
-            text-align: center;
-        }
-
-        .btn {
-            padding: 7px 12px;
-            border-radius: 5px;
-            font-weight: 600;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .btn-view {
-            background-color: #17a2b8;
-            color: white;
-        }
-
-        .btn-complete {
-            background-color: #28a745;
-            color: white;
-        }
-
-        .btn-cancel {
-            background-color: #dc3545;
-            color: white;
-        }
-
-        .btn-report {
-            background-color: #ffc107;
-            color: black;
-        }
-
-        .btn-prescription {
-            background-color: #6610f2;
-            color: white;
-        }
-
-        .btn-results {
-            background-color: #fd7e14;
-            color: white;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .modal-body {
-            font-size: 16px;
-        }
-    </style>
+        <script src="../accessibility/accessibility.js" defer></script>
 </head>
 <body>
 
-<div class="container">
+<?php
+        $pageTitle = "Dashboard";
+        include 'php/bars.php'; // contains header and sidebar
+        ?>
+
+
+<div class="content">
     <h2 class="text-center mb-4">Doctor Appointments</h2>
 
     <div class="table-container">
-        <table class="table table-bordered text-center">
+        <table class="table table-hover text-center align-middle">
             <thead>
                 <tr>
                     <th>Patient</th>
@@ -159,19 +102,42 @@ $conn->close();
             <tbody>
                 <?php if ($result && $result->num_rows > 0): ?>
                     <?php while ($row = $result->fetch_assoc()): ?>
-                        <tr>
+                        <tr id="row-<?= $row['appointment_id'] ?>">
                             <td><?= htmlspecialchars($row['patient_first'] . " " . $row['patient_last']) ?></td>
                             <td><?= htmlspecialchars($row['appointment_day']) ?></td>
                             <td><?= date("h:i A", strtotime($row['appointment_time'])) ?></td>
-                            <td>
-                            <td>
-    <button class="btn btn-primary view-btn" data-bs-toggle="modal" data-bs-target="#viewPatientModal"
-        data-patient-id="<?= $row['patient_id'] ?>">View</button>
-        <button class="btn btn-success" onclick="completeAppointment(<?= $row['appointment_id'] ?>)">Complete</button>
-                                <button class="btn btn-report">Generate Report</button>
-                                <button class="btn btn-prescription">Prescription</button>
-                                <button class="btn btn-results">Test & Results</button>
-                                <button class="btn btn-cancel" onclick="cancelAppointment(<?= $row['appointment_id'] ?>)">Cancel</button>
+                            <td class="action-buttons">
+                                <button class="btn btn-primary btn-sm view-btn"
+                                    data-bs-toggle="modal" data-bs-target="#viewPatientModal"
+                                    data-patient-id="<?= $row['patient_id'] ?>">
+                                    <i class="fas fa-eye"></i> View
+                                </button>
+
+                                <button class="btn btn-success btn-sm complete-btn"
+                                    onclick="completeAppointment(<?= $row['appointment_id'] ?>)">
+                                    <i class="fas fa-check-circle"></i> Complete
+                                </button>
+
+                                <button class="btn btn-warning btn-sm"
+                                    onclick="location.href='createmedicalreport.php?patient_id=<?= $row['patient_id'] ?>'">
+                                    <i class="fas fa-file-medical"></i> Report
+                                </button>
+
+
+                                <button class="btn btn-info btn-sm prescription-btn"
+                                    onclick="window.location.href='createprescription.php?patient_id=<?= $row['patient_id'] ?>'">
+                                    <i class="fas fa-prescription-bottle-alt"></i> Prescription
+                                </button>
+
+                                <a href="createtest.php?patient_id=<?= $row['patient_id'] ?>" class="btn btn-secondary btn-sm results-btn">
+                                    <i class="fas fa-vials"></i> Tests
+                                </a>
+
+
+                                <button class="btn btn-danger btn-sm cancel-btn"
+                                    onclick="cancelAppointment(<?= $row['appointment_id'] ?>)">
+                                    <i class="fas fa-times"></i> Cancel
+                                </button>
                             </td>
                         </tr>
                     <?php endwhile; ?>
@@ -182,6 +148,99 @@ $conn->close();
         </table>
     </div>
 </div>
+
+<style>
+/* General Styling */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Table Container */
+.table-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Table */
+.table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table thead {
+    background: #007bff;
+    color: white;
+    text-transform: uppercase;
+}
+
+.table th, .table td {
+    padding: 12px;
+    text-align: center;
+}
+
+.table-hover tbody tr:hover {
+    background: #f1f1f1;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: center;
+}
+
+/* Button Styling */
+.btn {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 7px 12px;
+    border-radius: 6px;
+    transition: 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn i {
+    font-size: 12px;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+/* Button Colors */
+.btn-primary { background: #007bff; color: white; }
+.btn-success { background: #28a745; color: white; }
+.btn-warning { background: #ffc107; color: black; }
+.btn-info { background: #17a2b8; color: white; }
+.btn-secondary { background: #6c757d; color: white; }
+.btn-danger { background: #dc3545; color: white; }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .table-container {
+        padding: 15px;
+    }
+
+    .table th, .table td {
+        padding: 10px;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+}
+
+.modal-body {
+            font-size: 16px;
+        }
+</style>
+
 
 <!-- view modal -->
 <div class="modal fade" id="viewPatientModal" tabindex="-1" aria-labelledby="viewPatientModalLabel" aria-hidden="true">
@@ -308,6 +367,9 @@ function cancelAppointment(appointmentId) {
 }
 
 </script>
+
+<?php include '../accessibility/accessibility.php'; ?>
+
 
 </body>
 </html>

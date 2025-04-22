@@ -86,46 +86,25 @@
        
         <!-- stylesheet from styles folder -->
         <link rel="stylesheet" href="styles/patientdash.css">
+                <link rel="stylesheet" href="styles/bars.css">
+
         <link rel="stylesheet" href="../accessibility/accessibility.css">
         <link rel="stylesheet" href="../accessibility/highcontrast.css">
+        <script src="scripts/bars.js" defer></script>
+        <link rel="stylesheet" href="styles/bars.css">
+        <link rel="stylesheet" href="styles/cards.css">
 
         <script src="../accessibility/accessibility.js" defer></script>
 
     </head>
     <body>
 
-        <!-- Header HTML -->
-        <div class="header">
-            <div style="display: flex; align-items: center;">
-                <img src="../assets/logos/logo-dark.png" alt="Logo">
-                <h1 style="margin-left: 20px;">Dashboard</h1>
-            </div>
-            <a href="/MedicalBooking/logout.php" class="power-icon-box">
-                <i class="material-icons">&#xe8ac;</i>    
-            </a>
-        </div>
-
-        <!-- Side Nav Bar HTML -->
-        <div class="sidebar">
-            <div class="profile-pic-container">
-                <div class="profile-pic-wrapper">
-                <img src="<?= htmlspecialchars('../' . ($_SESSION['profile_picture'] ?? 'assets/defaults/user_default.png')) ?>" 
-                    alt="Profile Picture" class="profile-pic">
-                </div>
-                <p class="welcome-text">
-                    Welcome back, <?= htmlspecialchars($_SESSION['username'] ?? 'Doctor') ?><br>
-                    <small>ID: <?= htmlspecialchars($_SESSION['user_id'] ?? 'N/A') ?></small>
-                </p>
-            </div>
-
-            <!-- Scrollable Container Inside Nav Bar -->
-            <div class="scroll-container">
-
-            </div>
-        </div>
+        <?php
+        $pageTitle = "Dashboard";
+        include 'php/bars.php'; // contains header and sidebar
+        ?>
 
         <div class="content">
-            <h2 class="dashboard-title">Doctor's Dashboard</h2>
             <div class="dashboard-grid">
                 <a href="bookappointment.php" class="dashboard-item">
                     <img src="../assets/misc/userdash1.png" alt="Appointments">
@@ -133,62 +112,30 @@
                 </a>
                 <a href="manageappointments.php" class="dashboard-item">
                     <img src="../assets/misc/schedule.jpg" alt="Schedule">
-                    <p>Manage Your Schedule</p>
+                    <p>Manage Your Appointments</p>
                 </a>
-                <a href="medical_records.php" class="dashboard-item">
+                <a href="viewmedicalreports.php" class="dashboard-item">
                     <img src="../assets/misc/records.jpg" alt="Medical Records">
-                    <p>View Medical Records</p>
+                    <p>View Your Medical Reports</p>
                 </a>
-                <a href="prescriptions.php" class="dashboard-item">
+                <a href="viewprescriptions.php" class="dashboard-item">
                     <img src="../assets/misc/prescription.jpg" alt="Prescriptions">
-                    <p>Prescribe Medication</p>
+                    <p>View Your Prescriptions</p>
                 </a>
-                <a href="test_results.php" class="dashboard-item">
+                <a href="viewtests.php" class="dashboard-item">
                     <img src="../assets/misc/results.jpg" alt="Tests">
-                    <p>Medical Reports & Test Results</p>
-                </a>
-                <a href="emergency_cases.php" class="dashboard-item">
-                    <img src="../assets/misc/emergency.jpg" alt="Emergency">
-                    <p>Emergency Cases</p>
+                    <p>Recent Test Results</p>
                 </a>
             </div>
         </div>
 
+        <?php include '../accessibility/accessibility.php'; ?>
 
-        <!-- Accessibility Icon -->
-        <div id="accessibility-icon" class="accessibility-icon">
-            <i class="fa fa-universal-access"></i>
-        </div>
 
-        <!-- Accessibility Popup Window -->
-        <div id="accessibility-popup" class="accessibility-options">
-            <div class="accessibility-popup-header">
-                <h5>Accessibility Settings</h5>
-                <span id="accessibility-close" class="accessibility-close">&times;</span>
-            </div>
-            <ul>
-                <li>
-                    <span>Dark Mode:</span>
-                    <div id="dark-mode-toggle" class="dark-mode-toggle"></div>
-                </li>
-                <li>
-                    <span>Text Resizing:</span>
-                    <div>
-                        <button class="text-resize-decrease accessibility-option">A-</button>
-                        <button class="text-resize-increase accessibility-option">A+</button>
-                    </div>
-                </li>
-                <li>
-                    <span>High Contrast Mode:</span>
-                    <button class="high-contrast-enable accessibility-option">Enable</button>
-                </li>
-                <li>
-                    <span>Text-to-Speech:</span>
-                    <button class="tts-on-click-enable accessibility-option">Enable</button>
-                </li>
-            </ul>
-        </div>
-        
+<!-- ✅ AI Chat -->
+<div id="chat-placeholder"></div>
+<script src="../aichat/chat.js"></script>
+
         
     </body>
 </html>

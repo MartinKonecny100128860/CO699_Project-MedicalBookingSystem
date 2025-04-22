@@ -84,7 +84,7 @@
         <div class="header">
             <div style="display: flex; align-items: center;">
             <img src="../assets/logos/logo-dark.png" alt="Logo">
-            <h1 style="margin-left: 20px;">Admin Dashboard</h1>
+            <h1 style="margin-left: 20px;">Feedback</h1>
             </div>
             <a href="/MedicalBooking/logout.php" class="power-icon-box">
             <i class="material-icons">&#xe8ac;</i>
@@ -109,7 +109,8 @@
                 <a href="adminfeedback.php" class="active">Send Feedback</a>
             </div>
         </div>
-
+        
+        <div class="contentforms">
         <div class="main-content">
             <h2>Submit Feedback</h2>
             <p>Let us know your thoughts or report any issues.</p>
@@ -130,6 +131,8 @@
                 <button type="submit" class="custom-submit-button">Submit</button>
             </form>
         </div>
+        </div>
+
 
         <!-- Accessibility Icon -->
         <div id="accessibility-icon" class="accessibility-icon">

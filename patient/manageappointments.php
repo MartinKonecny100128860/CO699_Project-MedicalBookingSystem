@@ -59,6 +59,9 @@ $conn->close();
         <link rel="stylesheet" href="styles/patientdash.css">
         <link rel="stylesheet" href="../accessibility/accessibility.css">
         <link rel="stylesheet" href="../accessibility/highcontrast.css">
+        <script src="scripts/bars.js" defer></script>
+        <link rel="stylesheet" href="styles/bars.css">
+        <link rel="stylesheet" href="styles/cards.css">
 
         <script src="../accessibility/accessibility.js" defer></script>
 
@@ -73,7 +76,7 @@ body {
 /* Centered & Responsive Container */
 .container {
     max-width: 850px;
-    margin: 40px auto;
+    margin: 100px auto;
     background: white;
     padding: 25px;
     border-radius: 12px;
@@ -204,35 +207,10 @@ h2 {
     </style>
 </head>
 <body>
-        <!-- Header HTML -->
-        <div class="header">
-            <div style="display: flex; align-items: center;">
-                <img src="../assets/logos/logo-dark.png" alt="Logo">
-                <h1 style="margin-left: 20px;">Dashboard</h1>
-            </div>
-            <a href="/MedicalBooking/logout.php" class="power-icon-box">
-                <i class="material-icons">&#xe8ac;</i>    
-            </a>
-        </div>
-
-        <!-- Side Nav Bar HTML -->
-        <div class="sidebar">
-            <div class="profile-pic-container">
-                <div class="profile-pic-wrapper">
-                <img src="<?= htmlspecialchars('../' . ($_SESSION['profile_picture'] ?? 'assets/defaults/user_default.png')) ?>" 
-                    alt="Profile Picture" class="profile-pic">
-                </div>
-                <p class="welcome-text">
-                    Welcome back, <?= htmlspecialchars($_SESSION['username'] ?? 'Doctor') ?><br>
-                    <small>ID: <?= htmlspecialchars($_SESSION['user_id'] ?? 'N/A') ?></small>
-                </p>
-            </div>
-
-            <!-- Scrollable Container Inside Nav Bar -->
-            <div class="scroll-container">
-
-            </div>
-        </div>
+<?php
+    $pageTitle = "Manage Your Appointments";
+    include 'php/bars.php'; // contains header and sidebar
+  ?>
         <div class="container">
     <h2>Manage Your Appointments</h2>
         <table class="table">
@@ -426,6 +404,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 </script>
+
+<?php include '../accessibility/accessibility.php'; ?>
+
+
+<!-- ✅ AI Chat -->
+<div id="chat-placeholder"></div>
+<script src="../aichat/chat.js"></script>
 
 </body>
 </html>

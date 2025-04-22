@@ -82,7 +82,7 @@
 
     // Capture filtering by role
     $roleFilter = "";
-    if (isset($_GET['role']) && in_array($_GET['role'], ["admin", "doctor", "receptionist", "staff", "patient"])) {
+    if (isset($_GET['role']) && in_array($_GET['role'], ["admin", "doctor", "staff"])) {
         $roleFilter = "AND role = '" . $conn->real_escape_string($_GET['role']) . "'";
     }
 
@@ -144,7 +144,7 @@
         <div class="header">
             <div style="display: flex; align-items: center;">
                 <img src="../assets/logos/logo-dark.png" alt="Logo">
-                <h1 style="margin-left: 20px;">Admin Dashboard</h1>
+                <h1 style="margin-left: 20px;">Users</h1>
             </div>
             <a href="/MedicalBooking/logout.php" class="power-icon-box">
                 <i class="material-icons">&#xe8ac;</i>    
@@ -165,7 +165,7 @@
             <a href="#users" class="active">Manage Users</a>
             <a href="#" onclick="showAddUserModal()">Add New User</a>
             <a href="#" onclick="showManageRolesModal()">Manage Roles</a>
-        </div>
+            </div>
 
 <!-- Content -->
 <div class="content">
@@ -183,7 +183,6 @@
                 <option value="">All Roles</option>
                 <option value="admin">Admin</option>
                 <option value="doctor">Doctor</option>
-                <option value="receptionist">Receptionist</option>
                 <option value="staff">Staff</option>
             </select>
 
@@ -273,7 +272,6 @@
                             </tbody>
                         </table>
                     </div>
-
                     <div class="modal-footer">
                         <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>

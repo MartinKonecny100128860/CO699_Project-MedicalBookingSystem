@@ -8,7 +8,7 @@ function closeChat() {
 // Load the chat interface dynamically into the placeholder on page load
 window.onload = function () {
     const chatPlaceholder = document.getElementById('chat-placeholder');
-    fetch('aichat/chat.html')
+    fetch("../aichat/chat.html") // ✅ CORRECT
         .then((response) => response.text())
         .then((html) => {
             chatPlaceholder.innerHTML = html; // Load chat interface
@@ -127,3 +127,4 @@ function animateBotResponse(replyText) {
     // Scroll to the latest message
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
+

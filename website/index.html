@@ -1,0 +1,693 @@
+<html>
+  <head>
+    <title>Zenith General Practice</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-NXrxh4V4iguh8bchb7CHHQojnbMmQ/lCgOWftVGvchLz9m9CmVXaFELAJyoKr7gQ5Cq0WjV7AA/xPW5W/zB6wA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<!-- Working Font Awesome CDN without integrity check -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="Styles/homestyles.css">
+    <link rel="stylesheet" href="Styles/button.css">
+    <link rel="stylesheet" href="Styles/media.css">
+    <link rel="stylesheet" href="Styles/hero.css">
+    <link rel="stylesheet" href="Styles/footer.css">
+  </head>
+
+  <head>
+    <style>
+      /* Product cards section */
+      .fade-box {
+        opacity: 0;
+        transform: translateX(-50px);
+        animation: fade-in 1.5s ease-out forwards;
+      }
+
+      @keyframes fade-in {
+        0% {
+          opacity: 0;
+          transform: translateX(-50px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .fade-box:nth-child(1) {
+        animation-delay: 0.3s;
+      }
+
+      .fade-box:nth-child(2) {
+        animation-delay: 0.6s;
+      }
+
+      .fade-box:nth-child(3) {
+        animation-delay: 0.9s;
+      }
+
+      .zoom-image {
+        overflow: hidden;
+        transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+      }
+
+      .zoom-image img {
+        transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+      }
+
+      .zoom-image:hover img {
+        transform: scale(1.1);
+      }
+      /* Product cards finish */
+
+      /* circular image section*/
+      .section {
+        padding: 50px 20px;
+        text-align: center;
+        font-family: 'Montserrat', sans-serif;
+      }
+
+      .section-title {
+        font-size: 48px;
+        color: #06799e;
+        font-weight: 900;
+        margin-bottom: 40px;
+      }
+
+      .image-grid {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 60px;
+      }
+
+      .image-container {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background-color: #638bb9;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-align: center;
+        font-weight: 600;
+        position: relative;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      .image-container.fade-in {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .circle-icon {
+        font-size: 70px;
+        margin-bottom: 15px;
+      }
+
+      .icon-label {
+        font-size: 18px;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.12);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        border-radius: 50%;
+      }
+
+      .image-container:hover .image-overlay {
+        opacity: 1;
+        cursor: pointer;
+      }
+
+
+      /* circular image grid finish*/
+  
+      /* map section start */
+      .full-width-section {
+        position: relative;
+        width: 100%;
+        height: 500px;
+        overflow: hidden;
+        background-color: white; /* Apply white background directly */
+      }
+
+      .background-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("Images/Patterns/BlackPattern3.png");
+        background-size: cover;
+        background-position: center;
+      }
+  
+      .content-container {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        flex-wrap: wrap; /* Wrap the boxes on smaller screens */
+      }
+  
+      .box {
+        width: 45%; /* Adjust the width as desired */
+        text-align: center;
+        margin-bottom: 20px; /* Adjust the margin as desired */
+      }
+  
+      .left-box {
+        margin-right: 20px; /* Adjust the right margin as desired */
+        color: #06799e;
+      }
+  
+      .right-box {
+        margin-left: 20px; /* Adjust the left margin as desired */
+      }
+  
+      .box img {
+        max-width: 100%;
+        height: auto;
+      }
+  
+      h2 {
+        font-size: 24px; /* Adjust the font size as desired */
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        font-size: 50px;
+      }
+  
+      p {
+        margin-bottom: 10px;
+        font-family: 'Oswald', sans-serif;
+      }
+      /* map section finish */
+
+      .review-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start; /* Align items to the top */
+        background-color: white; /* Apply white background directly */
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        padding: 20px;
+        border-top: 4px solid #000000; /* Add thicker top border */
+        border-bottom: none; /* Remove bottom border */
+        border-left: none; /* Remove left border */
+        border-right: none; /* Remove right border */
+        border-radius: 0; /* Remove border-radius */
+      }
+
+      .image-box {
+      width: 100%;
+      max-width: 400px;
+      height: 350px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      background-image: url("../assets/misc/award.jpg");
+      background-repeat: no-repeat;
+      background-size: 250px auto;
+      background-position: 55px center; /* Moved 80px from the left */
+      margin-right: 10px;
+    }
+
+
+      .review-box {
+        width: 100%;
+        max-width: 300px;
+        height: 250px;
+        border-radius: 20px;
+        margin-bottom: 20px;
+        margin-top: 50px;
+        box-shadow: 0 0 0 3px #4b0076, 0 0 0 1px rgba(234, 3, 255, 0.993); /* Updated box-shadow */
+        overflow: hidden; /* Added overflow property to hide the corners */
+      }
+
+      .review-background {
+        background-image: url('../assets/misc/award.jpeg'); /* If CSS is in same dir as index.html */
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        height: 100%;
+        padding: 10px;
+        border-radius: 5px;
+      }
+
+      .review-box h3 {
+        color: #000000;
+        margin-bottom: 10px;
+        font-size: 20px;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+      }
+
+      .review-box h4 {
+        color: #000000;
+        margin-bottom: 10px;
+        font-size: 14.5px;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+      }
+
+      @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;500&display=swap');
+      .review-box p {
+        color: #000000;
+        font-size: 13.5px;
+        font-family: 'Oswald', sans-serif;
+        font-style: italic;
+        font-style: bold; 
+      }
+
+
+      .review-box .review-stars {
+        display: block;
+        width: 150px; /* Adjust the width as desired */
+        margin-bottom: 10px;
+      }
+
+      .review-box .review-timestamp {
+        color: #000000;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+      }
+
+      .review-box .review-timestamp img {
+        width: 30px; /* Adjust the width as desired */
+        height: 30px; /* Adjust the height as desired */
+        margin-right: 5px;
+      }
+      /* review section finish */ 
+
+      .card-img-top {
+        width: 100%;
+        height: 420px; /* Set a fixed height */
+        object-fit: cover; /* Ensures images scale and crop proportionally */
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+      }
+
+      .container {
+        max-width: 1320px; /* Or try 1400px for extra space */
+      }
+
+      .login {
+        display: flex;
+        align-items: center;
+        margin-right: 20px;
+      }
+
+      .login-btn {
+        color: white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 20px;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: background-color 0.3s;
+      }
+
+      .login-btn:hover {
+        background-color: white;
+        color: #06799e;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+
+  <header>
+    <nav class="navbar">
+      <div class="logo"><a href="#"><img src="../assets/logos/logo-dark.png" alt="YourLogo"></a></div>
+      <div class="navbar-links">
+        <ul>
+          <li><a href="Index.html">Home</a></li>
+          <li><a href="team.php">Meet The Team</a></li>
+          <li><a href="gradedcards.html">About</a></li>
+        </ul>
+      </div>
+      <div class="login">
+      <a href="../new_login.php" class="login-btn" title="Login">
+        <i class="fas fa-user me-2"></i> Login
+      </a>
+    </div>
+
+
+      <a class="togglebtn">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </a>
+    </nav>
+    <script>
+      const toggleBtn = document.querySelector('.togglebtn');
+      const navbarLinks = document.querySelector('.navbar-links');
+  
+      toggleBtn.addEventListener('click', () => {
+        navbarLinks.classList.toggle('active');
+      });
+    </script>
+  </header>
+
+  <body>
+    <section class="hero" style="background-image: url('https://rendia.com/wp-content/uploads/2022/08/doctor-touching-patient-hand-for-encouragement-and-2021-09-02-03-50-29-utc-min-scaled.jpg');">
+      <div class="hero-content">
+        <h1 class="hero-title fade-in">Zenith General Practice</h1>
+      </div>
+    </section>
+    <script>
+      // Fade-in effect on scroll
+      var heroSection = document.querySelector('.hero');
+      var heroTitle = document.querySelector('.hero-title');
+  
+      window.addEventListener('scroll', fadeHeroOnScroll);
+  
+      function fadeHeroOnScroll() {
+        var scrollPosition = window.scrollY;
+        var windowHeight = window.innerHeight;
+  
+        // Calculate the opacity based on the scroll position
+        var opacity = 1 - (scrollPosition / (windowHeight * 0.8));
+  
+        heroSection.style.opacity = opacity;
+        heroTitle.style.opacity = opacity;
+      }
+    </script>
+  </body>
+
+  <br>
+
+  <body>
+  <div class="container">
+    <!-- Card deck -->
+    <div class="card-deck row">
+
+      <!-- Appointment Booking -->
+      <div class="col-xs-12 col-sm-6 col-md-4 fade-box">
+        <div class="card mb-4">
+          <div class="view overlay">
+            <a href="login.php">
+              <div class="zoom-image">
+                <img class="card-img-top" src="../assets/misc/appointment.png" alt="Book Appointment">
+              </div>
+            </a>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">BOOK APPOINTMENTS</h4>
+            <p class="card-text">
+              Quickly book appointments with trusted doctors and healthcare professionals. Choose your preferred time and day, all through our secure online system.
+            </p>           
+            <a href="login.php" class="btn btn-light-blue btn-md">Book Now</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- View Test Results -->
+      <div class="col-xs-12 col-sm-6 col-md-4 fade-box">
+        <div class="card mb-4">
+          <div class="view overlay">
+            <a href="login.php">
+              <div class="zoom-image">
+                <img class="card-img-top" src="../assets/misc/tests.jpg" alt="Test Results">
+              </div>
+            </a>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">LAB TEST RESULTS</h4>
+            <p class="card-text">
+              Access all your lab test results instantly. View your blood work, x-rays, or other reports securely. Stay informed and track your health over time.
+            </p>            
+            <a href="login.php" class="btn btn-light-blue btn-md">View Results</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prescription Access -->
+      <div class="col-xs-12 col-sm-6 col-md-4 fade-box">
+        <div class="card mb-4">
+          <div class="view overlay">
+            <a href="login.php">
+              <div class="zoom-image">
+                <img class="card-img-top" src="../assets/misc/prescriptions.jpg" alt="Prescriptions">
+              </div>
+            </a>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">PRESCRIPTIONS</h4>
+            <p class="card-text">
+              View prescriptions issued by your doctor. Receive updates, dosage instructions, and medicine lists with ease, directly from your private medical dashboard.
+           </p>            
+           <a href="login.php" class="btn btn-light-blue btn-md">Access Meds</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- Card deck -->
+  </div>
+</body>
+
+
+<body>
+<section class="section">
+  <h2 class="section-title">OUR SPECIALTIES</h2>
+  <div class="section-content">
+    <div class="image-grid">
+      <!-- Cardiology -->
+      <div class="image-container specialty-circle">
+        <div class="image-overlay"></div>
+        <i class="fas fa-heartbeat circle-icon"></i>
+        <p class="icon-label">Cardiology</p>
+      </div>
+
+      <!-- Pediatrics -->
+      <div class="image-container specialty-circle">
+        <div class="image-overlay"></div>
+        <i class="fas fa-baby circle-icon"></i>
+        <p class="icon-label">Pediatrics</p>
+      </div>
+
+      <!-- General Practice -->
+      <div class="image-container specialty-circle">
+        <div class="image-overlay"></div>
+        <i class="fas fa-user-md circle-icon"></i>
+        <p class="icon-label">GP</p>
+      </div>
+
+      <!-- Dermatology -->
+      <div class="image-container specialty-circle">
+        <div class="image-overlay"></div>
+        <i class="fas fa-allergies circle-icon"></i>
+        <p class="icon-label">Dermatology</p>
+      </div>
+
+      <!-- Neurology -->
+      <div class="image-container specialty-circle">
+        <div class="image-overlay"></div>
+        <i class="fas fa-brain circle-icon"></i>
+        <p class="icon-label">Neurology</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+    <script>
+      // JavaScript to trigger the animation when the section comes into view
+      
+      // Function to check if an element is in the viewport
+      function isElementInViewport(el) {
+        var rect = el.getBoundingClientRect();
+        var windowHeight = window.innerHeight || document.documentElement.clientHeight;
+        var windowWidth = window.innerWidth || document.documentElement.clientWidth;
+      
+        return (
+          rect.top >= 0 &&
+          rect.left >= 0 &&
+          rect.bottom <= windowHeight &&
+          rect.right <= windowWidth
+        );
+      }
+      
+      // Function to handle scroll event
+      function handleScroll() {
+        var imageContainers = document.querySelectorAll('.image-container');
+      
+        // Check if each image container is in the viewport
+        imageContainers.forEach(function (container) {
+          if (isElementInViewport(container)) {
+            container.classList.add('fade-in');
+          }
+        });
+      }
+      
+      // Attach scroll event listener
+      window.addEventListener('scroll', handleScroll);
+    </script>
+  </body>
+
+  <br>
+
+  <body>
+    <div class="full-width-section">
+      <div class="background-image"></div>
+      <div class="content-container">
+        <div class="box left-box">
+          <h2>VISIT US TODAY</h2>
+          <p>Come and visit our store today and immerse yourself in the world of TCGs. </p>
+          <p>Discover an extensive collection of Pokemon cards and other exciting TCG products that will ignite your passion for collecting</p>
+          <button class="btncirc">Find Out More</button>
+        </div>
+        <div class="box right-box">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d2374.707908291384!2d-2.2429675735781203!3d53.47368011518879!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2s!5e0!3m2!1sen!2suk!4v1744465427536!5m2!1sen!2suk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>        
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <body>
+    <div class="container my-5" id="abouttextstyle">
+      <div class="row">
+        <div class="col-md-6 p-4 p-sm-5 order-2 order-sm-1">
+          <small class="text-uppercase"></small>
+          <h1 class="h2 mb-4" style="font-weight: 600; color: #06799e;">Our Mission</h1>
+          <p class="text-secondary" style="line-height: 2; color: #000000;">Our mission is clear — to become a trusted leader in accessible and patient-centred healthcare. We strive to offer a wide range of essential medical services, from appointment bookings and test results to prescriptions and personalised care. As we continue to grow, we're committed to expanding our platform to better serve individuals and families. With a focus on innovation, compassion, and convenience, we aim to empower patients, support medical professionals, and improve health outcomes across the community.</p>
+        </div>
+        <div class="col-md-6 p-0 text-center order-1 order-sm-2">
+          <img src="../assets/misc/mission.png" class="w-100" alt="">
+        </div>
+        <div class="col-md-6 p-0 text-center align-self-center">
+          <img src="../assets/misc/team.png" class="w-100" alt="" style="max-width: 120%; margin-top: 20px;">
+        </div>
+        <div class="col-md-6 p-4 p-sm-5">
+          <small class="text-uppercase"></small>
+          <h1 class="h2 mb-4" style="font-weight: 600; color: #06799e;">About us</h1>
+          <p class="text-secondary" style="line-height: 2; color: #000000;">Welcome to our healthcare platform — a place where compassion meets innovation. Rooted in a deep commitment to patient well-being, we aim to deliver exceptional medical services and support to individuals and families alike. Whether you're booking an appointment, accessing lab reports, or managing prescriptions, our platform is designed to simplify your journey. With a network of trusted professionals across various specialties, we’re here to provide personalised care, accessible tools, and peace of mind — all in one place. Your health is our priority, and your comfort is our mission.</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  
+
+  <body>
+    <section class="review-section">
+      <div class="review-container">
+        <div class="image-box">
+      </div>
+      <div class="review-box">
+        <div class="review-background">
+          <img src="../assets/misc/stars.png" class="review-stars" alt="Review Stars">
+          <h3>Amazing Service</h3>
+          <p>Friendly staff and excellent care. I felt truly listened to by the doctor, and the whole visit was efficient and reassuring. Highly recommend!
+          </p>
+          <br>
+
+          <h4>Tobi U.</h4>
+          <p class="review-timestamp">Posted 1 day ago</p>
+        </div>
+      </div>
+      <div class="review-box">
+        <div class="review-background">
+          <img src="../assets/misc/stars.png" class="review-stars" alt="Review Stars">
+          <h3>Highly Recommend</h3>
+          <p>Booking my appointment online was super easy, and the clinic was spotless. The nurse made me feel very comfortable, especially during my blood test.
+          </p>
+          <br>
+          <h4> Trusted Customer</h4>
+          <p class="review-timestamp">Posted 5 days ago</p>
+        </div>
+      </div>
+      <div class="review-box">
+        <div class="review-background">
+          <img src="../assets/misc/stars.png" class="review-stars" alt="Review Stars">
+          <h3>Good Experience!</h3>
+          <p>Great experience from start to finish. The receptionists were welcoming, and my GP was professional and kind. I left feeling confident in my treatment.
+          </p>
+          <br>
+          <h4> Trusted Customer</h4>
+          <p class="review-timestamp">Posted 2 weeks ago</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+  <div class="footer-container">
+    <!-- Column 1: Clinic Info -->
+    <div class="footer-column">
+      <img src="../assets/logos/logo-light.png" alt="Zenith Logo" class="footer-logo" />
+      <br>
+      <h4>Zenith General Practice</h4>
+      <p class="clinic-desc">Providing compassionate, high-quality healthcare to individuals and families across the region.</p>
+    </div>
+
+<!-- Column 2: Contact Info -->
+<div class="footer-column">
+  <h4>Contact Us</h4>
+  <p><i class="fas fa-map-marker-alt"></i> 21 Oxford Street, Manchester M1 5QA</p>
+  <p><i class="fas fa-envelope"></i> info@zenithclinic.co.uk</p>
+  <p><i class="fas fa-phone"></i> 0161 555 7890</p>
+</div>
+
+
+    <div class="footer-column">
+  <h4>Connect With Us</h4>
+  <div class="social-icons">
+    <a href="#" class="social-circle" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+    <a href="#" class="social-circle" title="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="#" class="social-circle" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+  </div>
+
+  <div class="opening-hours">
+    <p><i class="fas fa-clock"></i> <strong>Mon – Fri:</strong> 9:00 AM – 6:00 PM</p>
+    <p><i class="fas fa-clock"></i> <strong>Saturday:</strong> Closed</p>
+    <p><i class="fas fa-clock"></i> <strong>Sunday:</strong> Closed</p>
+  </div>
+</div>
+
+
+
+
+    <!-- Column 4: Newsletter -->
+    <div class="footer-column newsletter">
+      <h4>Subscribe</h4>
+      <p>Join our mailing list for the latest health tips & news.</p>
+      <form class="newsletter-form" action="/subscribe" method="POST">
+        <input type="email" name="email" placeholder="Your email" required />
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Bottom Bar -->
+  <div class="footer-bottom">
+    <p>&copy; 2025 Zenith General Practice | <a href="#">Privacy Policy</a> | <a href="#">Terms</a></p>
+  </div>
+</footer>
+
+</html>

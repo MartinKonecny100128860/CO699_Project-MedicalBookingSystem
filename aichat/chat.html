@@ -14,7 +14,7 @@
             <!-- Outer circle with gradient, shadow, and rounded edges -->
             <div class="chat-icon-circle">
                 <!-- Chat icon GIF -->
-                <img src="assets/gifs/chat.gif" alt="Chat Icon" id="chat-icon-img">
+                <img src="../assets/gifs/chat.gif" alt="Chat Icon" id="chat-icon-img">
             </div>
             <!-- Notification badge to indicate new messages -->
             <div id="notification-badge">1</div>
@@ -27,7 +27,7 @@
                 <div class="chat-header-icon">
                     <!-- Chat bot icon with gradient background and rounded edges -->
                     <div class="chat-icon-circle small">
-                        <img src="assets/gifs/chat.gif" alt="Bot">
+                        <img src="../assets/gifs/chat.gif" alt="Bot">
                     </div>
                     <!-- Header text -->
                     <span>Chat with Us</span>
@@ -54,7 +54,7 @@
         /* Fixed position for the chat icon */
         position: fixed;
         bottom: 20px;
-        left: 20px;
+        left: 90px;
         cursor: pointer;
         z-index: 1000; 
     }
@@ -299,5 +299,27 @@
             height: 40px;
         }
     }
+    #hide-chat-icon {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: #ff4d4f;
+        color: white;
+        border: none;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        z-index: 1001;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    #hide-chat-icon:hover {
+        background: #d43f3f;
+    }
     
 </style>
+
+<script> </script>

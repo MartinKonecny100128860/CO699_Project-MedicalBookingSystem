@@ -1,0 +1,35 @@
+.btn.btn-light-blue.btn-md {
+  width: 100%;
+  background-color: #06799e;
+  border-color: #06799e;
+  color: white;
+  transition: background-color 0.3s ease-in-out;
+  text-decoration: none; /* 👈 added */
+}
+
+.btn.btn-light-blue.btn-md:hover {
+  background-color: rgb(2, 81, 107);
+  border-color: rgb(2, 81, 107);
+  text-decoration: none; /* 👈 added */
+}
+
+.btncirc {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 10px;
+  background-color: #06799e;
+  border-color: #06799e;
+  color: white;
+  text-decoration: none; /* 👈 already here */
+  transition: background-color 0.3s;
+  font-size: 18px;
+  border: none;
+  outline: none;
+}
+
+.btncirc:hover {
+  background-color: rgb(2, 81, 107);
+  border-color: rgb(2, 81, 107);
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none; /* 👈 added */
+}
