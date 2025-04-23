@@ -3,7 +3,7 @@ session_start();
 
 // Redirect if not logged in or not a doctor
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || $_SESSION['role'] !== 'doctor') {
-    header("Location: login.php");
+    header("Location: ../new_login.php");
     exit();
 }
 

@@ -172,7 +172,7 @@
     overflow: hidden;
 }
 
-/* Sidebar Collapsed (stick out a little) */
+/* Sidebar Collapsed */
 .sidebar.sidebar-hidden {
     width: 60px;
 }
@@ -281,7 +281,7 @@
       transition: transform 0.3s ease;
     }
     .profile-pic-wrapper:hover .profile-pic {
-      transform: scale(1.05); /* Optional: just zoom in slightly */
+      transform: scale(1.05); 
     }
     
     /* Welcome Text */

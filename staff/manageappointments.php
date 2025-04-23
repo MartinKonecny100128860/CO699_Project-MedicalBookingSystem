@@ -1,17 +1,21 @@
 <?php
 session_start();
+
+// Check if the user is logged in and has a staff role
+// If not, redirect them to the login page
 if (!isset($_SESSION['loggedin']) || $_SESSION['role'] !== 'staff') {
     header("Location: new_login.php");
     exit();
 }
 
+// Connect to the MySQL database
 $conn = new mysqli("localhost", "root", "", "medicalbookingsystem");
-$conn->set_charset("utf8mb4");
+$conn->set_charset("utf8mb4"); // Set character encoding to support special characters
 
-// Optional: filter by patient
+// Optional: check if a specific patient ID is provided in the GET request for filtering
 $filter_patient = isset($_GET['patient_id']) ? intval($_GET['patient_id']) : null;
 
-// Build query
+// Base SQL query to fetch appointment data along with patient and doctor names
 $query = "
 SELECT a.*, 
        p.first_name AS patient_first, p.last_name AS patient_last, 
@@ -21,12 +25,15 @@ JOIN users p ON a.patient_id = p.user_id
 JOIN users d ON a.doctor_id = d.user_id
 ";
 
+// If a patient filter is applied, modify the query to include only that patient's appointments
 if ($filter_patient) {
     $query .= " WHERE a.patient_id = $filter_patient";
 }
 
+// Sort the results by appointment day and time
 $query .= " ORDER BY a.appointment_day, a.appointment_time";
 
+// Execute the query and store the result
 $result = $conn->query($query);
 ?>
 

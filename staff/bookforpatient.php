@@ -1,17 +1,27 @@
 <?php
 session_start();
+
+// Check if the user is logged in and has the 'staff' role
+// Redirect to the login page if not authorized
 if (!isset($_SESSION['loggedin']) || $_SESSION['role'] !== 'staff') {
     header("Location: new_login.php");
     exit();
 }
 
+// Establish a connection to the MySQL database
 $conn = new mysqli("localhost", "root", "", "medicalbookingsystem");
+
+// Set the character set to utf8mb4 for full Unicode support
 $conn->set_charset("utf8mb4");
 
-// Get all patients
+// SQL query to retrieve all patients (users with role = 'patient') 
+// Ordered by their first name alphabetically
 $query = "SELECT user_id, first_name, last_name, email, telephone FROM users WHERE role = 'patient' ORDER BY first_name ASC";
+
+// Execute the query and store the result
 $result = $conn->query($query);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

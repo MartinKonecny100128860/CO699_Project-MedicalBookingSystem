@@ -1,20 +1,27 @@
 <?php
+// Initialize error variable for later use
 $error = null;
 
 // Handle referral acceptance
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['accept_referral'])) {
+
+    // Connect to database
     $conn = new mysqli("localhost", "root", "", "medicalbookingsystem");
     $conn->set_charset("utf8mb4");
 
+    // Check for connection errors
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
+    // Get the report ID from the form
     $report_id = $_POST['report_id'];
 
+    // Prepare the update query to approve the referral
     $update = $conn->prepare("UPDATE medical_reports SET referral_status = 'Approved' WHERE report_id = ?");
     $update->bind_param("i", $report_id);
 
+    // Execute the query and redirect or display error
     if ($update->execute()) {
         header("Location: ERTriage.php?accepted=1");
         exit();
@@ -22,19 +29,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['accept_referral'])) {
         $error = "Failed to accept referral.";
     }
 
+    // Clean up
     $update->close();
     $conn->close();
 }
 
-// Handle emergency case submission
+// Handle emergency case form submission
 if ($_SERVER["REQUEST_METHOD"] === "POST" && !isset($_POST['accept_referral'])) {
+
+    // Connect to database
     $conn = new mysqli("localhost", "root", "", "medicalbookingsystem");
     $conn->set_charset("utf8mb4");
 
+    // Check for connection errors
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
+    // Get and sanitise form input
     $patient = $conn->real_escape_string($_POST['patient_name']);
     $dob = $conn->real_escape_string($_POST['dob']);
     $sex = $conn->real_escape_string($_POST['sex']);
@@ -43,12 +55,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !isset($_POST['accept_referral'])) 
     $location = $conn->real_escape_string($_POST['location']);
     $issue = $conn->real_escape_string($_POST['issue']);
 
+    // Calculate age from date of birth
     $age = date_diff(date_create($dob), date_create('today'))->y;
 
+    // Insert emergency case into the database
     $query = "INSERT INTO emergency_cases 
         (patient, dob, sex, age, emergency_type, severity, location, issue) 
         VALUES ('$patient', '$dob', '$sex', '$age', '$emergency_type', '$severity', '$location', '$issue')";
 
+    // Execute query and redirect or show error
     if ($conn->query($query)) {
         header("Location: ERTriage.php?success=1");
         exit();
@@ -56,9 +71,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !isset($_POST['accept_referral'])) 
         $error = "Failed to submit emergency case.";
     }
 
+    // Close the database connection
     $conn->close();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

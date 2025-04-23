@@ -30,7 +30,7 @@ $stmt = $conn->prepare("INSERT INTO medical_reports (patient_id, doctor_id, diag
 $stmt->bind_param("iisss", $patient_id, $doctor_id, $diagnosis, $treatment, $notes);
 
 if ($stmt->execute()) {
-    // 🔔 Notify patient
+    // Notify patient
     $notifMsg = "A new medical report has been shared with you by your doctor.";
     $conn->query("INSERT INTO notifications (user_id, message) VALUES ($patient_id, '$notifMsg')");
 

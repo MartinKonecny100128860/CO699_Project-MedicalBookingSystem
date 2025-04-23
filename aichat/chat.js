@@ -62,7 +62,7 @@ function sendMessage(text) {
     const typingBubble = appendMessage('', false, true); // Add a typing bubble
 
     // Fetch bot's response from the server
-    fetch('aichat/chatgpt_api.php', {
+    fetch('../aichat/chatgpt_api.php', {  // if you're in a different directory
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: text }) // Send user message as JSON

@@ -1,26 +1,36 @@
 <?php
 session_start();
+
+// Check if the staff user is logged in
 if (!isset($_SESSION['loggedin']) || $_SESSION['role'] !== 'staff') {
-    header("Location: new_login.php");
+    header("Location: new_login.php"); // Redirect to login page if not authenticated
     exit();
 }
 
+// Establish database connection
 $conn = new mysqli("localhost", "root", "", "medicalbookingsystem");
-$conn->set_charset("utf8mb4");
+$conn->set_charset("utf8mb4"); // Set charset to support special characters
 
-$todayDayName = date('l'); // e.g., 'Monday', 'Tuesday'
+// Get the current day name (e.g., 'Monday', 'Tuesday', etc.)
+$todayDayName = date('l');
 
+// Prepare SQL query to fetch today's appointments
+// It joins appointments with the patient users table to get patient names
 $query = "SELECT a.*, u.first_name, u.last_name 
           FROM appointments a 
           JOIN users u ON a.patient_id = u.user_id 
           WHERE a.appointment_day = ? 
           ORDER BY a.appointment_time ASC";
 
+// Prepare and bind the statement securely
 $stmt = $conn->prepare($query);
-$stmt->bind_param("s", $todayDayName);
+$stmt->bind_param("s", $todayDayName); // Bind current day to the query
 $stmt->execute();
+
+// Get the result set
 $result = $stmt->get_result();
 ?>
+
 
 <!DOCTYPE html>
 <html>

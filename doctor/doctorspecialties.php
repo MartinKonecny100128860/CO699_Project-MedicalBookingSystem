@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['loggedin']) || $_SESSION['role'] !== 'doctor') {
-    header("Location: ../login.php");
+    header("Location: ../new_login.php");
     exit();
 }
 

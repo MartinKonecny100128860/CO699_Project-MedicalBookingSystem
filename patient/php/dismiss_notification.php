@@ -16,7 +16,6 @@ if ($conn->connect_error || $notifId === 0) {
     exit();
 }
 
-// Only allow deletion of your own notifications
 $conn->query("DELETE FROM notifications WHERE id = $notifId AND user_id = $userId");
 
 echo json_encode(['success' => true]);

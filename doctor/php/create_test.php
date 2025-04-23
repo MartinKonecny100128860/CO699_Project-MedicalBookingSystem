@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $stmt->bind_param("iissss", $patient_id, $doctor_id, $test_type, $test_summary, $test_diagnosis, $filePath);
 
     if ($stmt->execute()) {
-        // 🔔 Insert Notification for Patient
+        // Insert Notification for Patient
         $notifMsg = "A new test result has been shared with you by your doctor.";
         $conn->query("INSERT INTO notifications (user_id, message) VALUES ($patient_id, '$notifMsg')");
 

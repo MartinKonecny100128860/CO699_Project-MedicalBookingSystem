@@ -30,7 +30,7 @@ text-align: center;
     justify-content: flex-start;
     gap: 20px;
     padding: 20px 0;
-    margin-left: 80px; /* ← Adjust this value to shift right */
+    margin-left: 80px;
 }
 
 
@@ -46,7 +46,7 @@ flex: 1 0 280px;
 
 .card-box img {
     width: 100%;
-    height: 300px; /* Keep your chosen height */
+    height: 300px; 
     object-fit: cover;
     object-position: top; /* <-- This moves the crop focus to the top (face-focused) */
     transition: opacity 0.35s ease;

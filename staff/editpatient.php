@@ -1,26 +1,38 @@
 <?php
 session_start();
+
+// Ensure the user is logged in and has a staff role
+// Redirect to login page if not authorised
 if (!isset($_SESSION['loggedin']) || $_SESSION['role'] !== 'staff') {
     header("Location: new_login.php");
     exit();
 }
 
+// Check if the `user_id` is provided in the GET request
+// If not, terminate the script with an error message
 if (!isset($_GET['user_id'])) {
     die("Patient ID is missing.");
 }
 
+// Sanitize the user ID to prevent SQL injection
 $patient_id = intval($_GET['user_id']);
 
+// Establish a connection to the MySQL database
 $conn = new mysqli("localhost", "root", "", "medicalbookingsystem");
-$conn->set_charset("utf8mb4");
+$conn->set_charset("utf8mb4"); // Set character encoding for compatibility
 
+// Fetch the patient data using the user_id, making sure the user is a patient
 $result = $conn->query("SELECT * FROM users WHERE user_id = $patient_id AND role = 'patient'");
+
+// If no matching patient is found, display an error message and stop execution
 if ($result->num_rows === 0) {
     die("Patient not found.");
 }
 
+// Retrieve the patient record as an associative array
 $patient = $result->fetch_assoc();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -41,72 +53,71 @@ $patient = $result->fetch_assoc();
        <script src="../accessibility/accessibility.js" defer></script>
 </head>
 <body>
-<?php
+    <?php
         $pageTitle = "Dashboard";
         include 'php/bars.php'; // contains header and sidebar
-        ?>
-        <div class="content">
+    ?>
+    <div class="content">
+        <div class="container py-5">
+            <h2 class="fw-bold text-primary mb-4">
+                <i class="fas fa-user-edit me-2"></i>Edit Patient Details
+            </h2>
 
-<div class="container py-5">
-    <h2 class="fw-bold text-primary mb-4">
-        <i class="fas fa-user-edit me-2"></i>Edit Patient Details
-    </h2>
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <form action="php/update_patient.php" method="POST">
+                        <input type="hidden" name="user_id" value="<?= $patient['user_id'] ?>">
 
-    <div class="card shadow-sm">
-        <div class="card-body">
-            <form action="php/update_patient.php" method="POST">
-                <input type="hidden" name="user_id" value="<?= $patient['user_id'] ?>">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">First Name</label>
+                                <input type="text" name="first_name" value="<?= htmlspecialchars($patient['first_name']) ?>" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Last Name</label>
+                                <input type="text" name="last_name" value="<?= htmlspecialchars($patient['last_name']) ?>" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Email</label>
+                                <input type="email" name="email" value="<?= htmlspecialchars($patient['email']) ?>" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Telephone</label>
+                                <input type="text" name="telephone" value="<?= htmlspecialchars($patient['telephone']) ?>" class="form-control" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">House No</label>
+                                <input type="text" name="house_no" value="<?= htmlspecialchars($patient['house_no']) ?>" class="form-control" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Street Name</label>
+                                <input type="text" name="street_name" value="<?= htmlspecialchars($patient['street_name']) ?>" class="form-control" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Post Code</label>
+                                <input type="text" name="post_code" value="<?= htmlspecialchars($patient['post_code']) ?>" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">City</label>
+                                <input type="text" name="city" value="<?= htmlspecialchars($patient['city']) ?>" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Emergency Contact</label>
+                                <input type="text" name="emergency_contact" value="<?= htmlspecialchars($patient['emergency_contact']) ?>" class="form-control" required>
+                            </div>
 
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <label class="form-label">First Name</label>
-                        <input type="text" name="first_name" value="<?= htmlspecialchars($patient['first_name']) ?>" class="form-control" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Last Name</label>
-                        <input type="text" name="last_name" value="<?= htmlspecialchars($patient['last_name']) ?>" class="form-control" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Email</label>
-                        <input type="email" name="email" value="<?= htmlspecialchars($patient['email']) ?>" class="form-control" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Telephone</label>
-                        <input type="text" name="telephone" value="<?= htmlspecialchars($patient['telephone']) ?>" class="form-control" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">House No</label>
-                        <input type="text" name="house_no" value="<?= htmlspecialchars($patient['house_no']) ?>" class="form-control" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Street Name</label>
-                        <input type="text" name="street_name" value="<?= htmlspecialchars($patient['street_name']) ?>" class="form-control" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Post Code</label>
-                        <input type="text" name="post_code" value="<?= htmlspecialchars($patient['post_code']) ?>" class="form-control" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">City</label>
-                        <input type="text" name="city" value="<?= htmlspecialchars($patient['city']) ?>" class="form-control" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Emergency Contact</label>
-                        <input type="text" name="emergency_contact" value="<?= htmlspecialchars($patient['emergency_contact']) ?>" class="form-control" required>
-                    </div>
-
-                    <div class="col-12 text-end mt-4">
-                        <button type="submit" class="btn btn-primary px-4">
-                            <i class="fas fa-save me-1"></i> Update Patient
-                        </button>
-                        <a href="viewpatients.php" class="btn btn-secondary ms-2">Cancel</a>
-                    </div>
+                            <div class="col-12 text-end mt-4">
+                                <button type="submit" class="btn btn-primary px-4">
+                                    <i class="fas fa-save me-1"></i> Update Patient
+                                </button>
+                                <a href="viewpatients.php" class="btn btn-secondary ms-2">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
-</div>
-</div>
 
 <?php include '../accessibility/accessibility.php'; ?>
 

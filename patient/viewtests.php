@@ -203,7 +203,7 @@ include 'php/bars.php'; // header + sidebar
 <?php include '../accessibility/accessibility.php'; ?>
 
 
-<!-- ✅ AI Chat -->
+<!-- AI Chat -->
 <div id="chat-placeholder"></div>
 <script src="../aichat/chat.js"></script>
 

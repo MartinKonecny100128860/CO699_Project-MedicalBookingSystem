@@ -1,24 +1,33 @@
 <?php
 session_start();
+
+// Redirect to login if the user is not logged in or not a staff member
 if (!isset($_SESSION['loggedin']) || $_SESSION['role'] !== 'staff') {
     header("Location: new_login.php");
     exit();
 }
 
+// Connect to the database
 $conn = new mysqli("localhost", "root", "", "medicalbookingsystem");
-$conn->set_charset("utf8mb4");
+$conn->set_charset("utf8mb4"); // Ensure proper character encoding
 
+// Fetch all medical supplies, ordered alphabetically by name
 $result = $conn->query("SELECT * FROM medical_supplies ORDER BY name ASC");
 
+// Prepare a query to retrieve the latest 20 supply log entries
+// This joins the supply_logs table with medical_supplies to get the supply name,
+// and with users to get the staff member's name who made the log entry
 $logQuery = "SELECT sl.*, ms.name AS supply_name, u.first_name, u.last_name 
              FROM supply_logs sl
              JOIN medical_supplies ms ON sl.supply_id = ms.supply_id
              JOIN users u ON sl.staff_id = u.user_id
              ORDER BY sl.log_timestamp DESC
-             LIMIT 20"; // Only latest 20 logs
+             LIMIT 20"; // Only show the most recent 20 logs
 
+// Execute the log query
 $logs = $conn->query($logQuery);
 ?>
+
 
 <!DOCTYPE html>
 <html>

@@ -1,22 +1,34 @@
 <?php
+// Start the session to access session variables
 session_start();
+
+// Establish connection to the database
 $conn = new mysqli("localhost", "root", "", "medicalbookingsystem");
 
+// Check if the connection failed
 if ($conn->connect_error) {
     die("Database connection failed.");
 }
 
+// Define a reusable function to fetch users based on their role
 function fetchUsersByRole($conn, $role) {
+    // Prepare a SQL statement to prevent SQL injection
     $stmt = $conn->prepare("SELECT * FROM users WHERE role = ?");
-    $stmt->bind_param("s", $role);
-    $stmt->execute();
-    return $stmt->get_result();
+    $stmt->bind_param("s", $role); // Bind the role parameter (string)
+    $stmt->execute(); // Execute the query
+    return $stmt->get_result(); // Return the result set
 }
 
+// Fetch all doctors from the users table
 $doctors = fetchUsersByRole($conn, 'doctor');
+
+// Fetch all staff members from the users table
 $staff = fetchUsersByRole($conn, 'staff');
+
+// Fetch all admins from the users table
 $admins = fetchUsersByRole($conn, 'admin');
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -188,7 +200,7 @@ $admins = fetchUsersByRole($conn, 'admin');
         <ul>
           <li><a href="Index.html">Home</a></li>
           <li><a href="team.php">Meet The Team</a></li>
-          <li><a href="gradedcards.html">About</a></li>
+          <li><a href="#">About</a></li>
         </ul>
       </div>
       <div class="login">
