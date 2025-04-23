@@ -7,69 +7,30 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || $_SESSION
     exit();
 }
 
-// Dummy emergency cases
-$emergencyCases = [
-    [
-        'id' => 1,
-        'patient' => 'John Smith',
-        'age' => 55,
-        'sex' => 'M',
-        'location' => 'ER',
-        'severity' => 'Critical',
-        'issue' => 'Suspected heart attack. Patient is unconscious.',
-        'assigned_doctor' => null
-    ],
-    [
-        'id' => 2,
-        'patient' => 'Emily Clark',
-        'age' => 38,
-        'sex' => 'F',
-        'location' => 'ICU',
-        'severity' => 'Severe',
-        'issue' => 'Post-op complications. Blood pressure dropping rapidly.',
-        'assigned_doctor' => 'Dr. Adams'
-    ],
-    [
-        'id' => 3,
-        'patient' => 'Ayaan Patel',
-        'age' => 12,
-        'sex' => 'M',
-        'location' => 'ER',
-        'severity' => 'Moderate',
-        'issue' => 'Fractured arm after bicycle accident. In stable condition.',
-        'assigned_doctor' => null
-    ],
-    [
-        'id' => 4,
-        'patient' => 'Fatima Noor',
-        'age' => 66,
-        'sex' => 'F',
-        'location' => 'ICU',
-        'severity' => 'Critical',
-        'issue' => 'Internal bleeding. Immediate surgery recommended.',
-        'assigned_doctor' => 'Dr. Ali'
-    ],
-    [
-        'id' => 5,
-        'patient' => 'Michael Lee',
-        'age' => 27,
-        'sex' => 'M',
-        'location' => 'ER',
-        'severity' => 'Mild',
-        'issue' => 'Complaining of chest tightness after gym workout. ECG normal.',
-        'assigned_doctor' => null
-    ],
-    [
-        'id' => 6,
-        'patient' => 'Zara Khan',
-        'age' => 30,
-        'sex' => 'F',
-        'location' => 'ER',
-        'severity' => 'Severe',
-        'issue' => 'Car crash trauma. Minor internal injuries suspected.',
-        'assigned_doctor' => 'Dr. Morgan'
-    ],
-];
+$conn = new mysqli("localhost", "root", "", "medicalbookingsystem");
+$conn->set_charset("utf8mb4");
+
+$doctorId = $_SESSION['user_id'];
+$emergencyCases = [];
+
+$sql = "SELECT * FROM emergency_cases ORDER BY time_reported DESC";
+$result = $conn->query($sql);
+
+while ($row = $result->fetch_assoc()) {
+    $viewedBy = json_decode($row['viewed_by'], true) ?? [];
+
+    // If not yet marked as viewed, mark this case as viewed for the current doctor
+    if (!in_array($doctorId, $viewedBy)) {
+        $viewedBy[] = $doctorId;
+        $newViewedJson = $conn->real_escape_string(json_encode($viewedBy));
+        $conn->query("UPDATE emergency_cases SET viewed_by = '$newViewedJson' WHERE id = " . $row['id']);
+    }
+
+    $emergencyCases[] = $row;
+}
+
+$conn->close();
+
 ?>
 
 <!DOCTYPE html>
@@ -83,6 +44,8 @@ $emergencyCases = [
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="../accessibility/accessibility.css">
     <link rel="stylesheet" href="../accessibility/highcontrast.css">
 
@@ -90,6 +53,8 @@ $emergencyCases = [
 
 
     <link rel="stylesheet" href="styles/bars.css">
+    <link rel="stylesheet" href="../styles/global.css">
+
     <script src="scripts/bars.js" defer></script>
 
     <style>
@@ -186,7 +151,7 @@ $emergencyCases = [
 
 <div class="content">
 <div class="container">
-    <h2>Emergency Cases</h2>
+    <h2 div class="h2-style">Emergency Cases</h2>
 
     <?php foreach ($emergencyCases as $case): ?>
         <div class="emergency-card">
@@ -207,7 +172,7 @@ $emergencyCases = [
 
             <div class="assigned">
                 <strong>Assigned Doctor:</strong> 
-                <?php if ($case['assigned_doctor']): ?>
+                <?php if (!empty($case['assigned_doctor'])): ?>
                     <span class="assigned-doctor name"><?= htmlspecialchars($case['assigned_doctor']) ?></span>
                 <?php else: ?>
                     <span class="assigned-doctor none">None</span>

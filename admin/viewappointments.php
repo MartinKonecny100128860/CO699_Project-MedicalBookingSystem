@@ -23,9 +23,17 @@ $result = $conn->query($query);
 <head>
     <title>All Appointments</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <link rel="stylesheet" href="styles/admindash.css">
+    <link rel="stylesheet" href="styles/modals.css">
+        <link rel="stylesheet" href="../accessibility/accessibility.css">
+        <link rel="stylesheet" href="../accessibility/highcontrast.css">
+
+        <script src="../accessibility/accessibility.js" defer></script>
 
 </head>
 <body>
@@ -40,11 +48,10 @@ $result = $conn->query($query);
             </a>
         </div>
 
-        <!-- Side Nav Bar HTML -->
         <div class="sidebar">
             <div class="profile-pic-container">
                 <div class="profile-pic-wrapper">
-                <img src="<?= htmlspecialchars('../' . ($_SESSION['profile_picture'] ?? 'assets/defaults/user_default.png')) ?>" 
+                    <img src="<?= htmlspecialchars('../' . ($_SESSION['profile_picture'] ?? 'assets/defaults/user_default.png')) ?>" 
                     alt="Profile Picture" class="profile-pic">
                 </div>
                 <p class="welcome-text">
@@ -52,31 +59,12 @@ $result = $conn->query($query);
                     <small>ID: <?= htmlspecialchars($_SESSION['user_id'] ?? 'N/A') ?></small>
                 </p>
             </div>
-
-            <!-- Scrollable Container Inside Nav Bar -->
-            <div class="scroll-container">
-                <h4 class="sidebar-heading">Quick Links</h4>
-                <a href="#" onclick="showAddUserModal()">Add New User</a>
-                <a href="#" onclick="showManageRolesModal()">Manage Roles</a>
-                <a href="logs.php">System Logs</a>
-
-                <h4 class="sidebar-heading">Resources</h4>
-                <a href="#" onclick="showHelpGuideModal()">Admin Help Guide</a>
-                <a href="contactsupport.php">Contact IT Support</a>
-                <a href="adminfeedback.php">Submit Feedback</a>
-
-                <h4 class="sidebar-heading">Appointments</h4>
-                <a href="viewappointments.php">View Scheduled Appointments</a>
-                <a href="viewdoctors.php">View Active Doctors</a>
-
-                <h4 class="sidebar-heading">Analytics</h4>
-                <a href="statistics.php">View Statistics</a>
-                <a href="adminreport.php">Generate Reports</a>
-
-                <br>
-                <br>
-            </div>
+            <a href="admindash.php">Dashboard</a>
+            <a href="#users" class="active">Manage Users</a>
+            <a href="#" onclick="showAddUserModal()">Add New User</a>
+            <a href="#" onclick="showManageRolesModal()">Manage Roles</a>
         </div>
+
     <div class ="content">
     <h2 class="mb-4">All Appointments</h2>
     <table class="table table-bordered table-striped">
@@ -107,5 +95,39 @@ $result = $conn->query($query);
         </tbody>
     </table>
     </div>
+
+                        <!-- Accessibility Icon -->
+                        <div id="accessibility-icon" class="accessibility-icon">
+            <i class="fa fa-universal-access"></i>
+        </div>
+
+        <!-- Accessibility Popup Window -->
+        <div id="accessibility-popup" class="accessibility-options">
+            <div class="accessibility-popup-header">
+                <h5>Accessibility Settings</h5>
+                <span id="accessibility-close" class="accessibility-close">&times;</span>
+            </div>
+            <ul>
+                <li>
+                    <span>Dark Mode:</span>
+                    <div id="dark-mode-toggle" class="dark-mode-toggle"></div>
+                </li>
+                <li>
+                    <span>Text Resizing:</span>
+                    <div>
+                        <button class="text-resize-decrease accessibility-option">A-</button>
+                        <button class="text-resize-increase accessibility-option">A+</button>
+                    </div>
+                </li>
+                <li>
+                    <span>High Contrast Mode:</span>
+                    <button class="high-contrast-enable accessibility-option">Enable</button>
+                </li>
+                <li>
+                    <span>Text-to-Speech:</span>
+                    <button class="tts-on-click-enable accessibility-option">Enable</button>
+                </li>
+            </ul>
+        </div>
 </body>
 </html>

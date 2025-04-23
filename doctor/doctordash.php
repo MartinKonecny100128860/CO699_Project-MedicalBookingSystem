@@ -67,6 +67,17 @@
         }
     }
 
+    $doctorId = $_SESSION['user_id'];
+
+    $badgeCount = 0;
+    $result = $conn->query("SELECT viewed_by FROM emergency_cases WHERE handled_by IS NULL");
+    while ($row = $result->fetch_assoc()) {
+        $viewedBy = json_decode($row['viewed_by'], true) ?? [];
+        if (!in_array($doctorId, $viewedBy)) {
+            $badgeCount++;
+        }
+    }
+
     $conn->close();
 ?>
 
@@ -83,15 +94,17 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
+
        
         <!-- stylesheet from styles folder -->
         <link rel="stylesheet" href="styles/doctordash.css">
         <link rel="stylesheet" href="../accessibility/accessibility.css">
         <link rel="stylesheet" href="../accessibility/highcontrast.css">
         <link rel="stylesheet" href="styles/bars.css">
+        <link rel="stylesheet" href="../styles/global.css">
+
         <script src="scripts/bars.js" defer></script>
-
-
         <script src="../accessibility/accessibility.js" defer></script>
 
     </head>
@@ -103,7 +116,7 @@
         ?>
 
         <div class="content">
-            <h2 class="dashboard-title">Doctor's Dashboard</h2>
+            <h2 class="h2-style">Doctor's Dashboard</h2>
             <div class="dashboard-grid">
                 <a href="viewappointments.php" class="dashboard-item">
                     <img src="../assets/misc/appointments.jpg" alt="Appointments">
@@ -122,12 +135,20 @@
                     <p>Prescribe Medication</p>
                 </a>
                 <a href="createtest.php" class="dashboard-item">
-                    <img src="../assets/misc/emergency.jpg" alt="Test">
+                    <img src="../assets/misc/tests.jpg" alt="Test">
                     <p>Tests</p>
                 </a>
-                <a href="emergencycases.php" class="dashboard-item">
-                    <img src="../assets/misc/emergency.jpg" alt="Emergency">
+                <a href="emergencycases.php" class="dashboard-item position-relative">
+                    <div class="image-wrapper rounded-3 overflow-hidden">
+                        <img src="../assets/misc/emergency.jpg" alt="Emergency" class="w-100 h-100 object-fit-cover">
+                    </div>
                     <p>Emergency Cases</p>
+                    <?php if ($badgeCount > 0): ?>
+                        <span class="position-absolute badge rounded-pill bg-danger"
+                            style="top: 10px; right: 10px; font-size: 1rem; padding: 8px 12px; z-index: 10;">
+                            <?= $badgeCount ?>
+                        </span>
+                    <?php endif; ?>
                 </a>
             </div>
         </div>

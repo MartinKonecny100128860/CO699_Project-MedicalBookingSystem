@@ -16,7 +16,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $_POST['action'] === 'cancel') {
 }
 
 $conn->close();
-// Inside php/update_appointment.php
 
 header("Location: ../manageappointments.php");
 exit();

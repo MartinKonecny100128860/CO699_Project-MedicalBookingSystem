@@ -31,6 +31,7 @@ $conn->close();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Custom Styles -->
     <link rel="stylesheet" href="styles/patientdash.css">
@@ -38,21 +39,15 @@ $conn->close();
     <link rel="stylesheet" href="../accessibility/highcontrast.css">
     <link rel="stylesheet" href="styles/bars.css">
     <link rel="stylesheet" href="styles/cards.css">
+    <link rel="stylesheet" href="../styles/global.css">
+
     <script src="../accessibility/accessibility.js" defer></script>
     <script src="scripts/bars.js" defer></script>
 
     <style>
         body {
             background-color: #f4f7fc;
-            font-family: 'Arial', sans-serif;
             color: #212529;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin-left: 380px;
-            margin-top: 100px;
-            padding: 30px;
         }
 
         h2.text-center {
@@ -162,13 +157,13 @@ $conn->close();
                 padding: 20px;
             }
         }
-        /* GLOBAL CONTAINER */
-.container {
-    max-width: 1200px;
-    margin: 100px auto 30px auto; /* center horizontally, with top margin for header space */
-    padding: 30px;
-}
 
+        .container {
+            max-width: 100%;
+            margin: 100px auto 30px auto;
+            padding: 30px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -180,7 +175,7 @@ include 'php/bars.php'; // header + sidebar
 
 <div class="content">
 <div class="container">
-    <h2 class="text-center">My Test Results</h2>
+    <h2 class="h2-style">My Test Results</h2>
 
     <?php if ($result->num_rows > 0): ?>
         <?php while ($row = $result->fetch_assoc()): ?>

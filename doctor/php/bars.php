@@ -3,7 +3,6 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-
 $doctorId = $_SESSION['user_id'] ?? null;
 $unreadNotif = 0;
 $notifications = [];
@@ -13,16 +12,39 @@ if ($doctorId) {
     $conn->set_charset("utf8mb4");
 
     if (!$conn->connect_error) {
-        // Get unread count
+        // Get unread count for standard notifications
         $notifQuery = $conn->query("SELECT COUNT(*) AS total FROM notifications WHERE user_id = $doctorId AND is_read = 0");
         if ($notifQuery) {
             $unreadNotif = $notifQuery->fetch_assoc()['total'] ?? 0;
         }
 
-        // Get latest notifications
+        // Get latest standard notifications
         $notifList = $conn->query("SELECT * FROM notifications WHERE user_id = $doctorId ORDER BY created_at DESC LIMIT 10");
         while ($notif = $notifList->fetch_assoc()) {
-            $notifications[] = $notif;
+            $notifications[] = [
+                'id' => $notif['id'],
+                'message' => $notif['message'],
+                'created_at' => $notif['created_at'],
+                'type' => 'standard'
+            ];
+        }
+
+        // Add emergency case alerts (unclaimed only)
+        $emergencyResult = $conn->query("
+            SELECT id, emergency_type, time_reported 
+            FROM emergency_cases 
+            WHERE handled_by IS NULL 
+            ORDER BY time_reported DESC 
+            LIMIT 5
+        ");
+
+        while ($emergency = $emergencyResult->fetch_assoc()) {
+            $notifications[] = [
+                'id' => 'em_' . $emergency['id'],
+                'message' => "🚨 Emergency Case: " . htmlspecialchars($emergency['emergency_type']),
+                'created_at' => $emergency['time_reported'],
+                'type' => 'emergency'
+            ];
         }
 
         $conn->close();

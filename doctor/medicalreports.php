@@ -29,16 +29,32 @@ $conn->close();
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
+
        
         <!-- stylesheet from styles folder -->
         <link rel="stylesheet" href="styles/doctordash.css">
         <link rel="stylesheet" href="../accessibility/accessibility.css">
         <link rel="stylesheet" href="../accessibility/highcontrast.css">
         <link rel="stylesheet" href="styles/bars.css">
+        <link rel="stylesheet" href="../styles/global.css">
+
         <script src="scripts/bars.js" defer></script>
 
         <script src="../accessibility/accessibility.js" defer></script>
         <link rel="stylesheet" href="styles/medicalreport.css">
+
+        <style>
+            .container {
+    margin-top: 10px;
+    max-width: 100%;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e3e3e3;
+}
+</style>
 
 </head>
 <body>
@@ -48,7 +64,9 @@ $conn->close();
         include 'php/bars.php'; // contains header and sidebar
         ?>
 <div class="content">
-<h2 class="text-center mb-4">All Medical Reports</h2>
+<div class="container">
+
+<h2 class="h2-style">All Medical Reports</h2>
 
     <input type="text" id="searchBar" class="form-control mb-3" placeholder="Search by Patient Name or DOB...">
     
@@ -85,6 +103,8 @@ $conn->close();
         </tbody>
     </table>
 </div>
+</div>
+
 
 <!-- Referral Modal -->
 <div class="modal fade" id="referModal" tabindex="-1" aria-hidden="true">

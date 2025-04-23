@@ -165,7 +165,7 @@
             <a href="#users" class="active">Manage Users</a>
             <a href="#" onclick="showAddUserModal()">Add New User</a>
             <a href="#" onclick="showManageRolesModal()">Manage Roles</a>
-            </div>
+        </div>
 
 <!-- Content -->
 <div class="content">

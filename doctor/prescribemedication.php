@@ -40,6 +40,8 @@ $conn->close();
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
+
        
         <!-- stylesheet from styles folder -->
         <link rel="stylesheet" href="styles/doctordash.css">
@@ -47,6 +49,8 @@ $conn->close();
         <link rel="stylesheet" href="../accessibility/highcontrast.css">
         <link rel="stylesheet" href="styles/bars.css">
         <script src="scripts/bars.js" defer></script>
+        <link rel="stylesheet" href="../styles/global.css">
+
 
         <script src="../accessibility/accessibility.js" defer></script>
 
@@ -57,7 +61,7 @@ $conn->close();
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            max-width: 900px;
+            max-width: 100%;
             margin: auto;
         }
 
@@ -116,7 +120,7 @@ $conn->close();
 
 <div class="content">
 <div class="search-container">
-    <div class="search-title">Prescribe Medication</div>
+    <h2 class="h2-style">Prescribe Medication</h2>
 
     <div class="row g-3 mb-4">
         <div class="col-md-6">

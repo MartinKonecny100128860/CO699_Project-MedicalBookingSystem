@@ -67,12 +67,15 @@ $conn->close();
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
        
         <!-- stylesheet from styles folder -->
         <link rel="stylesheet" href="styles/doctordash.css">
         <link rel="stylesheet" href="../accessibility/accessibility.css">
         <link rel="stylesheet" href="../accessibility/highcontrast.css">
         <link rel="stylesheet" href="styles/bars.css">
+        <link rel="stylesheet" href="../styles/global.css">
+
         <script src="scripts/bars.js" defer></script>
 
         <script src="../accessibility/accessibility.js" defer></script>
@@ -80,23 +83,16 @@ $conn->close();
     <style>
 body {
     background-color: #f3f6f9;
-    font-family: 'Segoe UI', sans-serif;
 }
 
 .container {
-    margin-top: 90px;
-    max-width: 900px;
+    margin-top: 10px;
+    max-width: 100%;
     background: #ffffff;
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.08);
     border: 1px solid #e3e3e3;
-}
-
-h2.text-center {
-    font-weight: 700;
-    color: #06799e;
-    margin-bottom: 30px;
 }
 
 .schedule-card {
@@ -196,7 +192,7 @@ a {
         ?>
 <div class= "content">
     <div class="container">
-        <h2 class="text-center mb-4">Set Your Weekly Schedule</h2>
+        <h2 class="h2-style">Set Your Weekly Schedule</h2>
 
         <?php if ($message): ?>
             <div class="alert alert-success"><?= $message ?></div>

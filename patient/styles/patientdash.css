@@ -1,5 +1,4 @@
 body {
-    font-family: 'Roboto', sans-serif;
     background-color: #f4f7f9;
     margin: 0;
     padding: 0;
@@ -7,7 +6,7 @@ body {
 
 .content {
     margin-left: 250px; /* width of sidebar */
-    margin-top: 60px;   /* height of header */
+    margin-top: 70px;   /* height of header */
     padding: 20px;
     transition: margin-left 0.3s ease;
   }

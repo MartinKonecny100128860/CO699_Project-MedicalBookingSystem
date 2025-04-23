@@ -7,7 +7,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || $_SESSION
     exit();
 }
 
-// Database Connection
+// Connect to the database
 $conn = new mysqli("localhost", "root", "", "medicalbookingsystem");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -15,7 +15,7 @@ if ($conn->connect_error) {
 
 $patient_id = $_SESSION['user_id'];
 
-// Fetch medical reports for this patient
+// Fetch medical reports for the current patient
 $sql = "SELECT m.report_id, m.diagnosis, m.treatment, m.notes, m.created_at, 
                m.referral_status, m.referral_reason, 
                d.first_name AS doctor_first, d.last_name AS doctor_last
@@ -32,6 +32,7 @@ $stmt->close();
 $conn->close();
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,35 +40,39 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Medical Reports</title>
 
-        <!-- External links -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-       
-        <!-- stylesheet from styles folder -->
-        <link rel="stylesheet" href="styles/patientdash.css">
-        <link rel="stylesheet" href="../accessibility/accessibility.css">
-        <link rel="stylesheet" href="../accessibility/highcontrast.css">
-        <script src="scripts/bars.js" defer></script>
-        <link rel="stylesheet" href="styles/bars.css">
-        <link rel="stylesheet" href="styles/cards.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-        <script src="../accessibility/accessibility.js" defer></script>
+
+    <link rel="stylesheet" href="styles/patientdash.css">  
+    <link rel="stylesheet" href="styles/bars.css">       
+    <link rel="stylesheet" href="styles/cards.css">           
+    <link rel="stylesheet" href="../styles/global.css">          
+
+    <link rel="stylesheet" href="../accessibility/accessibility.css">
+    <link rel="stylesheet" href="../accessibility/highcontrast.css">
+
+    <script src="scripts/bars.js" defer></script>
+    <script src="../accessibility/accessibility.js" defer></script>
 
     <style>
+        /* Body Styling */
         body {
             background-color: #f4f7fc;
-            font-family: 'Arial', sans-serif;
         }
 
+        /* Main Container */
         .container {
-            max-width: 95%;
+            max-width: 100%;
             margin: auto;
             padding: 20px;
         }
 
+        /* Page Heading */
         .headers {
             text-align: center;
             font-size: 26px;
@@ -76,6 +81,7 @@ $conn->close();
             margin-bottom: 20px;
         }
 
+        /* Wrapper for Table */
         .table-container {
             background: #ffffff;
             padding: 20px;
@@ -83,28 +89,34 @@ $conn->close();
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
         }
 
+        /* Table Layout */
         .table {
             width: 100%;
             border-radius: 8px;
             overflow: hidden;
         }
 
+        /* Table Header Styling */
         .table thead {
             background-color: #007bff;
             color: white;
         }
 
-        .table th, .table td {
+        /* Table Cell Styling */
+        .table th,
+        .table td {
             padding: 12px;
             text-align: center;
             vertical-align: middle;
         }
 
+        /* Table Row Hover Effect */
         .table tbody tr:hover {
             background-color: #f1f5ff;
             transition: 0.3s ease-in-out;
         }
 
+        /* Badge Styles for Referral Status */
         .badge {
             font-size: 14px;
             padding: 5px 10px;
@@ -112,12 +124,27 @@ $conn->close();
             font-weight: bold;
         }
 
-        .badge-pending { background-color: #ffc107; color: black; }
-        .badge-approved { background-color: #28a745; color: white; }
-        .badge-rejected { background-color: #dc3545; color: white; }
-        .badge-not-referred { background-color: #6c757d; color: white; }
+        .badge-pending {
+            background-color: #ffc107;
+            color: black;
+        }
 
-        /* Responsive Design */
+        .badge-approved {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .badge-rejected {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .badge-not-referred {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        /* Responsive Adjustments for Mobile Screens */
         @media (max-width: 768px) {
             .container {
                 max-width: 100%;
@@ -134,16 +161,17 @@ $conn->close();
         }
     </style>
 </head>
+
 <body>
 
 <?php
     $pageTitle = "View Your Medical Reports";
-    include 'php/bars.php'; // contains header and sidebar
+    include 'php/bars.php';
   ?>
 
 <div class="content">
 <div class="container">
-    <h2 class="headers"><i class="fas fa-file-medical"></i> My Medical Reports</h2>
+    <h2 class="h2-style"><i class="fas fa-file-medical"></i> My Medical Reports</h2>
 
     <div class="table-container">
         <table class="table table-hover text-center">

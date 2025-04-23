@@ -74,7 +74,7 @@ if ($patientId) {
                     <i class="material-icons">science</i>
                     <span class="nav-text">Lab Tests</span>
                 </a>
-                <a href="/MedicalBooking/patient/profile.php" data-tooltip="Profile">
+                <a href="/MedicalBooking/patient/patientprofile.php" data-tooltip="Profile">
                     <i class="material-icons">person</i>
                     <span class="nav-text">Profile</span>
                 </a>

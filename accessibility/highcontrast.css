@@ -836,3 +836,50 @@ body.high-contrast-mode .modal-footer {
     background-color: black !important;
     color: yellow !important;
 }
+/* ================================ */
+/* HIGH CONTRAST MODE: Accessibility Popup */
+/* ================================ */
+body.high-contrast-mode .accessibility-options {
+    background-color: #000000;
+    border-color: #ffff00;
+    box-shadow: 0 0 10px #ffff00;
+    color: #ffff00;
+}
+
+/* Popup Heading in High Contrast Mode */
+body.high-contrast-mode .accessibility-options h5 {
+    color: #ffff00;
+    border-bottom: 2px solid #ffff00;
+}
+
+/* Accessibility Option Labels in High Contrast Mode */
+body.high-contrast-mode .accessibility-options li span {
+    color: #ffff00;
+    font-weight: 700;
+}
+/* ================================ */
+/* HIGH CONTRAST MODE: Report Section */
+/* ================================ */
+body.high-contrast-mode .report-container {
+    background-color: #000000;
+    color: #ffff00;
+}
+
+body.high-contrast-mode .report-card {
+    background-color: #000000;
+    color: #ffff00;
+    border: 2px solid #ffff00;
+    box-shadow: 0 0 12px #ffff00;
+    font-weight: bold;
+}
+
+/* ================================ */
+/* HIGH CONTRAST MODE: Remove Text Decoration */
+/* ================================ */
+.high-contrast-mode a,
+.high-contrast-mode a:hover,
+.high-contrast-mode a:visited,
+.high-contrast-mode .text-decoration-none,
+.high-contrast-mode * {
+    text-decoration: none !important;
+}

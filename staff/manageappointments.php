@@ -106,7 +106,7 @@ $result = $conn->query($query);
                         </td>
                         <td>
                             <?php if ($row['status'] !== 'Cancelled'): ?>
-                                <form method="post" action="php/update_appointments.php" class="d-inline">
+                                <form method="post" action="php/update_appointment.php" class="d-inline">
                                     <input type="hidden" name="action" value="cancel">
                                     <input type="hidden" name="appointment_id" value="<?= $row['appointment_id'] ?>">
                                     <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to cancel this appointment?')">

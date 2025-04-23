@@ -68,14 +68,16 @@ $conn->close();
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
        
         <!-- stylesheet from styles folder -->
         <link rel="stylesheet" href="styles/doctordash.css">
         <link rel="stylesheet" href="../accessibility/accessibility.css">
         <link rel="stylesheet" href="../accessibility/highcontrast.css">
         <link rel="stylesheet" href="styles/bars.css">
-        <script src="scripts/bars.js" defer></script>
+        <link rel="stylesheet" href="../styles/global.css">
 
+        <script src="scripts/bars.js" defer></script>
         <script src="../accessibility/accessibility.js" defer></script>
 </head>
 <body>
@@ -87,9 +89,9 @@ $conn->close();
 
 
 <div class="content">
-    <h2 class="text-center mb-4">Doctor Appointments</h2>
-
     <div class="table-container">
+    <h2 class="h2-style">Doctor Appointments</h2>
+
         <table class="table table-hover text-center align-middle">
             <thead>
                 <tr>
@@ -153,7 +155,6 @@ $conn->close();
 /* General Styling */
 body {
     background-color: #f8f9fa;
-    font-family: 'Arial', sans-serif;
 }
 
 /* Table Container */

@@ -1066,3 +1066,64 @@ body.dark-mode .no-tests {
     color: #cccccc;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
 }
+
+/* ========================= */
+/* DARK MODE: Accessibility Popup */
+/* ========================= */
+
+body.dark-mode .accessibility-options {
+    background-color: #2a2a2a; /* Dark background */
+    border-color: #444; /* Softer border */
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.1); /* Lighter shadow for dark bg */
+    color: #e0e0e0;
+}
+
+/* Popup Heading in Dark Mode */
+body.dark-mode .accessibility-options h5 {
+    color: #f1f1f1;
+    border-bottom-color: #f1f1f1;
+}
+
+/* ========================= */
+/* DARK MODE: Accessibility Option Labels */
+/* ========================= */
+body.dark-mode .accessibility-options li span {
+    color: #ffffff; /* Softer pink for visibility on dark background */
+}
+
+/* ================================ */
+/* DARK MODE: Bootstrap Modal */
+/* ================================ */
+body.dark-mode .modal-content {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    border: 1px solid #444;
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .modal-header,
+body.dark-mode .modal-body,
+body.dark-mode .modal-footer {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    border-color: #444;
+}
+
+body.dark-mode .modal-header .btn-close {
+    filter: invert(1);
+}
+/* ================================ */
+/* DARK MODE: Report Section */
+/* ================================ */
+body.dark-mode .report-container {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+body.dark-mode .report-card {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    border: 1px solid #444;
+    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.05);
+}
+

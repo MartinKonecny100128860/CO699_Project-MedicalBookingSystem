@@ -1,32 +1,46 @@
 <?php
 session_start();
 
-// Ensure the user is a logged-in doctor
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || $_SESSION['role'] !== 'doctor') {
-    http_response_code(403);
+if (!isset($_SESSION['loggedin']) || $_SESSION['role'] !== 'doctor') {
     echo json_encode(['status' => 'error', 'message' => 'Unauthorised']);
-    exit();
+    exit;
 }
 
-// Validate POST data
-if (!isset($_POST['case_id']) || !isset($_POST['action']) || $_POST['action'] !== 'take_case') {
-    http_response_code(400);
-    echo json_encode(['status' => 'error', 'message' => 'Invalid request']);
-    exit();
+$doctorId = $_SESSION['user_id'];
+$doctorName = $_SESSION['username']; // Make sure 'username' is stored during login
+$caseId = $_POST['case_id'] ?? null;
+$action = $_POST['action'] ?? '';
+
+$conn = new mysqli("localhost", "root", "", "medicalbookingsystem");
+$conn->set_charset("utf8mb4");
+
+if ($conn->connect_error) {
+    echo json_encode(['status' => 'error', 'message' => 'Database connection failed']);
+    exit;
 }
 
-$case_id = (int)$_POST['case_id'];
-$doctor_name = $_SESSION['username']; // or use first/last name if stored
+if ($action === 'take_case' && $caseId) {
+    // Check if already taken
+    $check = $conn->query("SELECT handled_by FROM emergency_cases WHERE id = $caseId");
+    $existing = $check->fetch_assoc();
 
-// 📌 TODO: Update this part to interact with your real database
-// For now, simulate success:
-$response = [
-    'status' => 'success',
-    'message' => "Case #{$case_id} assigned to Dr. {$doctor_name}"
-];
+    if ($existing && $existing['handled_by'] !== null) {
+        echo json_encode(['status' => 'error', 'message' => 'Case already taken']);
+        $conn->close();
+        exit;
+    }
 
-// Optional logging for debug/dev
-// file_put_contents("logs/assignment.log", "Case $case_id taken by $doctor_name\n", FILE_APPEND);
+    // Assign the case to the doctor
+    $conn->query("
+        UPDATE emergency_cases 
+        SET handled_by = $doctorId, status = 'In Progress', assigned_doctor = '$doctorName'
+        WHERE id = $caseId
+    ");
 
-header('Content-Type: application/json');
-echo json_encode($response);
+    echo json_encode(['status' => 'success']);
+    $conn->close();
+    exit;
+}
+
+echo json_encode(['status' => 'error', 'message' => 'Invalid action']);
+$conn->close();

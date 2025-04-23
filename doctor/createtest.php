@@ -37,12 +37,15 @@ $conn->close();
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
        
         <!-- stylesheet from styles folder -->
         <link rel="stylesheet" href="styles/doctordash.css">
         <link rel="stylesheet" href="../accessibility/accessibility.css">
         <link rel="stylesheet" href="../accessibility/highcontrast.css">
         <link rel="stylesheet" href="styles/bars.css">
+        <link rel="stylesheet" href="../styles/global.css">
+
         <script src="scripts/bars.js" defer></script>
 
         <script src="../accessibility/accessibility.js" defer></script>
@@ -58,7 +61,7 @@ body {
 
 /* Container */
 .containers {
-    max-width: 750px;
+    max-width: 100%;
     margin: auto;
     padding: 20px;
 }
@@ -166,12 +169,10 @@ body {
         $pageTitle = "Dashboard";
         include 'php/bars.php'; // contains header and sidebar
         ?>
-
-<div class="container">
+<div class="content">
 <div class="containers">
-    <h2 class="text-center mb-4" style="color: #007bff;">Create Test Result</h2>
-
     <div class="form-container">
+    <h2 div class="h2-style"> Create Test Result</h2>
         <form action="php/create_test.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="doctor_id" value="<?= $doctor_id ?>">
 
@@ -229,6 +230,8 @@ body {
     </div>
 </div>
 </div>
+</div>
+
 
 
 <script>

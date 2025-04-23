@@ -62,7 +62,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-<link rel="stylesheet" href="styles/theme.css"> <!-- ← your override -->
+    <link rel="stylesheet" href="../accessibility/accessibility.css">
+        <link rel="stylesheet" href="../accessibility/highcontrast.css">
+
+        <script src="../accessibility/accessibility.js" defer></script>
+
+<link rel="stylesheet" href="styles/theme.css">
 
     <link rel="stylesheet" href="styles/admindash.css">
     <link rel="stylesheet" href="styles/logs.css">
@@ -176,5 +181,39 @@
             });
         });
     </script>
+
+                        <!-- Accessibility Icon -->
+                        <div id="accessibility-icon" class="accessibility-icon">
+            <i class="fa fa-universal-access"></i>
+        </div>
+
+        <!-- Accessibility Popup Window -->
+        <div id="accessibility-popup" class="accessibility-options">
+            <div class="accessibility-popup-header">
+                <h5>Accessibility Settings</h5>
+                <span id="accessibility-close" class="accessibility-close">&times;</span>
+            </div>
+            <ul>
+                <li>
+                    <span>Dark Mode:</span>
+                    <div id="dark-mode-toggle" class="dark-mode-toggle"></div>
+                </li>
+                <li>
+                    <span>Text Resizing:</span>
+                    <div>
+                        <button class="text-resize-decrease accessibility-option">A-</button>
+                        <button class="text-resize-increase accessibility-option">A+</button>
+                    </div>
+                </li>
+                <li>
+                    <span>High Contrast Mode:</span>
+                    <button class="high-contrast-enable accessibility-option">Enable</button>
+                </li>
+                <li>
+                    <span>Text-to-Speech:</span>
+                    <button class="tts-on-click-enable accessibility-option">Enable</button>
+                </li>
+            </ul>
+        </div>
 </body>
 </html>

@@ -11,7 +11,7 @@ $conn->set_charset("utf8mb4");
 
 $user_id = $_SESSION['user_id'];
 
-// ✅ Predefined list of specialties
+// Predefined list of specialties
 $all_specialties = [
     "Cardiology", "Neurology", "Dermatology", "Pediatrics", "Psychiatry",
     "Orthopedics", "Gastroenterology", "Oncology", "Endocrinology", "Urology",
@@ -63,12 +63,16 @@ $conn->close();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
+
        
     <!-- stylesheet from styles folder -->
     <link rel="stylesheet" href="styles/doctordash.css">
     <link rel="stylesheet" href="../accessibility/accessibility.css">
     <link rel="stylesheet" href="../accessibility/highcontrast.css">
     <link rel="stylesheet" href="styles/bars.css">
+    <link rel="stylesheet" href="../styles/global.css">
+
     <script src="scripts/bars.js" defer></script>
     <script src="../accessibility/accessibility.js" defer></script>
     
@@ -77,7 +81,7 @@ $conn->close();
             background-color: #f8f9fa;
         }
         .card {
-            max-width: 850px;
+            max-width: 100%;
             margin: 40px auto;
             padding: 30px;
             border-radius: 12px;
@@ -109,7 +113,7 @@ $conn->close();
 
 <div class="content">
 <div class="card">
-    <h3 class="text-center text-primary mb-4">Update Your Specialties</h3>
+    <h3 div class="h2-style">Update Your Specialties</h3>
 
     <?php if (isset($_GET['success'])): ?>
         <div class="alert alert-success text-center">Specialties and description updated successfully!</div>

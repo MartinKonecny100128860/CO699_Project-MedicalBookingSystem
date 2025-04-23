@@ -204,7 +204,7 @@
                     </div>
                     <div>
                         <h5 class="fw-bold mb-1">Manage Appointments</h5>
-                        <p class="text-muted small mb-0">Edit or cancel existing bookings.</p>
+                        <p class="text-muted small mb-0">Cancel existing bookings.</p>
                     </div>
                 </div>
                 <div class="mt-4 pt-3 border-top">
